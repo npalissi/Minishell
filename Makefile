@@ -1,35 +1,57 @@
 NAME			:=	minishell  
 
 DIR_LIB 		:= 	lib
+
+PRINTF_DIR		:= $(DIR_LIB)/printf_fd
+PRINTF_LIB		:= $(PRINTF_DIR)/libftprintf.a
+
 LIBFT_DIR 		:=	$(DIR_LIB)/libft
 LIBFT_LIB 		:= $(LIBFT_DIR)/libft.a
+
 SRCS 			= srcs/main.c
+
 OBJS 			:= $(SRCS:.c=.o)
+
 CC 				:= @cc
+
 FLAGS 			:= -Wall -Wextra -Werror -g
 
 
 
 export ART
+
 .SILENT:
+
 all: $(NAME)
 
-$(NAME):	$(LIBFT_LIB) $(OBJS)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) -lreadline
+$(NAME):	$(LIBFT_LIB) $(PRINTF_LIB) $(OBJS)
+	@echo "Compilation de $(NAME)"
+	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB) -lreadline
+	sleep 0.7
+	clear
 	@echo "$$ART"
 
+$(PRINTF_LIB):
+	@echo "Compilation de printf_fd..." 
+	make -s -C $(PRINTF_DIR)
+
 $(LIBFT_LIB):
+	@echo "Compilation de libft..." 
 	make -s -C  $(LIBFT_DIR)
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
+	@echo "Suppresion des objets..." 
 	make clean -s -C  $(LIBFT_DIR)
+	make clean -s -C  $(PRINTF_DIR)
 	rm -f $(OBJS)
 
 fclean: clean
+	@echo "Suppresion des executables..." 
 	make fclean -s -C  $(LIBFT_DIR)
+	make fclean -s -C  $(PRINTF_DIR)
 	rm -f $(NAME)
 
 re: fclean all
