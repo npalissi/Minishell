@@ -8,7 +8,10 @@ PRINTF_LIB		:= $(PRINTF_DIR)/libftprintf.a
 LIBFT_DIR 		:=	$(DIR_LIB)/libft
 LIBFT_LIB 		:= $(LIBFT_DIR)/libft.a
 
-SRCS 			= srcs/main.c
+SRCS 			=	srcs/main.c\
+					srcs/cmd/cd.c\
+					srcs/cmd/pwd.c\
+					srcs/utils/free_array.c
 
 OBJS 			:= $(SRCS:.c=.o)
 
@@ -29,7 +32,7 @@ $(NAME):	$(LIBFT_LIB) $(PRINTF_LIB) $(OBJS)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB) -lreadline
 	sleep 0.7
 	clear
-	@echo "$$ART"
+	# @echo "$$ART"
 
 $(PRINTF_LIB):
 	@echo "Compilation de printf_fd..." 
