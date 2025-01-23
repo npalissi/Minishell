@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:08:43 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/23 12:19:14 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:56:15 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char **create_tpwd(char *pwd)
 {
 	char **t_pwd;
 	t_pwd = ft_split(pwd, '/');
-	if (t_pwd)
+	if (!t_pwd)
 		return (0);
 	return (t_pwd);
 }
@@ -46,6 +46,5 @@ int reload_pwd(t_data *data)
 	if (data->pwd)
 		free(data->pwd);
 	data->pwd = path;
-	// if (data->t_pwd)
 	return (1);
 }
