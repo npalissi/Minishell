@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/22 19:28:02 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:24:24 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../headers/minishell.h"
 
 int main(int arg_c, char **arg_v, char **env)
 {
@@ -24,13 +24,14 @@ int main(int arg_c, char **arg_v, char **env)
 
     reload_pwd(&data);
     printf("avant cd : \n%s\n", data.pwd);
-    t_cmd cmd;
-    cmd.cmd = "cd";
-    cmd.flags = malloc(sizeof(char *)*2);
-    cmd.flags[0] = ft_strdup("../../gnl");
-    cmd.flags[1] = 0;
+    t_cmd *cmd;
+    cmd = malloc(sizeof(t_cmd));
+    cmd->cmd = malloc(sizeof(char *) * 3);
+    cmd->cmd[0] = "cd";
+    cmd->cmd[1] = ft_strdup("../../gnl");
+    cmd->cmd[3] = NULL;
 
-    cd(&data,&cmd);
+    cd(&data,cmd);
     printf("apres cd : \n%s\n",data.pwd);
     return 0;
 }

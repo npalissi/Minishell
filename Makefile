@@ -11,7 +11,6 @@ LIBFT_LIB 		:= $(LIBFT_DIR)/libft.a
 SRCS 			=	srcs/main.c\
 					srcs/cmd/cd.c\
 					srcs/cmd/pwd.c\
-					srcs/utils/free_array.c
 
 OBJS 			:= $(SRCS:.c=.o)
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:57:26 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/22 19:29:02 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:23:01 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../headers/minishell.h"
 
 // chdir("/nfs/homes/npalissi/Documents/cursus");
 /*
@@ -40,7 +40,8 @@ int cd(t_data *data, t_cmd *cmd)
 {
 	char **flags;
 	char *pwd;
-	flags = ft_split(cmd->flags[0],'/');
+	// flags = ft_split(cmd->flags[0],'/'); //modified by edubois-
+	flags = ft_split(cmd->cmd[1],'/');
 	if (!flags)
 		return (0);
 	pwd = ft_strdup(data->pwd);
