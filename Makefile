@@ -13,6 +13,12 @@ SRCS 			=	srcs/main.c\
 					srcs/cmd/pwd.c\
 					srcs/get_data/collect_data.c\
 					srcs/utils/exit.c\
+					srcs/get_data/fill_line_data.c\
+					srcs/utils/signal_handler.c\
+					srcs/cmd/env.c\
+					srcs/cmd/echo.c\
+					
+
 
 OBJS 			:= $(SRCS:.c=.o)
 

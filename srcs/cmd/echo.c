@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 12:50:34 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 14:03:24 by edubois-         ###   ########.fr       */
+/*   Created: 2025/01/28 16:10:52 by edubois-          #+#    #+#             */
+/*   Updated: 2025/01/28 16:14:47 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void    echo(char *arg, int flag)
 {
-	if (!*lst)
-	{
-		*lst = new ;
-		return ;
-	}
-	new->next = *lst;
-	*lst = new;
+    printf("%s", arg);
+    if (!flag)
+        printf("\n", NULL);
 }

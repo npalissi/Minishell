@@ -6,13 +6,13 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:57:53 by edubois-          #+#    #+#             */
-/*   Updated: 2024/11/29 22:03:15 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 13:59:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(int content)
+t_list	*ft_lstnew(char *content)
 {
 	t_list	*new;
 

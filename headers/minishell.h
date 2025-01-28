@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/23 15:04:12 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:13:09 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <readline/history.h>
 #include "../lib/libft/libft.h"
 #include "../lib/printf_fd/ft_printf.h"
+# include <sys/types.h>
+# include <signal.h>
 
 #define HOMEMADE	1
 #define CMD			2
@@ -38,8 +40,6 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char	**argv;
-	int		argc;
 	char	**env;
 	char	*pwd;
 	char **paths;
@@ -48,11 +48,13 @@ typedef struct s_data
 
 char **create_tpwd(char *pwd);
 int reload_pwd(t_data *data);
-void free_array(char **array);
 int cd(t_data *data, t_cmd *cmd);
 void    collect_data(t_data *data);
 void	clear_data(t_data data);
 int	error_exit(t_data data, int sig, char *name);
-
+void	fill_line_data(t_data *data, char *line);
+void    signal_handler(int sig);
+void    cmd_env(t_data data);
+void    echo(char *arg, int flag);
 
 #endif

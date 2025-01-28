@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:52:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/23 15:13:59 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:48:57 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	clear_data(t_data data)
 		i++;
 	}
 	free(data.cmd_list);
+	rl_clear_history();
 }
 
 int	error_exit(t_data data, int sig, char *name)

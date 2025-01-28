@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 12:50:34 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 14:03:24 by edubois-         ###   ########.fr       */
+/*   Created: 2025/01/28 15:51:12 by edubois-          #+#    #+#             */
+/*   Updated: 2025/01/28 15:55:03 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void    cmd_env(t_data data)
 {
-	if (!*lst)
-	{
-		*lst = new ;
-		return ;
-	}
-	new->next = *lst;
-	*lst = new;
+    while (*data.env)
+        printf("%s\n", *data.env++);
 }

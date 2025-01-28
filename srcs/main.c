@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/23 15:11:54 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:15:18 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 int main(int arg_c, char **arg_v, char **env)
 {
-    // char * rl;
+    char * rl;
     
-    t_data data = {arg_v, arg_c, env, NULL, NULL, NULL};
+    t_data data = {env, NULL, NULL, NULL};
 	collect_data(&data);
-    // while (1);
-    // {
-        // rl = readline("cacashell");
-		// fill_data(&data, rl);
-	// }
+    while (1)
+    {
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, signal_handler);
+		rl = readline("cacashell->");
+		if (!rl)
+			break ;
+		fill_line_data(&data, rl);
+	}
+	free(rl); 
 	error_exit(data, 0, NULL);;
-
-
+	(void)arg_c;
+	(void)arg_v;
 
 
 
