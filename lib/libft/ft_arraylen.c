@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_arraylen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 13:44:00 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 16:55:20 by edubois-         ###   ########.fr       */
+/*   Created: 2025/01/28 16:44:51 by edubois-          #+#    #+#             */
+/*   Updated: 2025/01/28 16:49:33 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+int	ft_arraylen(char **array)
 {
-	char	*str;
-	char	*save_str;
-	char 	*save_s1;
+	int	c;
 
-	if (!s1)
-		return (NULL);
-	str = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
-	save_str = str;
-	save_s1 = s1;
-	while (*s1)
-		*str++ = *s1++;
-	while (*s2)
-		*str++ = *s2++;
-	*str = '\0';
-	return (save_str);
+	c = 0;
+	if (!array)
+		return (c);
+	while (*array && ++c)
+		array++;
+	return (c);
 }

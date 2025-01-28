@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 14:07:24 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:16:30 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
 char	*ft_strndup(char *s, int size, int is_free);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char *s1, char const *s2, int is_free);
+char	*ft_strjoinfree(char *s1, char const *s2, int is_free);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
@@ -70,6 +70,8 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_iswhitespace(int c);
 int		count_word(char *str, char c);
 void	ft_free_tab(char **tab);
-
+int		ft_arraylen(char **array);
+char	*ft_strjoin(char *s1, char const *s2);
+void	ft_strapp(char ***tab, char *str);
 
 #endif 

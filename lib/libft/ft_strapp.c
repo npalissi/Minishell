@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strapp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 13:44:00 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 16:55:20 by edubois-         ###   ########.fr       */
+/*   Created: 2025/01/28 16:59:31 by edubois-          #+#    #+#             */
+/*   Updated: 2025/01/28 17:51:13 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+void	ft_strapp(char ***tab, char *str)
 {
-	char	*str;
-	char	*save_str;
-	char 	*save_s1;
-
-	if (!s1)
-		return (NULL);
-	str = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
-	save_str = str;
-	save_s1 = s1;
-	while (*s1)
-		*str++ = *s1++;
-	while (*s2)
-		*str++ = *s2++;
-	*str = '\0';
-	return (save_str);
+	char **tmp;
+	char **save_tab;
+	int		i;
+	
+	if (tab)
+		save_tab = *tab;
+	tmp = ft_calloc((ft_arraylen(save_tab) + 2) , sizeof(char *));
+	if (!tmp)
+		return ;
+	i = 0;
+	while (save_tab && save_tab[i])
+	{
+		tmp[i] = save_tab[i];
+		i++;
+	}
+	tmp[i] = str;
+	free(*tab);
+	*tab = tmp;
 }

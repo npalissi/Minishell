@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/28 16:15:18 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:50:34 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int main(int arg_c, char **arg_v, char **env)
 {
     char * rl;
     
-    t_data data = {env, NULL, NULL, NULL};
+    t_data data = {env, NULL, NULL, NULL, 0};
 	collect_data(&data);
-    while (1)
+    while (1 && !data.exit)
     {
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, signal_handler);

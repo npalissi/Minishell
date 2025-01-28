@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:57:26 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/23 12:23:01 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:56:05 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int cd(t_data *data, t_cmd *cmd)
 		}
 		else
 		{
-			pwd = ft_strjoin(ft_strjoin(pwd,"/",1),*flags,1);
+			pwd = ft_strjoinfree(ft_strjoinfree(pwd,"/",1),*flags,1);
 			if (!pwd)
 				return (0);
 		}

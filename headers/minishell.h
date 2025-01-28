@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/28 16:13:09 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:34:47 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_cmd
 {	
 	char **cmd;
 	char *path;
-	int type;
 }	t_cmd;
 
 
@@ -44,6 +43,7 @@ typedef struct s_data
 	char	*pwd;
 	char **paths;
 	t_cmd	*cmd_list;
+	int		exit;
 }		t_data;
 
 char **create_tpwd(char *pwd);
