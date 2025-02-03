@@ -28,6 +28,9 @@
 #define CMD			2
 #define MAX_PWD		2000
 
+#define DQUOTE		'"'
+#define QUOTE		'\''
+
 
 
 typedef struct s_cmd
@@ -56,5 +59,7 @@ void	fill_line_data(t_data *data, char *line);
 void    signal_handler(int sig);
 void    cmd_env(t_data data);
 void    echo(char *arg, int flag);
+char *replace_var_env(char *str);
+char *ft_strfilter_dup(char *str, char *filter);
 
 #endif
