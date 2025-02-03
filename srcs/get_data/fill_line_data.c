@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 17:56:04 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:11:37 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ static	void	fill_command(t_data *data, char **line)
 	data->cmd_list = ft_calloc(ft_arraylen(line) + 1, sizeof(t_cmd));
 	while (line[j] && data->cmd_list)
 	{
-		ft_strapp(data->cmd_list->cmd, line[j]);
+		ft_strapp(&data->cmd_list->cmd, line[j]);
 		if (!data->cmd_list->cmd)
 			return ;
 		if (line [j] && line[j + 1][0] == '-')
 		{	
-			ft_strapp(data->cmd_list->cmd, line[j + 1]);
+			ft_strapp(&data->cmd_list->cmd, line[j + 1]);
 			if (!data->cmd_list->cmd) //a finir
 				return ;
 		}
-		data->cmd_list[i].path = find_cmd_path(data->cmd_list[i].cmd[0], data->cmd_list->cmd[0]);
+		data->cmd_list[i].path = find_cmd_path(&data->cmd_list[i].cmd[0], data->cmd_list->cmd[0]);
 	}
 }
 
