@@ -16,6 +16,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define FREE_S1	1
+# define FREE_S2	2
+# define FREE_ALL	3 
+
 typedef struct s_list
 {
 	char 			*content;
@@ -47,7 +51,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
 char	*ft_strndup(char *s, int size, int is_free);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoinfree(char *s1, char const *s2, int is_free);
+char	*ft_strjoinfree(char *s1, char *s2, int type_free);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);

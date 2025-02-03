@@ -12,11 +12,12 @@
 
 #include "libft.h"
 
-char	*ft_strjoinfree(char *s1, char const *s2, int is_free)
+char	*ft_strjoinfree(char *s1, char *s2, int type_free)
 {
 	char	*str;
 	char	*save_str;
 	char 	*save_s1;
+	char	*save_s2;
 
 	if (!s1)
 		return (NULL);
@@ -24,13 +25,16 @@ char	*ft_strjoinfree(char *s1, char const *s2, int is_free)
 	if (!str)
 		return (NULL);
 	save_str = str;
+	save_s2 = s2;
 	save_s1 = s1;
 	while (*s1)
 		*str++ = *s1++;
 	while (*s2)
 		*str++ = *s2++;
 	*str = '\0';
-	if (is_free)
+	if (type_free == FREE_S2 || type_free == FREE_ALL)
+		free(save_s2);
+	if (type_free == FREE_S1 || type_free == FREE_ALL)
 		free(save_s1);
 	return (save_str);
 }
