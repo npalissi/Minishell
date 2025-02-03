@@ -17,6 +17,8 @@ SRCS 			=	srcs/main.c\
 					srcs/utils/signal_handler.c\
 					srcs/cmd/env.c\
 					srcs/cmd/echo.c\
+					srcs/parsing/parsing.c\
+					
 					
 
 

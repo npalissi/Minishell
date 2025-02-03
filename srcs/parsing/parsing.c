@@ -1,28 +1,29 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/03 17:06:28 by edubois-          #+#    #+#             */
+/*   Updated: 2025/02/03 17:25:26 by edubois-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int parsing(char *str)
+#include "../../headers/minishell.h"
+
+void    parse_command(t_data *data)
 {
+	int	i;
 
+	i = 0;
+	while (data->cmd_list[i].cmd)
+	{
+		if (!data->cmd_list[i].path && access(data->cmd_list[i].cmd[0], F_OK) == -1 && i == 0)
+			
+		
+		if (!data->cmd_list[i].path && access(data->cmd_list[i].cmd[0], F_OK) == -1 && i != 0)
+			ft_printf(2, "bash: command not found: %s\n", data->cmd_list[i].cmd[0]);
+		i++;
+	}
 }
-
-// int main(int c, char **v)
-// {
-//     char *rl;
-//     while(1)
-//     {
-//         rl = readline("➜ ");
-//         printf("%s\n", rl);
-//         free(rl);
-//     }
-//     return (0);
-// }
-
-bduaydvbawda
-kiawndjahdbvgad
-ladbuahwdvbba
-
-char *new_line;
-

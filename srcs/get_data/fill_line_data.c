@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/03 15:59:46 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:10:42 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ void    fill_line_data(t_data *data, char *line)
 		return ;
 	fill_command(data, full_line);
 	fill_paths(data);
-	printcmd(data);
+	// printcmd(data);
 	add_history(line);
+	//exec
+	parse_command(data);
 	free(line);
 }
