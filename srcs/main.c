@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/28 16:50:34 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:50:09 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int main(int c, char **v)
 {
     (void)c;
     // printf("%s",ft_strfilter_dup("coucou\'", &QUOTE));
-    replace_var_env(v[1]);
+    char *str = replace_var_env(v[1]);
+    printf("%s",str);
+    free(str);
 }
 
 
