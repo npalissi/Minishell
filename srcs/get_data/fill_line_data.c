@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/03 17:55:21 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:46:01 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,6 @@ int	fill_flags(t_data *data, char **line, int i, int j)
 	return (c_flags);
 }
 
-// void	printcmd(t_data *data)
-// {
-// 	int	 i = 0;
-// 	int j = 0;
-// 	while (data->cmd_list[i].cmd)
-// 	{
-// 		j = 0;
-// 		while (data->cmd_list[i].cmd[j])
-// 		{
-// 			printf("data->cmd_list[%d]->cmd[%d] = %s\n", i, j , data->cmd_list[i].cmd[j]);
-// 			j++;
-// 		}
-// 		printf("%s\n", data->cmd_list[i].path);
-// 		printf("\n\n\n\n\n\n", NULL);
-// 		i++;
-// 	}
-// }
 
 void	fill_command(t_data *data, char **line)
 {
@@ -92,18 +75,44 @@ void	fill_command(t_data *data, char **line)
 	}
 }
 
+void	printcmd(t_data *data)
+{
+	int	 i = 0;
+	int j = 0;
+	while (data->cmd_list[i].cmd)
+	{
+		j = 0;
+		while (data->cmd_list[i].cmd[j])
+		{
+			printf("data->cmd_list[%d]->cmd[%d] = %s\n", i, j , data->cmd_list[i].cmd[j]);
+			j++;
+		}
+		printf("%s\n", data->cmd_list[i].path);
+		printf("\n\n\n\n\n\n", NULL);
+		i++;
+	}
+}
+
 void    fill_line_data(t_data *data, char *line)
 {
     char **full_line;
-
-	full_line = ft_split(line, ' ');
+	int	i;
+	
+	i = 0;
+	full_line = ft_ms_split(line, &i);
 	if (!full_line)
 		return ;
+	if (i)
+	{
+		add_history(line);
+		ft_printf(2, "%s\n", "Quote error !");
+		exit (1);
+	}
 	fill_command(data, full_line);
 	fill_paths(data);
+	parse_cmd(data);
 	// printcmd(data);
 	add_history(line);
-	//exec
-	// parse_command(data);
+	execve(data->cmd_list[0].path, data->cmd_list[0].cmd, data->env);
 	free(line);
 }

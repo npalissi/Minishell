@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/28 16:34:47 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:02:52 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "../lib/printf_fd/ft_printf.h"
 # include <sys/types.h>
 # include <signal.h>
+#include <fcntl.h>
 
 #define HOMEMADE	1
 #define CMD			2
@@ -43,7 +44,9 @@ typedef struct s_data
 	char	*pwd;
 	char **paths;
 	t_cmd	*cmd_list;
-	int		exit;
+	int		exit; //(exit() appellee ou pas)
+	int		exit_status;
+	int		*tmp_fd;
 }		t_data;
 
 char **create_tpwd(char *pwd);
@@ -56,5 +59,9 @@ void	fill_line_data(t_data *data, char *line);
 void    signal_handler(int sig);
 void    cmd_env(t_data data);
 void    echo(char *arg, int flag);
+void    parse_cmd(t_data *data);
+int nb_cmd(t_data *data);
+void	add_to_file(t_cmd cmd,  int fd);
+void	delete_cmd(t_data *data, int i);
 
 #endif

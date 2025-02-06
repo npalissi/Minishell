@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   ft_strjoinchar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 14:23:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/03 14:16:10 by edubois-         ###   ########.fr       */
+/*   Created: 2025/02/04 17:41:51 by edubois-          #+#    #+#             */
+/*   Updated: 2025/02/04 17:42:23 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "libft.h"
 
-void    signal_handler(int sig)
+char	*ft_strjoinchar(char *str, char c)
 {
-    if (sig == SIGINT)
-	{
-		rl_replace_line("", 1);
-    	printf("\n", NULL);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	char	*s;
+	char	*s_clone;
+	char	*str_clone;
+
+	if (!str || !c)
+		return (NULL);
+	s = malloc(ft_strlen(str) + 2);
+	if (!s)
+		return (NULL);
+	s_clone = s;
+	str_clone = str ;
+	while (str && *str)
+		*s++ = *str ++;
+	*s++ = c;
+	*s = '\0';
+	free(str_clone);
+	return (s_clone);
 }

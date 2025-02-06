@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   ft_charite.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 14:23:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/03 14:16:10 by edubois-         ###   ########.fr       */
+/*   Created: 2025/02/04 17:07:38 by edubois-          #+#    #+#             */
+/*   Updated: 2025/02/05 13:47:19 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "libft.h"
 
-void    signal_handler(int sig)
+int ft_charite(char *str, char c)
 {
-    if (sig == SIGINT)
+    int	ite;
+	
+	ite = 0;
+	while (*str)
 	{
-		rl_replace_line("", 1);
-    	printf("\n", NULL);
-		rl_on_new_line();
-		rl_redisplay();
+		if (*str++ == c)
+			ite++;
 	}
+	return (ite);
 }

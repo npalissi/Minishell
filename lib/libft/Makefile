@@ -46,6 +46,11 @@ SRCS := ft_isalpha.c\
 	ft_arraylen.c\
 	ft_strjoinfree.c\
 	ft_strapp.c\
+	ft_charite.c\
+	ft_strjoinchar.c\
+	ft_ms_split_utils.c\
+	ft_ms_split.c\
+	
 	
 
 OBJS := $(SRCS:.c=.o)

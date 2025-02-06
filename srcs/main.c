@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/03 14:05:04 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:39:17 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(int arg_c, char **arg_v, char **env)
 {
     char * rl;
     
-    t_data data = {env, NULL, NULL, NULL, 0};
+    t_data data = {env, NULL, NULL, NULL, 0, 0, NULL};
 	collect_data(&data);
     while (1 && !data.exit)
     {
@@ -31,27 +31,4 @@ int main(int arg_c, char **arg_v, char **env)
 	error_exit(data, 0, NULL);;
 	(void)arg_c;
 	(void)arg_v;
-
-
-
-
-
-
-
-
-
-
-
-    // reload_pwd(&data);
-    // printf("avant cd : \n%s\n", data.pwd);
-    // t_cmd *cmd;
-    // cmd = malloc(sizeof(t_cmd));
-    // cmd->cmd = malloc(sizeof(char *) * 3);
-    // cmd->cmd[0] = "cd";
-    // cmd->cmd[1] = ft_strdup("../../gnl");
-    // cmd->cmd[3] = NULL;
-// 
-    // cd(&data,cmd);
-    // printf("apres cd : \n%s\n",data.pwd);
-    // return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 17:16:30 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:46:54 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,11 @@ void	ft_free_tab(char **tab);
 int		ft_arraylen(char **array);
 char	*ft_strjoin(char *s1, char const *s2);
 void	ft_strapp(char ***tab, char *str);
+int		ft_charite(char *str, char c);
+char	*ft_strjoinchar(char *str, char c);
+int check_quote(char *str);
+void    add_quoted_word(char **word, char **str, int *idq, int *iq);
+void    add_simple_word(char **word, char **str);
+char	**ft_ms_split(char *str, int *quote_pb);
 
 #endif 
