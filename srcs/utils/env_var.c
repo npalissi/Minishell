@@ -15,6 +15,7 @@ static char *get_var_env(char *str)
 
 	save_str = str;
 	while(*str && is_env_char(*str))
+	
 		str++;
 	size = str - save_str;
 	env = malloc(size + 1);
@@ -63,23 +64,22 @@ static char*get_env(char *str, t_data data)
 
 char *replace_var_env(char *str, t_data data)
 {
-	char *save_str;
 	char *env;
+	int i;
 
+	i = 0;
 	(void)data;
-	save_str = str;
-	while(*str)
+	while(*(str + i))
 	{	
-
-		if (*str == '$' && is_env_char(*(str + 1)))
+		if (*(str + i) == '$' && is_env_char(*(str + i + 1)))
 		{
-			env = get_var_env(str + 1);
+			env = get_var_env(str + 1 + i);
 			env = get_env(env,data);
 			if (!env)
 				env = "";
-			return (replace_var_env(strinstr(save_str,str - save_str,env), data));
+			str = strinstr(str,i,env);
 		}
-		str++;
+		i++;
 	}
-	return (save_str);
+	return (str);
 }

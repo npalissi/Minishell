@@ -6,20 +6,21 @@
 /*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/04 15:50:09 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:04:05 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int main(int c, char **v)
-{
-    (void)c;
-    // printf("%s",ft_strfilter_dup("coucou\'", &QUOTE));
-    char *str = replace_var_env(v[1]);
-    printf("%s",str);
-    free(str);
-}
+// int main(int c, char **v, char **env)
+// {
+//     (void)c;
+//     t_data data = {env, NULL, NULL, NULL, 0};
+//     // printf("%s",ft_strfilter_dup("coucou\'", &QUOTE));
+//     char *str = replace_var_env(v[1], data);
+//     printf("%s",str);
+//     free(str);
+// }
 
 
 
