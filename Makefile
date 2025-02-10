@@ -19,7 +19,8 @@ SRCS 			=	srcs/main.c\
 					srcs/cmd/echo.c\
 					srcs/parsing/parsing.c\
 					srcs/utils/data_utils.c\
-					
+					srcs/exec/make_exec.c\
+
 					
 
 

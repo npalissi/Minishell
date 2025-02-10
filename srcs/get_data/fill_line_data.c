@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:46:01 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:32:09 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	printcmd(t_data *data)
 	}
 }
 
-void    fill_line_data(t_data *data, char *line)
+int    fill_line_data(t_data *data, char *line)
 {
     char **full_line;
 	int	i;
@@ -101,18 +101,22 @@ void    fill_line_data(t_data *data, char *line)
 	i = 0;
 	full_line = ft_ms_split(line, &i);
 	if (!full_line)
-		return ;
+		return (1);
 	if (i)
 	{
 		add_history(line);
 		ft_printf(2, "%s\n", "Quote error !");
-		exit (1);
+		ft_free_tab(full_line);
 	}
-	fill_command(data, full_line);
-	fill_paths(data);
-	parse_cmd(data);
-	// printcmd(data);
-	add_history(line);
-	execve(data->cmd_list[0].path, data->cmd_list[0].cmd, data->env);
-	free(line);
+	else
+	{
+		data->fd_in = STDIN_FILENO;
+		data->fd_out = STDOUT_FILENO; 
+		fill_command(data, full_line);
+		fill_paths(data);
+		parse_cmd(data);
+		// printcmd(data);
+		add_history(line);
+	}
+	return (i);
 }

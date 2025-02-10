@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:02:52 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:49:57 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <signal.h>
 #include <fcntl.h>
+# include <sys/wait.h>
 
 #define HOMEMADE	1
 #define CMD			2
@@ -37,16 +38,17 @@ typedef struct s_cmd
 	char *path;
 }	t_cmd;
 
-
 typedef struct s_data
 {
 	char	**env;
 	char	*pwd;
-	char **paths;
+	char 	**paths;
 	t_cmd	*cmd_list;
 	int		exit; //(exit() appellee ou pas)
 	int		exit_status;
-	int		*tmp_fd;
+	int	*pids;
+	int fd_in;
+    int fd_out;
 }		t_data;
 
 char **create_tpwd(char *pwd);
@@ -55,7 +57,7 @@ int cd(t_data *data, t_cmd *cmd);
 void    collect_data(t_data *data);
 void	clear_data(t_data data);
 int	error_exit(t_data data, int sig, char *name);
-void	fill_line_data(t_data *data, char *line);
+int	fill_line_data(t_data *data, char *line);
 void    signal_handler(int sig);
 void    cmd_env(t_data data);
 void    echo(char *arg, int flag);
@@ -63,5 +65,5 @@ void    parse_cmd(t_data *data);
 int nb_cmd(t_data *data);
 void	add_to_file(t_cmd cmd,  int fd);
 void	delete_cmd(t_data *data, int i);
-
+void    make_exec(t_data data, char *line);	
 #endif
