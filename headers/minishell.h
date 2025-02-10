@@ -6,7 +6,7 @@
 /*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/06 15:14:33 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:04:31 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void    signal_handler(int sig);
 void    cmd_env(t_data data);
 void    echo(char **cmd);
 char *replace_var_env(char *str, t_data data);
+char *bt_prompt(t_data data);
 
 #endif
