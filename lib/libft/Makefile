@@ -46,6 +46,7 @@ SRCS := ft_isalpha.c\
 	ft_arraylen.c\
 	ft_strjoinfree.c\
 	ft_strapp.c\
+	ft_arraydupe.c\
 	
 
 OBJS := $(SRCS:.c=.o)

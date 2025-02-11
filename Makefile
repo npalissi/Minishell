@@ -9,15 +9,18 @@ LIBFT_DIR 		:=	$(DIR_LIB)/libft
 LIBFT_LIB 		:= $(LIBFT_DIR)/libft.a
 
 SRCS 			=	srcs/main.c\
+					srcs/get_data/collect_data.c\
+					srcs/get_data/fill_line_data.c\
 					srcs/cmd/cd.c\
 					srcs/cmd/pwd.c\
-					srcs/get_data/collect_data.c\
-					srcs/utils/exit.c\
-					srcs/get_data/fill_line_data.c\
-					srcs/utils/signal_handler.c\
 					srcs/cmd/env.c\
 					srcs/cmd/echo.c\
+					srcs/cmd/export.c\
 					srcs/utils/env_var.c\
+					srcs/utils/exit.c\
+					srcs/utils/signal_handler.c\
+					srcs/utils/mn_promp.c\
+					test.c\
 					
 
 
@@ -39,7 +42,7 @@ $(NAME):	$(LIBFT_LIB) $(PRINTF_LIB) $(OBJS)
 	@echo "Compilation de $(NAME)"
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB) -lreadline
 	sleep 0.7
-	clear
+	# clear
 	# @echo "$$ART"
 
 $(PRINTF_LIB):

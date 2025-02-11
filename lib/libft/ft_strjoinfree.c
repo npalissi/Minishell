@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:44:00 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 16:53:02 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:09:03 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strjoinfree(char *s1, char *s2, int type_free)
 	char 	*save_s1;
 	char	*save_s2;
 
-	if (!s1)
+	if (!s1 || !s2)
 		return (NULL);
 	str = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)

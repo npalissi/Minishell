@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 17:16:30 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:13:46 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ void	ft_free_tab(char **tab);
 int		ft_arraylen(char **array);
 char	*ft_strjoin(char *s1, char const *s2);
 void	ft_strapp(char ***tab, char *str);
+char	**ft_arraydupe(char **tab);
+char	*ft_substr_free(char *s, unsigned int start, size_t len, int is_free);
 
 #endif 

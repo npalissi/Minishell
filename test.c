@@ -1,27 +1,54 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+// #include <unistd.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
 
-void execute_echo(const char *text) {
-    pid_t pid;
-    char *args[] = {
-        "/bin/echo",
-		"-n",  // Le chemin vers la commande echo
-        "$PWD", // Le texte à afficher
-        NULL         // La liste doit se terminer par NULL
-    };
+#include <stdarg.h>
+#include "headers/minishell.h"
 
-
-    
-        execve("/bin/echo", args, NULL);
-        perror("execve");
-        exit(EXIT_FAILURE);
-
+static char *ft_get_arg(char c_type, va_list args)
+{
+    if (c_type == 's')
+        return (ft_strdup(va_arg(args,char *)));
 }
 
-int main() {
-    // Test avec un message simple
-    execute_echo("Hello $PWD World!");
-    return 0;
+char *ft_buildstr(char *str, ...)
+{
+    int start;
+    int i;
+    char *build;
+    char *arg;
+    va_list args;
+
+    build = ft_strdup("");
+    if (!build)
+        return (0);
+    va_start(args,str);
+    i = 0;
+    start = 0;
+    while(*(str + i))
+    {
+        if (*(str + i) == '%' && *(str + i + 1))
+        {
+            arg = ft_get_arg(*(str + i + 1),args);
+            build = ft_strjoinfree(build,ft_substr(str, start, i - start), FREE_ALL);
+            build = ft_strjoinfree(build,arg,FREE_ALL);
+            if (!build)
+                return (0);
+            i++;
+            start = i + 1;
+        }
+        i++;
+    }
+    build = ft_strjoinfree(build,ft_substr(str, start, i), FREE_ALL);
+    va_end(args);
+    return (build);
 }
+
+// int main(void)
+// {
+//     int str;
+//     str = printf("%s=%s", "PWD", "KJHHDKJSH");
+//     // printf("%s",str);
+//     // free(str);
+// }
