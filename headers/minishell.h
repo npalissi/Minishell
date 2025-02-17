@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/10 17:49:57 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:56:21 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ void    parse_cmd(t_data *data);
 int nb_cmd(t_data *data);
 void	add_to_file(t_cmd cmd,  int fd);
 void	delete_cmd(t_data *data, int i);
-void    make_exec(t_data data, char *line);	
+void    make_exec(t_data data, char *line);
+void	check_exec_error(t_data data);
+
 #endif

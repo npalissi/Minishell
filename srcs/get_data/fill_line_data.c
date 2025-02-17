@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/10 18:32:09 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:08:49 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int    fill_line_data(t_data *data, char *line)
 	else
 	{
 		data->fd_in = STDIN_FILENO;
-		data->fd_out = STDOUT_FILENO; 
+		data->fd_out = STDOUT_FILENO;
 		fill_command(data, full_line);
 		fill_paths(data);
 		parse_cmd(data);

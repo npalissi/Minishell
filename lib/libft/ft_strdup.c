@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:42:11 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/22 18:59:43 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:32:07 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ char	*ft_strdup(const char *s)
 
 char *ft_strndup(char *s, int size, int is_free)
 {
-	char	*save_start;
-	char	*save_s;
-	char	*dup;
+    char    *save_start;
+    char    *save_s;
+    char    *dup;
 
-	dup = malloc(sizeof(char) * size + 1);
-	if (!dup)
-		return (0);
-	save_start = dup;
-	save_s = s;
-	while (*s && size--)
-		*dup++ = *(char *)s++;
-	*dup = '\0';
-	if(is_free)
-		free(save_s);
-	return (save_start);
+    dup = malloc(sizeof(char) * size + 1);
+    if (!dup)
+        return (0);
+    save_start = dup;
+    save_s = s;
+    while (*s && size--)
+        *dup++ = *(char *)s++;
+    *dup = '\0';
+    if(is_free)
+        free(save_s);
+    return (save_start);
 }

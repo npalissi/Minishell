@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/10 17:51:11 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:25:00 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ void    make_exec(t_data data, char *line)
 		i++;
 	}
 	exit_status =  WEXITSTATUS(exit_status);
+	data.exit_status = exit_status;
+	check_exec_error(data);
 }
 
