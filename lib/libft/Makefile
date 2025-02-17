@@ -47,6 +47,7 @@ SRCS := ft_isalpha.c\
 	ft_strjoinfree.c\
 	ft_strapp.c\
 	ft_arraydupe.c\
+	ft_buildstr.c\
 	
 
 OBJS := $(SRCS:.c=.o)

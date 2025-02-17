@@ -6,7 +6,7 @@
 /*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/10 18:32:52 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:42:09 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ char *replace_var_env(char *str, t_data data);
 char *bt_prompt(t_data data);
 char **ft_arraydupe(char **tab);
 char *ms_getenv(t_data data, char *key);
+char *build_var_env(char *str, t_data data);
 
 #endif

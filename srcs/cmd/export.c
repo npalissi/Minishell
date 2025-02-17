@@ -6,15 +6,26 @@
 /*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:10:28 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/11 11:12:56 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:00:14 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static int is_env_char(char c)
+static int is_valid_char(char c)
 {
 	return (ft_isalnum(c) || c == '_' );
+}
+
+static int is_valid_key(char *str)
+{
+	if (ft_isdigit(*str))
+		return (0);
+	while(*str)
+		if (!is_valid_char(*str++))
+			return (0);
+	return (1);
+
 }
 
 static int get_bigger(char *str1, char *str2)
@@ -96,6 +107,8 @@ int export(t_data *data, char **cmds)
 	int i;
 	char **env;
 	char **key;
+	char *value_epur;
+	char *var;
 
 	if (!cmds[1])
 	{		
@@ -108,27 +121,42 @@ int export(t_data *data, char **cmds)
 		}
 		return (0);
 	}
-	i = 1;
-	while(cmds[i])
+	i = 0;
+	while(cmds[++i])
 	{
 		key = split_env(cmds[i]);
-		printf("%s=%s\n",key[0],key[1]);
-		i++;
+		if (!is_valid_key(key[0]))
+		{
+			printf("bash: export: `%s': not a valid identifier\n",key[0]);
+			continue;	
+		}
+		value_epur = build_var_env(key[1],*data);
+		var = ft_buildstr("%s=%s",key[0],value_epur);
+		free(value_epur);
+		ft_strapp(&data->env,var);
+		// ft_free_tab(key);
+		// printf("%s",var);
 	}
 	return (1);
 }
 
-// int main(int c, char **v, char **env)
-// {
-// 	(void)c;
+int main(int c, char **v, char **env)
+{
+	char *rl;
+	char **cmds;
+	(void)c;
+	// char *cmds[] = {
+	// 		"export",
+	// 		"test=1",
+	// 		NULL
+	// 	};
+	t_data data = {ft_arraydupe(env), NULL, NULL, NULL, 0};
+	while((rl = readline("->")))
 
-// 	t_data data = {ft_arraydupe(env), NULL, NULL, NULL, 0};
-// 	char *cmds[] = {
-// 		"export",
-// 		"test  =1",
-// 		"coucou",
-// 		"coucou=",
-// 		NULL
-// 	};
-// 	export(&data,cmds);
-// }
+		cmds = ft_split(rl,' ');
+		export(&data,cmds);
+		free(rl);
+		ft_free_tab(data.cmd_list->cmd);
+	}
+
+}

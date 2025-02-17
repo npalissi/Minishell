@@ -65,8 +65,6 @@ char *ms_getenv(t_data data, char *key)
 
 static void check_quotes(char *str,int i, int *dquote, int *quote)
 {
-	if (i > 0 && str[i - 1 ] == '\\')
-		return;
 	if (str[i] == '"')
 	{
 		if (*dquote == -1)
@@ -83,29 +81,70 @@ static void check_quotes(char *str,int i, int *dquote, int *quote)
 	}
 }
 
+static int is_valis_quote(char c, int q, int dq)
+{
+	return (c != '\'' && c != '\"' || (c == '\'' && dq != -1 && (dq < q || q == -1)) || (c == '\"' && q != -1 && (q < dq || dq == -1)));
+}
+
+static int get_size_epur(char *str)
+{
+	int i;
+	int size;
+	int dquote;
+	int quote;
+
+	dquote = -1;
+	quote = -1;
+	size = 0;
+	i = 0;
+	while(str[i])
+	{
+		check_quotes(str,i,&dquote,&quote);
+		if (is_valis_quote(str[i],quote,dquote))
+			size++;
+		i++;
+	}
+	return (size);
+}
+
 static char *epurstr(char *str)
 {
 	int dquote;
 	int quote;
 	int i;
 	int size;
+	char *new_str;
+	int j;
 
+	j = 0;
 	dquote = -1;
 	quote = -1;
-	i = -1;
-	size = 0;
+	i = 0;
+	size = get_size_epur(str);
+	new_str = malloc(size + 1);
+	if (!new_str)
+		return (0);
 	while(str[i])
 	{
-		i++;
 		check_quotes(str,i,&dquote,&quote);
-
-		if ((dquote == -1 && quote == -1 && str[i] == '\\') || (dquote != -1 && dquote < quote && str[i] == '\\' && str[i + 1] == '\"') )
-		// if ((dquote == -1 && dquote == -1 && str[i] != '\\') || (quote != -1 && dquote < quote && str[i] == '\'' ) || (dquote != -1 && quote < dquote  && str[i] == '\"') || (str[i] != '\'))
-		// 	size++;
+		if (is_valis_quote(str[i],quote,dquote))
+			new_str[j++] = str[i];
 		i++;
 	}
-	printf("%d\n",size);
+	new_str[j] = 0;
+	return (new_str);
 	
+}
+
+char *build_var_env(char *str, t_data data)
+{
+	char *str1;
+	char *str2;
+
+	str1 = replace_var_env(str, data);
+	str2 = epurstr(str1);
+	free(str1);
+	return (str2);
 }
 
 static char*get_env(char *str, t_data data)
@@ -140,7 +179,6 @@ char *replace_var_env(char *str, t_data data)
 	dquote = -1;
 	i = 0;
 	(void)data;
-	// printf("start : %s\n",str);
 	while(*(str + i))
 	{
 		check_quotes(str,i,&dquote,&quote);
@@ -160,19 +198,21 @@ char *replace_var_env(char *str, t_data data)
 }
 
 
-int main(int c, char **v)
-{	
-	char *rl;
-	char *str;
-	while(1)
-	{
-		rl = readline("-> : ");
-		if (!rl)
-			break;
-		epurstr(rl);
-		printf("%zu\n\n",ft_strlen(rl));
-		// str = replace_var_env(rl,(t_data){});
-		// printf("%s\n",str);
+// int main(int c, char **v, char **env)
+// {	
+// 	char *rl;
+// 	char *str;
+// 	t_data data = {ft_arraydupe(env), NULL, NULL, NULL, 0};
+// 	while(1)
+// 	{
+// 		rl = readline("-> : ");
+// 		if (!rl)
+// 			break;
+// 		str = replace_var_env(rl,data);
+// 		str = epurstr(str);
+// 		// printf("%zu\n\n",ft_strlen(rl));
+// 		// str = replace_var_env(rl,(t_data){});
+// 		printf("%s\n",str);
 
-	}
-}
+// 	}
+// }

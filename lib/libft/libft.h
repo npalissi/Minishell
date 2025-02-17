@@ -6,7 +6,7 @@
 /*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/11 11:13:46 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:40:18 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdarg.h>
 
 # define FREE_S1	1
 # define FREE_S2	2
@@ -79,5 +80,6 @@ char	*ft_strjoin(char *s1, char const *s2);
 void	ft_strapp(char ***tab, char *str);
 char	**ft_arraydupe(char **tab);
 char	*ft_substr_free(char *s, unsigned int start, size_t len, int is_free);
+char *ft_buildstr(char *str, ...);
 
 #endif 
