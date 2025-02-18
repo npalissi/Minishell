@@ -6,11 +6,11 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:13:37 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/17 19:04:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/18 11:10:15 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/minishell.h"
 
 void	next_w(char **str, int *iq, int *idq)
 {
@@ -67,24 +67,18 @@ char	**split(char *word, int idq, int iq, char *str)
 	return (tab);
 }
 
-char **manage_dir(char **t)
+char	*dup_char(char c, int size)
 {
-	char	**tab;
-	int		i;
-	char	**array;
-	int		j;
+	char	*dup;
+	char	*save;
 
-	array = NULL;
-	i = 0;
-	while (t && t[i])
-	{
-		j = 0;
-		tab = ft_split_delim(t[i++], "<", ">");
-		while (tab && tab[j])
-			ft_strapp(&array, tab[j++]);
-	}
-	ft_free_tab(t);
-	return (array);
+	dup = ft_calloc(1, size + 1);
+	save = dup;
+	if (!dup)
+		return (NULL);
+	while (--size >= 0)
+		*save++ = c;
+	return (dup);
 }
 
 char	**ft_ms_split(char *str, int *quote_pb)
@@ -101,24 +95,7 @@ char	**ft_ms_split(char *str, int *quote_pb)
 	*quote_pb = check_quote(str);
 	if (!*quote_pb)
 		tab = split(word, idq, iq, str);
-	tab = manage_dir(tab);
+	tab = manage_dir(tab, '>');
+	tab = manage_dir(tab, '<');
 	return (tab);
-}
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h> 
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-int	main()
-{
-	int  i = 0;
-	char *rl = readline("->");
-	char **tab = ft_ms_split(rl, &i);
-	char **s = tab;
-	while (*tab)
-		printf("%s\n", *tab++);
-	ft_free_tab(s);
 }

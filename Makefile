@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
+#    Updated: 2025/02/18 11:52:52 by edubois-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME			:=	minishell  
 
 DIR_LIB 		:= 	lib
@@ -19,7 +31,12 @@ SRCS 			=	srcs/main.c\
 					srcs/parsing/parsing.c\
 					srcs/utils/data_utils.c\
 					srcs/exec/make_exec.c\
+					srcs/exec/manage_dir.c\
+					srcs/utils/ft_split_dir_utils.c\
+					srcs/utils/ft_ms_split.c\
+					srcs/utils/ft_ms_split_utils.c\
 					srcs/utils/write_error.c\
+					
 
 
 OBJS 			:= $(SRCS:.c=.o)

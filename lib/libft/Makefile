@@ -48,8 +48,7 @@ SRCS := ft_isalpha.c\
 	ft_strapp.c\
 	ft_charite.c\
 	ft_strjoinchar.c\
-	ft_ms_split_utils.c\
-	ft_ms_split.c\
+
 	
 	
 

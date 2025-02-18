@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/16 16:56:21 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/18 11:42:11 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,16 @@ void	add_to_file(t_cmd cmd,  int fd);
 void	delete_cmd(t_data *data, int i);
 void    make_exec(t_data data, char *line);
 void	check_exec_error(t_data data);
+int	check_quote(char *str);
+void	add_quoted_word(char **word, char **str, int *idq, int *iq);
+void add_simple_word(char **word, char **str);
+void    make_split(char **t, int i[2], int index[2], char ***tab);
+char	**make_dir_split(char **t, int i[2], int index[2], int iq[2]);
+char	**manage_dir(char **t, int c);
+void	next_w(char **str, int *iq, int *idq);
+char	**split(char *word, int idq, int iq, char *str);
+char	*dup_char(char c, int size);
+char	**ft_ms_split(char *str, int *quote_pb);
+void    manage_exec_dir(t_data *data);
 
 #endif
