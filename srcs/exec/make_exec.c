@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/18 15:52:07 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:26:24 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,21 @@ void	close_all(t_data *data, int pipe_fd[2])
 
 void	manage_pipe(t_data *data, int pipe_fd[2])
 {
-	int	pid_in;
-	int	pid_out;
-
-	pid_in = data->fd_in;
-	pid_out = pipe_fd[1];
-	if (dup2(pid_in, STDIN_FILENO) == -1)
+	int	fd_in;
+	int	fd_out;
+	
+	fd_out = pipe_fd[1];
+	if (data->redir_fd[1] > 2)
+		fd_out = data->redir_fd[1];
+	fd_in = data->fd_in;
+	if (data->redir_fd[0] > 2)
+		fd_in = data->redir_fd[0];
+	if (dup2(fd_in, STDIN_FILENO) == -1)
 	{
 		close_all(data, pipe_fd);
 		return ;
 	}
-	if (dup2(pid_out, STDOUT_FILENO) == -1)
+	if (dup2(fd_out, STDOUT_FILENO) == -1)
 	{
 		close_all(data, pipe_fd);
 		return ;
@@ -55,16 +59,24 @@ void    make_exec(t_data data, char *line)
 	if (!pids)
 		return ;
 	data.pids = pids;
+	data.fd_in = STDIN_FILENO;
 	i = 0;
 	while(data.cmd_list[i].cmd)
 	{
+		pipe_fd[0] = -1;
+		pipe_fd[1] = -1;
 		if (data.cmd_list[i].cmd && data.cmd_list[i + 1].cmd && data.cmd_list[i + 1].cmd[0][0] == '|' && pipe(pipe_fd) == -1)
 			return ;
 		pids[i] = fork();
 		if (pids[i] == 0)
 		{
-			if (data.cmd_list[i + 1].cmd && data.cmd_list[i + 1].cmd[0][0] == '|')
-				manage_pipe(&data, pipe_fd);
+			manage_exec_dir(&data, i);
+			if (!data.cmd_list[i + 1].cmd)
+			{
+				close(pipe_fd[0]);
+				pipe_fd[1] = STDOUT_FILENO;
+			}
+			manage_pipe(&data, pipe_fd);
 			execve(data.cmd_list[i].path, data.cmd_list[i].cmd, data.env);
 			exit(127);
 		}

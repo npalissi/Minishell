@@ -6,11 +6,11 @@
 #    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
-#    Updated: 2025/02/18 11:52:52 by edubois-         ###   ########.fr        #
+#    Updated: 2025/02/19 14:41:13 by edubois-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			:=	minishell  
+NAME			:=	minishell
 
 DIR_LIB 		:= 	lib
 
@@ -36,7 +36,7 @@ SRCS 			=	srcs/main.c\
 					srcs/utils/ft_ms_split.c\
 					srcs/utils/ft_ms_split_utils.c\
 					srcs/utils/write_error.c\
-					
+					srcs/exec/manage_here_doc.c\
 
 
 OBJS 			:= $(SRCS:.c=.o)
@@ -53,7 +53,7 @@ export ART
 
 all: $(NAME)
 
-$(NAME):	$(LIBFT_LIB) $(PRINTF_LIB) $(OBJS)
+$(NAME):	$(LIBFT_LIB) $(PRINTF_LIB) $(GNL_LIB) $(OBJS)
 	@echo "Compilation de $(NAME)"
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB) -lreadline
 	sleep 0.7

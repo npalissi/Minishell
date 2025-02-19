@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:08:46 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:51:55 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,15 @@ void	delete_cmd(t_data *data, int i)
 		i++;
 	}
 	free(cmd_tmp.path);
+}
+
+void	fill_data(t_data *data, char **full_line, char *line)
+{
+		fill_command(data, full_line);
+		fill_paths(data);
+		parse_cmd(data);
+		data->redir_fd[0] = 0;
+		data->redir_fd[1] = 0;
+		// printcmd(data);
+		add_history(line);
 }

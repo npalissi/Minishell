@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:06:28 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/11 14:23:44 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:15:04 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ void parse_cmd(t_data *data)
 	int j;
 
 	j = 0;
-	i = j + 1;
+	i = 0;
 	while (data->cmd_list[i].cmd)
 	{
-		while (data->cmd_list[i].cmd && data->cmd_list[i].cmd[0][0] != '|')
+		if (data->cmd_list[j].cmd)
+			i = j + 1;
+		while (data->cmd_list[i].cmd && data->cmd_list[i].cmd[0] && data->cmd_list[i].cmd[0][0] != '|')
 			merge_to_cmd(data, j, i);
 		j = i + 1;
-		i = j + 1;
 	}
 }

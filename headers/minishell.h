@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/18 11:42:11 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:23:50 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_data
 	int	*pids;
 	int fd_in;
     int fd_out;
+	char	**here_doc_name;
+	int	redir_fd[2];
 }		t_data;
 
 char **create_tpwd(char *pwd);
@@ -77,6 +79,14 @@ void	next_w(char **str, int *iq, int *idq);
 char	**split(char *word, int idq, int iq, char *str);
 char	*dup_char(char c, int size);
 char	**ft_ms_split(char *str, int *quote_pb);
-void    manage_exec_dir(t_data *data);
+void    manage_exec_dir(t_data *data, int i);
+void	printcmd(t_data *data);
+char	*random_name(t_data *data);
+int		start_here_doc(t_data *data, char *lim);
+void		manage_pipe(t_data *data, int pipe_fd[2]);
+void	fill_data(t_data *data, char **full_line, char *line);
+void	fill_command(t_data *data, char **line);
+int	fill_flags(t_data *data, char **line, int i, int j);
+void	fill_paths(t_data *data);
 
 #endif
