@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/19 18:23:50 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:56:23 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ char	*dup_char(char c, int size);
 char	**ft_ms_split(char *str, int *quote_pb);
 void    manage_exec_dir(t_data *data, int i);
 void	printcmd(t_data *data);
-char	*random_name(t_data *data);
-int		start_here_doc(t_data *data, char *lim);
+int		start_here_doc(char *lim);
 void		manage_pipe(t_data *data, int pipe_fd[2]);
 void	fill_data(t_data *data, char **full_line, char *line);
 void	fill_command(t_data *data, char **line);

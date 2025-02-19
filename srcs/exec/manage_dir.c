@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:19:06 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 17:55:44 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:56:14 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void manage_exec_dir(t_data *data, int i)
 			if (ft_strcmp(data->cmd_list[i].cmd[j], "<"))
 				data->redir_fd[0] = open(data->cmd_list[i].cmd[j + 1], O_RDONLY);
 			else if (ft_strcmp(data->cmd_list[i].cmd[j], "<<"))
-				data->redir_fd[0] = start_here_doc(data, data->cmd_list[i].cmd[j + 1]);
+				data->redir_fd[0] = start_here_doc(data->cmd_list[i].cmd[j + 1]);
 			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">"))
 				data->redir_fd[1] = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">>"))

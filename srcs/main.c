@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/19 16:49:57 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:52:05 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int main(int arg_c, char **arg_v, char **env)
 		if (rl && !fill_line_data(&data, rl))
 			make_exec(data, rl);
 		// printcmd(&data);
-		ft_free_tab(data.here_doc_name);
 		free(rl);
 		rl = readline("cacashell-> ");
 	}
