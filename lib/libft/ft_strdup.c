@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:42:11 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 14:42:34 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:06:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ char	*ft_strdup(const char *s)
 	return (save_start);
 }
 
-char *ft_strndup(char *s, int size, int is_free)
+char	*ft_strndup(char *s, int size, int is_free)
 {
-    char    *save_start;
-    char    *save_s;
-    char    *dup;
+	char	*save_start;
+	char	*save_s;
+	char	*dup;
 
-    dup = malloc(sizeof(char) * size + 1);
-    if (!dup)
-        return (0);
-    save_start = dup;
-    save_s = s;
-    while (*s && size--)
-        *dup++ = *(char *)s++;
-    *dup = '\0';
-    if(is_free)
-        free(save_s);
-    return (save_start);
+	dup = malloc(sizeof(char) * size + 1);
+	if (!dup)
+		return (0);
+	save_start = dup;
+	save_s = s;
+	while (*s && size--)
+		*dup++ = *(char *)s++;
+	*dup = '\0';
+	if (is_free)
+		free(save_s);
+	return (save_start);
 }

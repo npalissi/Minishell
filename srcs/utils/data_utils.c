@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 16:51:55 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:38:37 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	delete_cmd(t_data *data, int i)
 		data->cmd_list[i] = data->cmd_list[i + 1];
 		i++;
 	}
+	ft_free_tab(cmd_tmp.cmd);
 	free(cmd_tmp.path);
 }
 

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:19:06 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 18:56:14 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/20 22:16:59 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,19 @@ void manage_exec_dir(t_data *data, int i)
 	{
 		while (data->cmd_list[i].cmd[j])
 		{
-			if (ft_strcmp(data->cmd_list[i].cmd[j], "<"))
+			if (ft_strcmp(data->cmd_list[i].cmd[j], "<") && !check_error(data, i, j, "<"))
 				data->redir_fd[0] = open(data->cmd_list[i].cmd[j + 1], O_RDONLY);
-			else if (ft_strcmp(data->cmd_list[i].cmd[j], "<<"))
-				data->redir_fd[0] = start_here_doc(data->cmd_list[i].cmd[j + 1]);
-			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">"))
+			else if (ft_strcmp(data->cmd_list[i].cmd[j], "<<") && !check_error(data, i, j, "<<"))
+				data->redir_fd[0] = open(data->cmd_list[i].cmd[j + 1], O_RDONLY, 0644);
+			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">") && !check_error(data, i, j, ">"))
 				data->redir_fd[1] = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">>"))
+			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">>") && !check_error(data, i, j, ">>"))
 				data->redir_fd[1] = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 			j++;
 		}
 		j = 0;
-	clean_cmd(data);
+		// printcmd(data);
+		clean_cmd(data);
 	}
+	data->here_doc_name = NULL;
 }
