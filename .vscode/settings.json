@@ -3,6 +3,7 @@
 		"sstream": "c",
 		"minishell.h": "c",
 		"libft.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"export_checkc": "cpp"
 	}
 }

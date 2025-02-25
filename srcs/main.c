@@ -6,11 +6,58 @@
 /*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/10 18:49:23 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:23:27 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+
+int main(int c, char **v, char **env)
+{
+	char *rl;
+	char **cmds;
+	(void)c;
+	t_data data = {};
+	
+	ms_setup_lst_env(&data,env);
+	int i;
+	char *value_epur;
+	rl = readline("->");
+	while(rl)
+	{
+		i = 1;
+		collect_data(&data);
+		fill_line_data(&data, rl);
+		while(data.cmd_list[0].cmd[i])
+		{
+			value_epur = build_var_env(data.cmd_list[0].cmd[i],data);
+			data.cmd_list[0].cmd[i++] = value_epur;
+		}
+		if (!ft_strncmp(data.cmd_list[0].cmd[0],"export", ft_strlen("export")))
+			export(&data,data.cmd_list[0].cmd);
+		else if (!ft_strncmp(data.cmd_list[0].cmd[0],"env", ft_strlen("env")))
+			cmd_env(&data);
+		else if (!ft_strncmp(data.cmd_list[0].cmd[0],"clear",ft_strlen("clear")))
+			system("clear");
+		else if (ft_strcmp(data.cmd_list[0].cmd[0],"unset"))
+			cmd_unset(&data,data.cmd_list[0].cmd);
+		else if (ft_strcmp(data.cmd_list[0].cmd[0],"echo"))
+			echo(data.cmd_list[0].cmd);
+		else if (ft_strcmp(data.cmd_list[0].cmd[0],"exit"))
+		{
+			free(rl);
+			clear_history();
+			exit(1);
+		}
+		else if (ft_strcmp(data.cmd_list[0].cmd[0],"cd"))
+			cd(&data, data.cmd_list[0].cmd);
+		free(rl);
+		rl = readline("->");			
+	}
+	ms_free_all_env(&data);
+
+}
 
 // int main(int c, char **v, char **env)
 // {

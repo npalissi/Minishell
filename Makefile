@@ -15,22 +15,30 @@ SRCS 			=	srcs/main.c\
 					srcs/cmd/pwd.c\
 					srcs/cmd/env.c\
 					srcs/cmd/echo.c\
-					srcs/cmd/export.c\
 					srcs/utils/env_var.c\
 					srcs/utils/exit.c\
 					srcs/utils/signal_handler.c\
 					srcs/utils/mn_promp.c\
-					test.c\
+					srcs/utils/ft_ms_split_utils.c\
+					srcs/utils/ft_ms_split.c\
+					srcs/utils/ft_split_dir_utils.c\
+					srcs/parsing/parsing.c\
+					srcs/cmd/export/export_utils.c\
+					srcs/cmd/export/export.c\
+					srcs/cmd/export/export_check.c\
+					srcs/cmd/export/export_lst.c\
+					srcs/cmd/export/export_free_array.c\
+					srcs/cmd/unset.c\
+
 					
 
 
 OBJS 			:= $(SRCS:.c=.o)
 
-CC 				:= @cc
+CC 				:= @gcc
 
 # FLAGS 			:= -Wall -Wextra -Werror -g
-FLAGS 			:= -g
-
+FLAGS 			:= -g3 -no-pie -D USE_CUSTOM_MALLOC -D malloc=dh_malloc -D free=dh_free -I./headers
 
 export ART
 
@@ -40,7 +48,7 @@ all: $(NAME)
 
 $(NAME):	$(LIBFT_LIB) $(PRINTF_LIB) $(OBJS)
 	@echo "Compilation de $(NAME)"
-	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB) -lreadline
+	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB) -lreadline -no-pie
 	sleep 0.7
 	# clear
 	# @echo "$$ART"
@@ -51,7 +59,7 @@ $(PRINTF_LIB):
 
 $(LIBFT_LIB):
 	@echo "Compilation de libft..." 
-	make -s -C  $(LIBFT_DIR)
+	make CUSTOM=1 -s -C $(LIBFT_DIR) 
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

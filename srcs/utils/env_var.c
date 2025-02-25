@@ -6,7 +6,7 @@ static int is_env_char(char c)
 	return (ft_isalnum(c) || c == '_' || c == '?');
 }
 
-static char *get_var_env(char *str)
+static char *ms_get_key(char *str)
 {
 	int size;
 	char *env;
@@ -38,7 +38,6 @@ static char *strinstr(char *src, int pos, char *dest)
 	while(is_env_char(src[pos]))
 		pos++;
 	str = ft_strjoinfree(str, src + pos,FREE_S1);
-	free(dest);
 	return (str);
 }
 
@@ -151,23 +150,13 @@ static char*get_env(char *str, t_data data)
 {
 	char *env;
 
-	(void)data;
 	if (ft_strcmp(str, "?"))
-	{
-		free(str);
-		return (ft_strdup("100")); // a faire avec le exit status
-	}
-	env = getenv(str);
-	if (!env)
-		env = ft_strdup("");
+		env = "100"; // a faire avec le exit status
 	else
-		env = ft_strdup(env);
+		env = ms_get_env(data,str);
 	free(str);
 	return (env);	
 }
-
-
-
 
 char *replace_var_env(char *str, t_data data)
 {
@@ -183,16 +172,15 @@ char *replace_var_env(char *str, t_data data)
 	{
 		check_quotes(str,i,&dquote,&quote);
 		
-		if (*(str + i) == '$' && is_env_char(*(str + i + 1)) && (quote == -1 || ((dquote < quote) && dquote != -1)))
+		if (*(str + i) == '$' && *(str + i + 1) && is_env_char(*(str + i + 1)) && (quote == -1 || ((dquote < quote) && dquote != -1)))
 		{
-			env = get_var_env(str + 1 + i);
+			env = ms_get_key(str + 1 + i);
 			env = get_env(env,data);
-			if (!env)
-				env = "";
 			str = strinstr(str,i,env);
 			i += ft_strlen(env);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (str);
 }

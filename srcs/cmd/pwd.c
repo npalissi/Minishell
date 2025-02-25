@@ -6,7 +6,7 @@
 /*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:08:43 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/04 15:15:33 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:33:38 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ int reload_pwd(t_data *data)
 	if (data->pwd)
 		free(data->pwd);
 	data->pwd = path;
+	if (!ms_edit_env_lst(data,"PWD",ft_strdup(path),ft_buildstr("%s=%s","PWD",path)))
+	{
+		write(1,"1",1);
+		return (0);
+	}
 	return (1);
 }
