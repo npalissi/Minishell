@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   open_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:40:02 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/20 22:34:16 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:45:50 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	ft_strswap(char **from, char **to)
+void	ft_strswap(t_data *data, int i, int j, char *from, char *to)
 {
 	char	*save;
 
-	save = *from;
-	*from = *to;
+	save = from;
+	data->cmd_list[i].cmd[++j] = to;
 	free(save);
 }
 
@@ -43,8 +43,8 @@ int	create_here_doc(t_data *data)
 			}
 			if (filename)
 			{
-				ft_strswap(&delim, &filename);
-				printcmd(data);
+				ft_strswap(data, i, j, delim, filename);
+				filename = NULL;
 			}
 			else if (ft_strcmp("<<", data->cmd_list[i].cmd[j]))
 				return (0);

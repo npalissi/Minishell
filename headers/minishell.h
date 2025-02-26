@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/20 20:03:38 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:36:44 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int	destroy_here_doc(t_data *data);
 int	check_error(t_data *data, int i, int j, char *redir);
 int		create_here_doc(t_data *data);
 int		check_pipe(t_data *data, char *line);
+int	create_redir(t_data *data);
 
 #endif

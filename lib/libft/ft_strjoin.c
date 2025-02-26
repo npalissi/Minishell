@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:44:00 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 19:08:17 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:31:41 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*str;
 	char	*save_str;
-	char	*save_s1;
 
 	if (!s1)
 		return (NULL);
@@ -24,7 +23,6 @@ char	*ft_strjoin(char *s1, char const *s2)
 	if (!str)
 		return (NULL);
 	save_str = str;
-	save_s1 = s1;
 	while (*s1)
 		*str++ = *s1++;
 	while (*s2)

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:10:52 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:08:18 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:34:03 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void    echo(char *arg, int flag)
-{
-    printf("%s", arg);
-    if (!flag)
-        printf("\n", NULL);
-}
+// void    echo(char *arg, int flag)
+// {
+//     printf("%s", arg);
+//     if (!flag)
+//         printf("\n", NULL);
+// }

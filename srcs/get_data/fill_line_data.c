@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_line_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 16:50:22 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:19:46 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	printcmd(t_data *data)
 			j++;
 		}
 		printf("%s\n", data->cmd_list[i].path);
-		printf("\n\n\n\n\n\n", NULL);
+		printf("\n\n\n\n\n\n%p", NULL);
 		i++;
 	}
 }

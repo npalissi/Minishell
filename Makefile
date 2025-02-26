@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
+#    By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
-#    Updated: 2025/02/20 18:06:22 by edubois-         ###   ########.fr        #
+#    Updated: 2025/02/26 18:41:13 by edubois-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS 			=	srcs/main.c\
 					srcs/exec/manage_here_doc.c\
 					srcs/get_data/open_heredoc.c\
 					srcs/parsing/check_pipe.c\
+					srcs/exec/create_redir.c\
 
 OBJS 			:= $(SRCS:.c=.o)
 

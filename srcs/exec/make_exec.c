@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/20 22:15:33 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:37:24 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void    make_exec(t_data data, char *line)
 	int	pipe_fd[2];
 	int exit_status;
 			
-	if (create_here_doc(&data))
+	if (create_here_doc(&data) && create_redir(&data))
 	{
 		pids = ft_calloc(4 ,(ft_charite(line, '|')) + 1);
 		if (!pids)

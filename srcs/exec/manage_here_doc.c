@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_here_doc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:32:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/20 22:40:16 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:02:36 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	sigheredoc(int sig)
 {
 	if (sig && !g_sigint)
 	{
-    	printf("\n", NULL);
+    	printf("\n");
 		rl_replace_line("", 1);
 		g_sigint = sig;
-		exit(sig);
+		exit(128 + sig);
 	}
 }
 
@@ -40,15 +40,25 @@ char *random_name(void)
 {
 	int fd;
 	char *s;
+	char c;
+	int i;
 
-	s = ft_calloc(14, 1);
+	i = 1;
+	c = 0;
+	s = ft_calloc(50, 1);
 	if (!s)
 		return (NULL);
 	*s = '.';
-	fd = open("/dev/random",O_RDONLY);
+	fd = open("/dev/urandom",O_RDONLY);
 	if (fd >= 0)
-		read(fd, s + 1, 9);
-	printf("%s\n", s);
+	{
+		while (i < 48)
+		{
+			read(fd, &c, 1);
+			if (ft_strchr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", c))
+				s[i++] = c;	
+		}
+	}
 	close(fd);
 	return (s);
 }
@@ -63,17 +73,14 @@ char *start_here_doc(t_data *data, char *lim)
 
 	g_sigint = 0;
 	signal(SIGINT, sigheredoc);
-	pid = fork();
+	rdm_name = random_name();
+	ft_strapp(&data->here_doc_name, rdm_name);
 	line = NULL;
+	pid = fork();
 	if (!pid)
 	{
 		rl_catch_signals = 1;
-		rdm_name = random_name();
-		printf("%s\n", rdm_name);
 		fd = open(rdm_name, O_CREAT | O_WRONLY, 0644);
-		printf("%s\n", rdm_name);
-		ft_strapp(&data->here_doc_name, rdm_name);
-		printf("%s\n", rdm_name);
 		while (fd > 0 && lim)
 		{
 			line = readline("heredoc: ");
@@ -81,6 +88,12 @@ char *start_here_doc(t_data *data, char *lim)
 			{
 				line = ft_strjoinfree(line, "\n", 1);
 				ft_putstr_fd(line, fd);
+				free(line);
+			}
+			else if (!line)
+			{
+				ft_printf(2, "shellokitty: warning: here-document delimited by end-of-file (wanted `%s')\n", lim);
+				exit(0);
 			}
 			else
 				exit(0);
@@ -93,18 +106,14 @@ char *start_here_doc(t_data *data, char *lim)
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &e, 0);
 		signal(SIGINT, signal_handler);
-		if (WIFSIGNALED(e))
-		g_sigint = WTERMSIG(e);
+		data->exit_status = WEXITSTATUS(e);
+		if (data->exit_status)
+			g_sigint = 130;
 	}
-	if (!line && !g_sigint)
-		ft_printf(2, "shellokitty: warning: here-document delimited by end-of-file (wanted `%s')\n", lim);
-	else
-		free(line);
 	if (g_sigint)
 	{
 		destroy_here_doc(data);
 		rdm_name = NULL;
-		data->exit_status = WTERMSIG(e) + 128;
 	}
 	return (rdm_name);
 }
