@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/26 18:36:44 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 22:54:35 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**split(char *word, int idq, int iq, char *str);
 char	*dup_char(char c, int size);
 char	**ft_ms_split(char *str, int *quote_pb);
 void	manage_exec_dir(t_data *data, int i);
-void	printcmd(t_data *data);
+void	printcmd(t_data *data); // a supp
 char	*start_here_doc(t_data *data, char *lim);
 void	manage_pipe(t_data *data, int pipe_fd[2]);
 void	fill_data(t_data *data, char **full_line, char *line);
@@ -89,5 +89,7 @@ int	check_error(t_data *data, int i, int j, char *redir);
 int		create_here_doc(t_data *data);
 int		check_pipe(t_data *data, char *line);
 int	create_redir(t_data *data);
+void	check_all_error(t_data *data, int i, int j, int error);
+int	add_error(int *error, int error_code);
 
 #endif

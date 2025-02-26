@@ -6,19 +6,19 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:33:11 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/24 16:19:35 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 22:47:28 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void    collect_data(t_data *data)
+void	collect_data(t_data *data)
 {
-    char *path;
-    char **paths;
+	char	*path;
+	char	**paths;
 
-    path = getenv("PATH");
-    paths = ft_split(path, ':');
+	path = getenv("PATH");
+	paths = ft_split(path, ':');
 	if (!paths)
 		error_exit(*data, -1, NULL);
 	data->paths = paths;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/20 18:38:37 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 22:45:12 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ void	delete_cmd(t_data *data, int i)
 
 void	fill_data(t_data *data, char **full_line, char *line)
 {
-		fill_command(data, full_line);
-		fill_paths(data);
-		parse_cmd(data);
-		data->redir_fd[0] = 0;
-		data->redir_fd[1] = 0;
-		// printcmd(data);
-		add_history(line);
+	fill_command(data, full_line);
+	fill_paths(data);
+	parse_cmd(data);
+	data->redir_fd[0] = 0;
+	data->redir_fd[1] = 0;
+	add_history(line);
 }

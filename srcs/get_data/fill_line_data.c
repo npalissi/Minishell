@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/24 16:19:46 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 22:55:12 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	fill_paths(t_data *data)
 {
-	char *tmp_path;
-	char *tmp_path_bis;
+	char	*tmp_path;
+	char	*tmp_path_b;
 	int		i;
 	int		j;
 
@@ -23,19 +23,19 @@ void	fill_paths(t_data *data)
 	while (data->cmd_list[++j].cmd)
 	{
 		i = 0;
-		tmp_path = ft_strjoin(data->paths[i], "/"); 
-		tmp_path_bis = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
-		while (data->paths[++i] && access(tmp_path_bis, F_OK) == -1)
+		tmp_path = ft_strjoin(data->paths[i], "/");
+		tmp_path_b = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
+		while (data->paths[++i] && access(tmp_path_b, F_OK) == -1)
 		{
-			free(tmp_path_bis);
+			free(tmp_path_b);
 			tmp_path = ft_strjoin(data->paths[i], "/");
-			tmp_path_bis = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
+			tmp_path_b = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
 		}
 		if (data->paths[i])
-			data->cmd_list[j].path = tmp_path_bis;
+			data->cmd_list[j].path = tmp_path_b;
 		else
 		{
-			free(tmp_path_bis);
+			free(tmp_path_b);
 			data->cmd_list[j].path = NULL;
 		}
 	}
@@ -43,7 +43,7 @@ void	fill_paths(t_data *data)
 
 int	fill_flags(t_data *data, char **line, int i, int j)
 {
-	int c_flags;
+	int	c_flags;
 
 	c_flags = 1;
 	while (line[++j] && line[j][0] == '-')
@@ -56,12 +56,11 @@ int	fill_flags(t_data *data, char **line, int i, int j)
 	return (c_flags);
 }
 
-
 void	fill_command(t_data *data, char **line)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	j = 0;
 	data->cmd_list = ft_calloc(ft_arraylen(line) + 1, sizeof(t_cmd));
@@ -77,29 +76,31 @@ void	fill_command(t_data *data, char **line)
 
 void	printcmd(t_data *data)
 {
-	//a supp avant de push
-	
-	int	 i = 0;
-	int j = 0;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	while (data->cmd_list[i].cmd)
 	{
 		j = 0;
 		while (data->cmd_list[i].cmd[j])
 		{
-			printf("data->cmd_list[%d]->cmd[%d] = %s\n", i, j , data->cmd_list[i].cmd[j]);
+			printf("data->cmd_list[%d]->cmd[%d] = %s\n",
+				i, j, data->cmd_list[i].cmd[j]);
 			j++;
 		}
 		printf("%s\n", data->cmd_list[i].path);
-		printf("\n\n\n\n\n\n%p", NULL);
+		printf("\n\n\n\n\n\n");
 		i++;
 	}
 }
 
-int    fill_line_data(t_data *data, char *line)
+int	fill_line_data(t_data *data, char *line)
 {
-    char **full_line;
-	int	i;
-	
+	char	**full_line;
+	int		i;
+
 	i = 0;
 	data->here_doc_name = NULL;
 	if (!line)

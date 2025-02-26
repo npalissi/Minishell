@@ -6,16 +6,16 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/26 18:11:07 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:56:22 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int main(int arg_c, char **arg_v, char **env)
+int	main(int arg_c, char **arg_v, char **env)
 {
-	t_data data;
-	char *rl;
+	t_data	data;
+	char	*rl;
 
 	data = (t_data){0};
 	data.env = env;
@@ -26,10 +26,9 @@ int main(int arg_c, char **arg_v, char **env)
 	while (rl && !data.exit)
 	{
 		if (!rl)
-			break;
+			break ;
 		if (rl && !fill_line_data(&data, rl) && !check_pipe(&data, rl))
 			make_exec(data, rl);
-		// printcmd(&data);
 		free(rl);
 		rl = readline("cacashell-> ");
 	}

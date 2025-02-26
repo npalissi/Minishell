@@ -6,11 +6,11 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:25:47 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 18:46:06 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:44:37 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "../../../headers/minishell.h"
 
 void	open_redir(t_data *data, char *redir)
 {
