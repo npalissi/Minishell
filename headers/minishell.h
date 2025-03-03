@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/26 22:54:35 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:19:23 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_cmd
 {
 	char	**cmd;
 	char	*path;
+	int		error;
 }	t_cmd;
 
 typedef struct s_data
@@ -90,6 +91,6 @@ int		create_here_doc(t_data *data);
 int		check_pipe(t_data *data, char *line);
 int	create_redir(t_data *data);
 void	check_all_error(t_data *data, int i, int j, int error);
-int	add_error(int *error, int error_code);
+int	add_error(t_data *data, int i, int *error, int error_code);
 
 #endif

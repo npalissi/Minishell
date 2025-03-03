@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 22:55:12 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/03 13:05:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	fill_command(t_data *data, char **line)
 	data->cmd_list = ft_calloc(ft_arraylen(line) + 1, sizeof(t_cmd));
 	while (line[j] && data->cmd_list)
 	{
+		data->cmd_list[i].error = 0;
 		ft_strapp(&data->cmd_list[i].cmd, line[j]);
 		if (!data->cmd_list->cmd)
 			return ;
@@ -116,5 +117,6 @@ int	fill_line_data(t_data *data, char *line)
 		return (1);
 	else
 		fill_data(data, full_line, line);
+	// printcmd(data);
 	return (i);
 }

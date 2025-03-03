@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 18:37:24 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/03 13:06:40 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void    make_exec(t_data data, char *line)
 					pipe_fd[1] = STDOUT_FILENO;
 				}
 				manage_pipe(&data, pipe_fd);
-				execve(data.cmd_list[i].path, data.cmd_list[i].cmd, data.env);
+				if (!data.cmd_list[i].error)
+					execve(data.cmd_list[i].path, data.cmd_list[i].cmd, data.env);
 				exit(127);
 			}
 			if (data.fd_in > 2)

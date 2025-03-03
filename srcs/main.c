@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/26 21:56:22 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:56:38 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int arg_c, char **arg_v, char **env)
 	t_data	data;
 	char	*rl;
 
+	printf("start minishell\n");
 	data = (t_data){0};
 	data.env = env;
 	collect_data(&data);
