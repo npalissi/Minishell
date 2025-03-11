@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 14:51:13 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:29:04 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	fill_data(t_data *data, char **full_line, char *line)
 	free(full_line);
 	fill_paths(data);
 	fill_exec_path(data);
-	// printcmd(data);
+	// printcmd(data);FIL
 	data->redir_fd[0] = 0;
 	data->redir_fd[1] = 0;
 	add_history(line);

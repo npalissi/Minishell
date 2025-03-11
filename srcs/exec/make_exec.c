@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 13:01:52 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:24:05 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    make_exec(t_data data, char *line)
 			
 	if (create_here_doc(&data, line) && create_redir(&data))
 	{
-		pids = ft_calloc(4 ,nb_cmd(data) + 1);
+		pids = ft_calloc(4 ,nb_cmd(data) + 1) ;
 		if (!pids)
 			return ;
 		data.pids = pids;
@@ -84,6 +84,7 @@ void    make_exec(t_data data, char *line)
 			pids[i] = fork();
 			if (pids[i] == 0)
 			{
+				free(pids);
 				signal(SIGQUIT, SIG_DFL);
 				signal(SIGINT, SIG_DFL);
 				manage_exec_dir(&data, i);
@@ -126,6 +127,7 @@ void    make_exec(t_data data, char *line)
 				ft_printf(2, "Quit\n");
 		}
 		check_exec_error(data);
+		free(pids);
 	}
 	destroy_here_doc(&data);
 }

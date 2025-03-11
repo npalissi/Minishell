@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 08:18:34 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 14:24:47 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:13:41 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	free_cmd(t_data *data)
 				else
 					free(data->cmd_list[i].cmd[j++]);
 			}
-			free(data->cmd_list[i++].path);
-			free(data->cmd_list[i].cmd);
+			free(data->cmd_list[i].path);
+			free(data->cmd_list[i++].cmd);
 		}
 		free(data->cmd_list);
 	}
@@ -41,9 +41,6 @@ void	free_cmd(t_data *data)
 
 void    reset_data(t_data *data, char *rl)
 {
-	int	i;
-
-	i = 0;
 	free(rl);
 	free(data->pids);
 	free_cmd(data);
