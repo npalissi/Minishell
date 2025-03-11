@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_dir_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 10:22:04 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 22:46:27 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:48:44 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	make_split(char **t, int i[2], int index[2], char ***tab)
 	if (t[i[0]][index[1] + 1] == i[1])
 	{
 		index[1]++;
-		ft_strapp(tab, ft_strndup(dup_char(i[1], 2), 2, 1));
+		ft_strapp(tab, dup_char(i[1], 2));
 	}
 	else
-		ft_strapp(tab, ft_strndup(dup_char(i[1], 1), 1, 1));
+		ft_strapp(tab, dup_char(i[1], 1));
 	index[0] = index[1] + 1;
 }
 

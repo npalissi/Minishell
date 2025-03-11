@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:25:47 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 21:44:37 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/10 10:07:54 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	open_redir(t_data *data, char *redir)
 				fd = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 			if (ft_strcmp(data->cmd_list[i].cmd[j], redir) && ft_strcmp(redir, ">"))
 				fd = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);	
-			if (fd)
+			if (fd > 2)
 				close(fd);			
 			j++;
 		}

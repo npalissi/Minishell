@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_dir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:19:06 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 21:44:33 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:15:50 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	clean_cmd(t_data *data)
 {
 	int	i;
 	int	j;
-	int	save_j[2];
+	int h;
+	int	save_j;
 	char	*save_str[2];
 
 	i = 0;
@@ -27,17 +28,19 @@ void	clean_cmd(t_data *data)
 		{
 			if (data->cmd_list[i].cmd[j][0] == '<' || data->cmd_list[i].cmd[j][0] == '>')
 			{
-				save_j[0] = j;
+				h = j + 1;
+				save_j = j;
 				save_str[0] = data->cmd_list[i].cmd[j];
 				save_str[1] = data->cmd_list[i].cmd[j + 1];
-				save_j[1] = --j;
-				while (data->cmd_list[i].cmd[++j])
-					data->cmd_list[i].cmd[j] = data->cmd_list[i].cmd[j + 1];
-				while (data->cmd_list[i].cmd[++save_j[1]])
-					data->cmd_list[i].cmd[save_j[1]] = data->cmd_list[i].cmd[save_j[1] + 1];
+				while (data->cmd_list[i].cmd[j])
+					data->cmd_list[i].cmd[j++] = data->cmd_list[i].cmd[h++];
+				j = save_j;
+				h = save_j + 1;
+				while (data->cmd_list[i].cmd[j])
+					data->cmd_list[i].cmd[j++] = data->cmd_list[i].cmd[h++];
 				free(save_str[0]);
 				free(save_str[1]);
-				j = save_j[0];
+				j = save_j;
 			}
 			else 
 				j++;
@@ -66,8 +69,8 @@ void manage_exec_dir(t_data *data, int i)
 			j++;
 		}
 		j = 0;
-		// printcmd(data);
 		clean_cmd(data);
+		// printcmd(data);
 	}
 	data->here_doc_name = NULL;
 }

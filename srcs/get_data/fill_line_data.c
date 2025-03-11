@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_line_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/03 13:05:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:48:21 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,40 @@ int	fill_flags(t_data *data, char **line, int i, int j)
 	return (c_flags);
 }
 
+int	len_cmd(char **line)
+{
+	int	c;
+	int i;
+
+	i = 0;
+	c = 1;
+	while (line[i])
+	{
+		if (line[i][0] == '|')
+			c++;
+		if (i > 0 && line[i - 1][0] == '|')
+			c++;
+		i++;
+	}
+	return (c);
+}
+
 void	fill_command(t_data *data, char **line)
 {
 	int	i;
 	int	j;
+	int	nb_cmd;
 
+	nb_cmd = len_cmd(line);
 	i = 0;
 	j = 0;
-	data->cmd_list = ft_calloc(ft_arraylen(line) + 1, sizeof(t_cmd));
-	while (line[j] && data->cmd_list)
+	data->cmd_list = ft_calloc(nb_cmd + 1, sizeof(t_cmd));
+	while (i < nb_cmd && data->cmd_list && line[j])
 	{
-		data->cmd_list[i].error = 0;
-		ft_strapp(&data->cmd_list[i].cmd, line[j]);
-		if (!data->cmd_list->cmd)
-			return ;
-		j += fill_flags(data, line, i, j);
+		while (line[j] && line[j][0] != '|')
+			ft_strapp(&data->cmd_list[i].cmd, line[j++]);
+		if (line[j] && line[j][0] == '|')
+			ft_strapp(&data->cmd_list[++i].cmd, line[j++]);
 		i++;
 	}
 }

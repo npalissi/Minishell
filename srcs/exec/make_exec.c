@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/03 13:06:40 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:01:52 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ void	manage_pipe(t_data *data, int pipe_fd[2])
 	close_all(data, pipe_fd);
 }
 
+int	nb_cmd(t_data data)
+{
+	int	c;
+	int	i;
+
+	i = 0;
+	c = 0;
+	while (data.cmd_list[i++].cmd)
+		c++;
+	return (c);
+}
+
 void    make_exec(t_data data, char *line)
 {
 	int	*pids;
@@ -55,9 +67,9 @@ void    make_exec(t_data data, char *line)
 	int	pipe_fd[2];
 	int exit_status;
 			
-	if (create_here_doc(&data) && create_redir(&data))
+	if (create_here_doc(&data, line) && create_redir(&data))
 	{
-		pids = ft_calloc(4 ,(ft_charite(line, '|')) + 1);
+		pids = ft_calloc(4 ,nb_cmd(data) + 1);
 		if (!pids)
 			return ;
 		data.pids = pids;
@@ -77,7 +89,8 @@ void    make_exec(t_data data, char *line)
 				manage_exec_dir(&data, i);
 				if (!data.cmd_list[i + 1].cmd)
 				{
-					close(pipe_fd[0]);
+					if (pipe_fd[0] > 2)
+						close(pipe_fd[0]);
 					pipe_fd[1] = STDOUT_FILENO;
 				}
 				manage_pipe(&data, pipe_fd);

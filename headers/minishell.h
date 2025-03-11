@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/03 12:19:23 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:51:39 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int		fill_line_data(t_data *data, char *line);
 void	signal_handler(int sig);
 void	cmd_env(t_data data);
 void	echo(char *arg, int flag);
-void	parse_cmd(t_data *data);
-int		nb_cmd(t_data *data);
+int		nb_cmd(t_data data);
 void	add_to_file(t_cmd cmd, int fd);
 void	delete_cmd(t_data *data, int i);
 void	make_exec(t_data data, char *line);
@@ -79,7 +78,7 @@ char	*dup_char(char c, int size);
 char	**ft_ms_split(char *str, int *quote_pb);
 void	manage_exec_dir(t_data *data, int i);
 void	printcmd(t_data *data); // a supp
-char	*start_here_doc(t_data *data, char *lim);
+char	*start_here_doc(t_data *data, char *lim, char *line);
 void	manage_pipe(t_data *data, int pipe_fd[2]);
 void	fill_data(t_data *data, char **full_line, char *line);
 void	fill_command(t_data *data, char **line);
@@ -87,10 +86,12 @@ int		fill_flags(t_data *data, char **line, int i, int j);
 void	fill_paths(t_data *data);
 int	destroy_here_doc(t_data *data);
 int	check_error(t_data *data, int i, int j, char *redir);
-int		create_here_doc(t_data *data);
+int		create_here_doc(t_data *data, char *line);
 int		check_pipe(t_data *data, char *line);
 int	create_redir(t_data *data);
 void	check_all_error(t_data *data, int i, int j, int error);
 int	add_error(t_data *data, int i, int *error, int error_code);
+void    reset_data(t_data *data, char *rl);
+void	reset_data_here(t_data *data, char *line);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_here_doc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:32:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 21:44:27 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:05:49 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,16 @@ void	sigheredoc(int sig)
 
 int	destroy_here_doc(t_data *data)
 {
-	while(data->here_doc_name && *data->here_doc_name)
+	int i;
+
+	i = 0;
+	while(data->here_doc_name && data->here_doc_name[i])
 	{
-		unlink(*data->here_doc_name);
-		free(*data->here_doc_name);
-		data->here_doc_name++;
+		unlink(data->here_doc_name[i]);
+		free(data->here_doc_name[i]);
+		i++;
 	}
+	free(data->here_doc_name);
 	return (0);
 }
 
@@ -59,11 +63,12 @@ char *random_name(void)
 				s[i++] = c;	
 		}
 	}
-	close(fd);
+	if (fd > 2)
+		close(fd);
 	return (s);
 }
 
-char *start_here_doc(t_data *data, char *lim)
+char *start_here_doc(t_data *data, char *lim, char *l)
 {
 	int fd;
 	char *line;
@@ -79,6 +84,7 @@ char *start_here_doc(t_data *data, char *lim)
 	pid = fork();
 	if (!pid)
 	{
+		rl_clear_history();
 		rl_catch_signals = 1;
 		fd = open(rdm_name, O_CREAT | O_WRONLY, 0644);
 		while (fd > 0 && lim)
@@ -93,12 +99,17 @@ char *start_here_doc(t_data *data, char *lim)
 			else if (!line)
 			{
 				ft_printf(2, "shellokitty: warning: here-document delimited by end-of-file (wanted `%s')\n", lim);
+				close(fd);
+				reset_data_here(data, l);
 				exit(0);
 			}
 			else
+			{
+				close(fd);
+				reset_data_here(data, l);
 				exit(0);
+			}
 		}
-		close(fd);
 	}
 	else
 	{
@@ -111,9 +122,6 @@ char *start_here_doc(t_data *data, char *lim)
 			g_sigint = 130;
 	}
 	if (g_sigint)
-	{
-		destroy_here_doc(data);
 		rdm_name = NULL;
-	}
 	return (rdm_name);
 }
