@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 14:48:21 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fill_paths(t_data *data)
 		tmp_path_b = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
 		while (data->paths[++i] && access(tmp_path_b, F_OK) == -1)
 		{
-			free(tmp_path_b);
+			dh_free(tmp_path_b);
 			tmp_path = ft_strjoin(data->paths[i], "/");
 			tmp_path_b = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
 		}
@@ -35,7 +35,7 @@ void	fill_paths(t_data *data)
 			data->cmd_list[j].path = tmp_path_b;
 		else
 		{
-			free(tmp_path_b);
+			dh_free(tmp_path_b);
 			data->cmd_list[j].path = NULL;
 		}
 	}

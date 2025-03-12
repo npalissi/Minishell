@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 19:06:42 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:50 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,8 @@ void	ft_strapp(char ***tab, char *str);
 int		ft_charite(char *str, char c);
 char	*ft_strjoinchar(char *str, char c);
 char	*ft_strndup(char *s, int size, int is_free);
+void    dh_free_all(void) __attribute__((destructor));
+void    dh_free(void *ptr);
+void    *dh_malloc(size_t size);
 
 #endif 

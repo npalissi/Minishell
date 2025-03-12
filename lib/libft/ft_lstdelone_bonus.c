@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:20:33 by edubois-          #+#    #+#             */
-/*   Updated: 2024/11/30 00:15:37 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_lstdelone(t_list *lst, void (*del)(int))
 {
 	(void)del;
-	free(lst);
+	dh_free(lst);
 }

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:08:43 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/10 16:08:22 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int reload_pwd(t_data *data)
 		path = getcwd(buffer, size);
 		if (!path && errno == ERANGE)
 		{
-			free(buffer);
+			dh_free(buffer);
 			continue;
 		}
 		else
 			break;
 	}
 	if (data->pwd)
-		free(data->pwd);
+		dh_free(data->pwd);
 	data->pwd = path;
 	return (1);
 }

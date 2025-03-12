@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:48:08 by edubois-          #+#    #+#             */
-/*   Updated: 2024/10/15 21:24:19 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:26:58 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 
 	if ((nmemb * size > 4294967295) || ((int)size < 0 && (int)nmemb < 0))
 		return (NULL);
-	s = malloc(size * nmemb);
+	s = dh_malloc(size * nmemb);
 	if (!s)
 		return (NULL);
 	ft_memset(s, 0, nmemb * size);

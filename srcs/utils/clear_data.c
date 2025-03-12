@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 08:18:34 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 17:13:41 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:36:36 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,21 @@ void	free_cmd(t_data *data)
 				if ((data->cmd_list[i].cmd[j][0] == '<' || data->cmd_list[i].cmd[j][0] == '>') && data->cmd_list[i].cmd[j + 1])
 					j += 2;
 				else
-					free(data->cmd_list[i].cmd[j++]);
+					dh_free(data->cmd_list[i].cmd[j++]);
 			}
-			free(data->cmd_list[i].path);
-			free(data->cmd_list[i++].cmd);
+			dh_free(data->cmd_list[i].path);
+			dh_free(data->cmd_list[i++].cmd);
 		}
-		free(data->cmd_list);
+		dh_free(data->cmd_list);
 	}
 }
 
 void    reset_data(t_data *data, char *rl)
 {
 	free(rl);
-	free(data->pids);
+	dh_free(data->pids);
 	free_cmd(data);
+	rl_clear_history();
 }
 
 void	free_cmd_here(t_data *data)
@@ -54,16 +55,17 @@ void	free_cmd_here(t_data *data)
 	while (data->cmd_list[i].cmd)
 	{
 		ft_free_tab(data->cmd_list[i].cmd);
-		free(data->cmd_list[i++].path);
+		dh_free(data->cmd_list[i++].path);
 	}
-	free(data->cmd_list);
+	dh_free(data->cmd_list);
 }
 
 void	reset_data_here(t_data *data, char *line)
 {
-	free(data->pids);
-	free(line);
+	dh_free(data->pids);
+	dh_free(line);
 	ft_free_tab(data->paths);
 	free_cmd_here(data);
 	ft_free_tab(data->here_doc_name);
+	rl_clear_history();
 }

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:06:28 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 14:51:30 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 12:21:28 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,38 @@ int	check_error(t_data *data, int i, int j, char *redir)
 	if (finish_check_error(data, i, j, &error) && error != 0)
 		exit(error);
 	return (0);
+}
+
+void	sort_redir(char **full_line)
+{
+	char *tmp;
+	int	i;
+
+	i = 0;
+	tmp = full_line[0];
+	while (full_line[i])
+	{
+		full_line[i] = full_line[i + 1];
+		i++;
+	}
+	full_line[i - 1] = tmp;
+}
+
+void	sort_cmd(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->cmd_list[i].cmd)
+	{
+		if (ft_arraylen(data->cmd_list[i].cmd) > 2)
+		{
+			while (data->cmd_list[i].cmd[0][0] == '<' || data->cmd_list[i].cmd[0][0] == '>')
+			{
+				sort_redir(data->cmd_list[i].cmd);
+				sort_redir(data->cmd_list[i].cmd);
+			}
+		}
+		i++;
+	}
 }

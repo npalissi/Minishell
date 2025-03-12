@@ -18,7 +18,7 @@
    readline-history
    Memcheck:Leak
    match-leak-kinds: reachable
-   fun:malloc
+   fun:dh_malloc
    fun:xmalloc
    fun:add_history
    ...

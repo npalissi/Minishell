@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:44:00 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/19 19:08:03 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoinfree(char *s1, char const *s2, int is_free)
 
 	if (!s1)
 		return (NULL);
-	str = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	str = dh_malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)
 		return (NULL);
 	save_str = str;
@@ -31,6 +31,6 @@ char	*ft_strjoinfree(char *s1, char const *s2, int is_free)
 		*str++ = *s2++;
 	*str = '\0';
 	if (is_free)
-		free(save_s1);
+		dh_free(save_s1);
 	return (save_str);
 }

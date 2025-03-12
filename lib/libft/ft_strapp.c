@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:59:31 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/10 14:36:02 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	ft_strapp(char ***tab, char *str)
 		i++;
 	}
 	tmp[i] = str;
-	free(*tab);
+	dh_free(*tab);
 	*tab = tmp;
 }

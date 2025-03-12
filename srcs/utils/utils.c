@@ -1,47 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 16:42:11 by edubois-          #+#    #+#             */
+/*   Created: 2025/03/12 11:00:32 by edubois-          #+#    #+#             */
 /*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/minishell.h"
 
-char	*ft_strdup(const char *s)
+void	ft_strapp_off(char ***tab, char *str, int offset)
 {
-	char	*save_start;
-	char	*dup;
+	char	**tmp;
+	char	**save_tab;
+	int		i;
 
-	dup = dh_malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!dup)
-		return (0);
-	save_start = dup;
-	while (*s)
-		*dup++ = *(char *)s++;
-	*dup = '\0';
-	return (save_start);
-}
-
-char	*ft_strndup(char *s, int size, int is_free)
-{
-	char	*save_start;
-	char	*save_s;
-	char	*dup;
-
-	dup = dh_malloc(sizeof(char) * size + 1);
-	if (!dup)
-		return (0);
-	save_start = dup;
-	save_s = s;
-	while (*s && size--)
-		*dup++ = *(char *)s++;
-	*dup = '\0';
-	if (is_free)
-		dh_free(save_s);
-	return (save_start);
+	if (tab)
+		save_tab = *tab;
+	tmp = ft_calloc((ft_arraylen(*tab) + 2), sizeof(char *));
+	if (!tmp)
+		return ;
+	i = 0;
+	while (save_tab && save_tab[i])
+	{
+		tmp[i] = save_tab[i];
+		i++;
+	}
+	tmp[i] = str;
+	if (offset > 0)
+		dh_free(*(tab - offset));
+	else
+		dh_free(*tab);
+	*tab = tmp;
 }

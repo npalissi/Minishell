@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:46:21 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/03 13:36:52 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:34:03 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	check_exec_error(t_data data)
 			&& access(data.cmd_list[i].path, F_OK) == -1)
 			ft_printf(2, "Shellokitty: %s: file not found\n",
 				data.cmd_list[i].cmd[0]);
-		else if (!data.cmd_list[i].path)
+		else if (!data.cmd_list[i].path && !(ft_strchr("<>", data.cmd_list[i].cmd[0][0])))
 			ft_printf(2, "Shellokitty: %s: command not found\n",
 				data.cmd_list[i].cmd[0]);
-		else if (access(data.cmd_list[i].path, X_OK) == -1)
+		else if (access(data.cmd_list[i].path, X_OK) == -1 && !(ft_strchr("<>", data.cmd_list[i].cmd[0][0])))
 			ft_printf(2, "Shellokitty: %s permision denied\n",
 				data.cmd_list[i].cmd[0]);
 		i++;

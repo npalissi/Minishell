@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 17:24:05 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void    make_exec(t_data data, char *line)
 			pids[i] = fork();
 			if (pids[i] == 0)
 			{
-				free(pids);
+				dh_free(pids);
 				signal(SIGQUIT, SIG_DFL);
 				signal(SIGINT, SIG_DFL);
 				manage_exec_dir(&data, i);
@@ -97,6 +97,7 @@ void    make_exec(t_data data, char *line)
 				manage_pipe(&data, pipe_fd);
 				if (!data.cmd_list[i].error)
 					execve(data.cmd_list[i].path, data.cmd_list[i].cmd, data.env);
+				reset_data_here(&data, line);
 				exit(127);
 			}
 			if (data.fd_in > 2)
@@ -127,8 +128,9 @@ void    make_exec(t_data data, char *line)
 				ft_printf(2, "Quit\n");
 		}
 		check_exec_error(data);
-		free(pids);
+		dh_free(pids);
 	}
 	destroy_here_doc(&data);
+
 }
 

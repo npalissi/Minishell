@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:42:05 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/04 18:30:14 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static char	**empty(char **tab, const char *s, int i, char c)
 	}
 	j = 0;
 	while (tab[j])
-		free(tab[j++]);
-	free(tab);
+		dh_free(tab[j++]);
+	dh_free(tab);
 	return (0);
 }
 
@@ -86,7 +86,7 @@ char	**ft_split(char const *str, char c)
 
 	if (!str)
 		return (NULL);
-	table = malloc(sizeof(char *) * (count_word((char *)str, c) + 1));
+	table = dh_malloc(sizeof(char *) * (count_word((char *)str, c) + 1));
 	if (!table)
 		return (NULL);
 	i[1] = 0;
@@ -95,7 +95,7 @@ char	**ft_split(char const *str, char c)
 	{
 		i[2] = 0;
 		i[0] += next_word((char *)str, i[0], c);
-		word = malloc(word_len((char *)str, i[0], c) + 1);
+		word = dh_malloc(word_len((char *)str, i[0], c) + 1);
 		if (!word)
 			return (empty(table, 0, 0, 0));
 		while (str[i[0]] != c && str[i[0]])

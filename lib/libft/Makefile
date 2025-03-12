@@ -48,7 +48,7 @@ SRCS := ft_isalpha.c\
 	ft_strapp.c\
 	ft_charite.c\
 	ft_strjoinchar.c\
-
+	ft_deshandler.c\
 	
 	
 
@@ -56,7 +56,7 @@ OBJS := $(SRCS:.c=.o)
 
 
 CC := cc
-FLAGS := -Wall -Werror -Wextra
+FLAGS := -Wall -Werror -Wextra -g
 
 NAME := libft.a
 

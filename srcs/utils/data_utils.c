@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 17:29:04 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	delete_cmd(t_data *data, int i)
 		i++;
 	}
 	ft_free_tab(cmd_tmp.cmd);
-	free(cmd_tmp.path);
+	dh_free(cmd_tmp.path);
 }
 
 void	fill_exec_path(t_data *data)
@@ -46,10 +46,11 @@ void	fill_exec_path(t_data *data)
 void	fill_data(t_data *data, char **full_line, char *line)
 {
 	fill_command(data, full_line);
-	free(full_line);
+	sort_cmd(data);
+	dh_free(full_line);
 	fill_paths(data);
 	fill_exec_path(data);
-	// printcmd(data);FIL
+	// printcmd(data);
 	data->redir_fd[0] = 0;
 	data->redir_fd[1] = 0;
 	add_history(line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/11 17:32:55 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:53:34 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int arg_c, char **arg_v, char **env)
 	{
 		if (!rl)
 			break ;
-		if (rl)
+		if (*rl)
 		{
 			if (!fill_line_data(&data, rl) && !check_pipe(&data, rl))
 				make_exec(data, rl);
@@ -36,6 +36,7 @@ int	main(int arg_c, char **arg_v, char **env)
 		}
 		rl = readline("cacashell-> ");
 	}
+	exit(data.exit_status);
 	(void)arg_c;
 	(void)arg_v;
 }

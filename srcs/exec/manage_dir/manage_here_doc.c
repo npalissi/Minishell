@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:32:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 13:05:49 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	destroy_here_doc(t_data *data)
 	while(data->here_doc_name && data->here_doc_name[i])
 	{
 		unlink(data->here_doc_name[i]);
-		free(data->here_doc_name[i]);
+		dh_free(data->here_doc_name[i]);
 		i++;
 	}
-	free(data->here_doc_name);
+	dh_free(data->here_doc_name);
 	return (0);
 }
 
@@ -94,7 +94,7 @@ char *start_here_doc(t_data *data, char *lim, char *l)
 			{
 				line = ft_strjoinfree(line, "\n", 1);
 				ft_putstr_fd(line, fd);
-				free(line);
+				dh_free(line);
 			}
 			else if (!line)
 			{

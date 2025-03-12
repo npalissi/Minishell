@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:19:06 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 11:15:50 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	clean_cmd(t_data *data)
 				h = save_j + 1;
 				while (data->cmd_list[i].cmd[j])
 					data->cmd_list[i].cmd[j++] = data->cmd_list[i].cmd[h++];
-				free(save_str[0]);
-				free(save_str[1]);
+				dh_free(save_str[0]);
+				dh_free(save_str[1]);
 				j = save_j;
 			}
 			else 

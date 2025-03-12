@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 11:44:48 by edubois-          #+#    #+#             */
-/*   Updated: 2024/10/15 19:54:23 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:26:58 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_itoa(int n)
 {
 	char	*nb;
 
-	nb = malloc(nb_len(n) + 1 + (n < 0));
+	nb = dh_malloc(nb_len(n) + 1 + (n < 0));
 	if (!nb)
 		return (NULL);
 	fill_buffer(nb, n);

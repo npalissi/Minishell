@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42angouleme>    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:52:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/26 22:46:59 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	clear_data(t_data data)
 	while (data.cmd_list && data.cmd_list[i].cmd)
 	{
 		ft_free_tab(data.cmd_list[i].cmd);
-		free(data.cmd_list[i].path);
+		dh_free(data.cmd_list[i].path);
 		i++;
 	}
-	free(data.cmd_list);
+	dh_free(data.cmd_list);
 	rl_clear_history();
 }
 

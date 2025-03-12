@@ -2,7 +2,8 @@
   "files.associations": {
     "minishell.h": "c",
     "libft.h": "c",
-    "sstream": "c"
+    "sstream": "c",
+    "chrono": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "gcc",

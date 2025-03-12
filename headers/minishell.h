@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/11 14:51:39 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 12:21:58 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ void	check_all_error(t_data *data, int i, int j, int error);
 int	add_error(t_data *data, int i, int *error, int error_code);
 void    reset_data(t_data *data, char *rl);
 void	reset_data_here(t_data *data, char *line);
+void	sort_cmd(t_data *data);
+void	ft_strapp_off(char ***tab, char *str, int offsett);
 
 #endif

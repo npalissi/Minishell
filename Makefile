@@ -6,7 +6,7 @@
 #    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
-#    Updated: 2025/03/10 08:19:52 by edubois-         ###   ########.fr        #
+#    Updated: 2025/03/12 11:00:54 by edubois-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS 			=	srcs/main.c\
 					srcs/exec/manage_dir/create_redir.c\
 					srcs/parsing/check_all_error.c\
 					srcs/utils/clear_data.c\
+					srcs/utils/utils.c\
 
 OBJS 			:= $(SRCS:.c=.o)
 
