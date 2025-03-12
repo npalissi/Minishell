@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:44:53 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int	fill_line_data(t_data *data, char *line)
 	if (i)
 	{
 		add_history(line);
+		data->exit_status = 2;
 		ft_printf(2, "%s\n", "Quote error !");
 		ft_free_tab(full_line);
 	}

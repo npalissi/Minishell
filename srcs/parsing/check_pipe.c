@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:59:26 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 14:21:35 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:45:07 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	check_pipe(t_data *data, char *line)
 	if (data->cmd_list[i].cmd && ft_charite(line, '|'))
 	{
 		ft_printf(2, "shellokitty: syntax error near \"|\"\n", NULL);
+		data->exit_status = 2;
 		return (1);
 	}
 	return (0);

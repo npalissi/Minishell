@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:28:17 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	close_all(t_data *data, int pipe_fd[2])
 {
+	if (data->redir_fd[0] > 2)
+		close(data->redir_fd[0]);
+	if (data->redir_fd[01] > 2)
+		close(data->redir_fd[1]);
 	if (pipe_fd[0] > 2)
 		close(pipe_fd[0]);
 	if (pipe_fd[1] > 2)

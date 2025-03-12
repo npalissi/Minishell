@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 08:18:34 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:36:36 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:45:42 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	free_cmd(t_data *data)
 
 void    reset_data(t_data *data, char *rl)
 {
+	data->exit_status = 0;
 	free(rl);
 	dh_free(data->pids);
 	free_cmd(data);
-	rl_clear_history();
 }
 
 void	free_cmd_here(t_data *data)

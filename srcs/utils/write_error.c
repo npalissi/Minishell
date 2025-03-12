@@ -6,11 +6,25 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:46:21 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 11:34:03 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:19:56 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+int	check_for_dir(t_data *data, int i)
+{
+	struct stat path_stat;
+	int	valid;
+
+	valid = 0;
+    if (!stat(data->cmd_list[i].path, &path_stat))
+		valid = S_ISDIR(path_stat.st_mode);
+	if (valid)
+		ft_printf(2, "Shellokitty: %s: Is a directory\n", data->cmd_list[i].cmd[0]);
+	return (valid);
+}
+
 
 void	check_exec_error(t_data data)
 {
@@ -19,9 +33,11 @@ void	check_exec_error(t_data data)
 	i = 0;
 	while (data.cmd_list[i].cmd)
 	{
-		if (data.cmd_list[i].cmd[0][0] == '|' && i++)
+		if (check_for_dir(&data, i))
+			data.exit_status = 126;			
+		else if (data.cmd_list[i].cmd[0][0] == '|' && i++)
 			continue ;
-		if (!ft_strncmp(data.cmd_list[i].cmd[0], "./", 2)
+		else if (!ft_strncmp(data.cmd_list[i].cmd[0], "./", 2)
 			&& access(data.cmd_list[i].path, F_OK) == -1)
 			ft_printf(2, "Shellokitty: %s: file not found\n",
 				data.cmd_list[i].cmd[0]);

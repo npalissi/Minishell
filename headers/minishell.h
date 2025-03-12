@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/12 12:21:58 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:38:58 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 typedef struct s_cmd
 {
