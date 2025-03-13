@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:25:47 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:33:10 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:30:49 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	open_redir(t_data *data, char *redir)
 		while (data->cmd_list[i].cmd[j])
 		{
 			fd = 0;
-			if (fd > 2)
-				close(fd);			
 			if (ft_strcmp(data->cmd_list[i].cmd[j], redir) && ft_strcmp(redir, ">>"))
 				fd = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
-			if (ft_strcmp(data->cmd_list[i].cmd[j], redir) && ft_strcmp(redir, ">"))
+			else if (ft_strcmp(data->cmd_list[i].cmd[j], redir) && ft_strcmp(redir, ">"))
 				fd = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);	
+			if (fd > 2)
+				close(fd);			
 			j++;
 		}
 		i++;

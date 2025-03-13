@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:06:28 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/13 10:45:27 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:48:35 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	sort_cmd(t_data *data)
 	i = 0;
 	while (data->cmd_list[i].cmd)
 	{
-		if (ft_arraylen(data->cmd_list[i].cmd) > 2)
+			
+		if (ft_arraylen(data->cmd_list[i].cmd) > 2 && !check_for_cmd(data, i))
 		{
 			while (data->cmd_list[i].cmd[0][0] == '<' || data->cmd_list[i].cmd[0][0] == '>')
 			{

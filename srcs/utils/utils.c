@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:00:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:21:16 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,20 @@ void	ft_strapp_off(char ***tab, char *str, int offset)
 	else
 		dh_free(*tab);
 	*tab = tmp;
+}
+
+int	check_for_cmd(t_data *data, int i)
+{
+	int j;
+	int	error;
+
+	error = 0;
+	j = 0;
+	while (data->cmd_list[i].cmd && data->cmd_list[i].cmd[j])
+	{
+		if ((data->cmd_list[i].cmd[j + 1] && data->cmd_list[i].cmd[j + 1][0] != '<' && data->cmd_list[i].cmd[j + 1][0] != '>') && (j > 0 && (data->cmd_list[i].cmd[j - 1][0] != '>' && data->cmd_list[i].cmd[j - 1][0] != '<')))
+			error = 1;	
+		j++;
+	}
+	return (error);
 }
