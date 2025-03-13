@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:46:21 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:38:56 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:11:20 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ int	check_for_dir(t_data *data, int i)
     if (!stat(data->cmd_list[i].path, &path_stat))
 		valid = S_ISDIR(path_stat.st_mode);
 	if (valid)
-		ft_printf(2, "Shellokitty: %s: Is a directory\n", data->cmd_list[i].cmd[0]);
+		ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Shellokitty: %s: Is a directory\n" RESET, data->cmd_list[i].cmd[0]);
 	else if (data->cmd_list[i].cmd[0][0] == '/' || (data->cmd_list[i].cmd[0][0] && data->cmd_list[i].cmd[0][1] == '/'))
 	{
-		ft_printf(2, "Shellokitty: %s: No such file or directory\n",
-			data->cmd_list[i].cmd[0]);
-		valid++;
+		if (access(data->cmd_list[i].path, F_OK) == -1)
+		{
+			ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Shellokitty: %s: No such file or directory\n" RESET,
+				data->cmd_list[i].cmd[0]);
+			valid++;
+		}
 	}
 	return (valid);
 }
@@ -45,13 +48,13 @@ void	check_exec_error(t_data data)
 			continue ;
 		else if (!ft_strncmp(data.cmd_list[i].cmd[0], "./", 2)
 			&& access(data.cmd_list[i].path, F_OK) == -1)
-			ft_printf(2, "Shellokitty: %s: No such file or directory\n",
+			ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Shellokitty: %s: No such file or directory\n" RESET,
 				data.cmd_list[i].cmd[0]);
 		else if (!data.cmd_list[i].path && !(ft_strchr("<>", data.cmd_list[i].cmd[0][0])))
-			ft_printf(2, "Shellokitty: %s: command not found\n",
+			ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Shellokitty: %s: command not found\n" RESET,
 				data.cmd_list[i].cmd[0]);
 		else if (access(data.cmd_list[i].path, X_OK) == -1 && !(ft_strchr("<>", data.cmd_list[i].cmd[0][0])))
-			ft_printf(2, "Shellokitty: %s permision denied\n",
+			ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Shellokitty: %s permision denied\n" RESET,
 				data.cmd_list[i].cmd[0]);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:32:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:45:27 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char *start_here_doc(t_data *data, char *lim, char *l)
 			}
 			else if (!line)
 			{
-				ft_printf(2, "shellokitty: warning: here-document delimited by end-of-file (wanted `%s')\n", lim);
+				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE"Shellokitty: warning: here-document delimited by end-of-file (wanted `%s')\n" RESET, lim);
 				close(fd);
 				reset_data_here(data, l);
 				exit(0);

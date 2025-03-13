@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:21:25 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:00:41 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	fill_exec_path(t_data *data)
 	{
 		if (data->cmd_list[i].cmd[0][0] == '/' || ((data->cmd_list[i].cmd[0][0]) && data->cmd_list[i].cmd[0][1] == '/'))
 		{
-			data->cmd_list[0].path = ft_strjoin(getenv("PWD"), "/");
+			data->cmd_list[0].path = ft_strjoin(getcwd(NULL, 0), "/");
 			data->cmd_list[0].path = ft_strjoinfree(data->cmd_list[0].path,
 					data->cmd_list[0].cmd[0] + 1 + (data->cmd_list[i].cmd[0][1] == '/'), 1);
 		}

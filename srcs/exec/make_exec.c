@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:28:17 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:45:27 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void    make_exec(t_data data, char *line)
 			data.fd_in = pipe_fd[0];
 			i++;
 			if (data.cmd_list[i].cmd && data.cmd_list[i].cmd[0][0] == '|' && i++ && !data.cmd_list[i].cmd)
-				ft_printf(2, "shellokitty: syntax error near \"|\"\n", NULL);
+				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Shellokitty: syntax error near \"|\"\n" RESET, NULL);
 		}
 		i = 0;
 		exit_status = 0;
@@ -129,7 +129,7 @@ void    make_exec(t_data data, char *line)
 			if (data.exit_status == 130)
 				ft_printf(2, "\n");
 			else if (data.exit_status == 131)
-				ft_printf(2, "Quit\n");
+				ft_printf(2, BOLD BEIGE"Quit\n" RESET);
 		}
 		check_exec_error(data);
 		dh_free(pids);

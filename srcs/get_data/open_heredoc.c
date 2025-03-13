@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:40:02 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:27:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:40:31 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	create_here_doc(t_data *data, char *line)
 			}
 			if (filename && access(filename, F_OK) == -1)
 			{
-				ft_printf(2, "Heredoc file deleted !\n");
+				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Heredoc file deleted !\n" RESET);
 				return(0);
 			}
 			if (filename)

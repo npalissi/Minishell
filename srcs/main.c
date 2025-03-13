@@ -6,18 +6,23 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/12 15:24:01 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:28:56 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+void	print_start()
+{
+	printf(ART);
+}
 
 int	main(int arg_c, char **arg_v, char **env)
 {
 	t_data	data;
 	char	*rl;
 
-	printf("start minishell\n");
+	print_start();
 	data = (t_data){0};
 	data.env = env;
 	collect_data(&data);
