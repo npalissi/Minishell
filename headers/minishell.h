@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/13 14:48:15 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:02:05 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 
 # define MAX_PWD 200
 
-#include <stdio.h>
-
-
-# define ART "┏┓┳┓┳┳┳┓┏┓┳┏┓  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n┣ ┃┃┃┃┣┫┃┃┃┗┓━ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n┗┛┻┛┗┛┻┛┗┛┻┗┛  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⣷⣝⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n┳┓┏┓┏┓┓ ┳┏┓┏┓┳ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢯⠙⢷⡍⣽⣿⣿⣿⣿⣿⣿⣿⠟⠋⡉⢉⢩⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n┃┃┃┃┣┫┃ ┃┗┓┗┓┃ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡸⡄⣀⠙⠮⣛⢿⣿⡿⠛⠩⠄⠀⠪⣾⡿⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n┛┗┣┛┛┗┗┛┻┗┛┗┛┻ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣧⠠⠖⠒⠈⠳⢄⣤⡤⠖⠋⢀⣾⣟⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⡿⠏⠋⠉⠉⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⠁⢸⡆⠒⣋⣉⡁⠤⠤⠖⠂⠁⣾⠏⣾⠿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⠍⠀⢐⣤⣦⡀⠄⠘⣿⣿⣿⣿⣿⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⣿⢋⡹⢻⡏⠍⠍⡿⠅⢀⣴⠞⠃⣈⣁⡤⠤⠖⠐⠓⢄⢸⡟⠈⠀⠈⣡⠏⠐⣦⢻⡿⠿⠿⣿⡿⢛⡛⣿⣿⣿⣿⣿⣿⣿⣿\n⣿⣿⣿⠀⡈⢸⣿⣿⣇⣄⣄⡟⠒⠙⣿⣿⣧⠐⠚⠈⣿⣿⣿⣿⣿⣿⣿⡇⠀⠸⠇⠀⠀⡤⠞⠋⠐⠊⢉⣁⡤⠤⠖⠒⠀⠀⠘⠸⠃⠀⢀⣴⣿⡤⠀⣒⠉⠀⢹⡇⠏⠀⢸⣇⠻⠛⣭⡝⠟⠉⣭⢍\n⣿⣿⣿⡆⠀⠈⠛⠻⢿⣿⣿⡇⠀⠀⢻⣿⣿⢰⠀⠀⣿⢟⡩⠭⠭⠻⣿⡇⠀⢠⣿⠀⠠⣶⡄⠀⠈⠉⠀⠄⠒⠒⠋⣉⠀⠀⠀⠀⠀⢲⡜⣿⣿⡀⠀⣿⠀⠀⠈⠹⠀⠀⠀⠘⢂⠀⠸⡟⠀⢰⣿⢸\n⣿⣿⣿⣿⣶⣄⣂⠀⡀⠈⢻⣿⠀⠀⠐⠒⠒⠊⠀⠀⠁⠂⠀⣀⣀⠀⢘⡇⠀⠈⣷⠀⠀⡮⠁⠀⣶⡢⠀⠀⠐⠋⡉⡥⠀⠀⠀⡀⠀⠀⠙⢎⠻⡇⠀⢿⠀⠀⢸⣇⢿⠀⠀⣿⢸⡀⠀⠁⠀⣸⡇⣾\n⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠐⣿⠀⠀⢠⣴⣶⠀⠀⠀⢠⠀⠀⠉⠀⠀⠀⡇⠀⠀⣿⠀⠀⣇⠀⠀⢻⣿⠀⠀⢈⣀⣴⢲⠃⠀⠠⢩⣥⣀⠀⠈⠻⡄⠀⢸⡀⠀⠈⣿⢸⠀⠀⣿⠸⣧⠀⠀⠀⣿⢃⣿\n⣿⣿⣿⠈⠈⢸⣿⣿⡇⠀⠂⣿⠀⠀⢸⣿⣿⡆⠀⠀⢨⠀⠀⠟⠁⠈⢀⡇⠀⠀⣿⠀⠀⣿⡀⠀⠀⠀⠀⢰⡠⡾⢃⢣⣇⡀⣈⣃⣿⣿⣶⣤⣤⣄⣀⣘⣃⡀⠀⠉⡶⠀⠀⠉⠿⠸⡇⠀⢸⡟⣸⣿\n⣿⣿⣿⣄⠐⠈⠉⠋⢀⠐⣨⣿⣀⣀⣸⣿⣿⣧⣤⣤⣼⣶⣤⣀⣠⣤⣾⣿⣶⣶⣿⣷⣶⣿⣿⣶⣶⣶⣶⣸⡇⣱⢣⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣀⣄⣨⣵⣿⣿\n⣿⣿⣿⣿⣶⣴⣤⣬⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⣿⢃⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n"
-
+# define RDM_NAME	"abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTU"
 
 # define BOLD      "\033[1m"
 
@@ -54,6 +50,7 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	char	**env;
+	char	*line;
 	char	*pwd;
 	char	**paths;
 	t_cmd	*cmd_list;
@@ -62,8 +59,7 @@ typedef struct s_data
 	int		*pids;
 	int		fd_in;
 	int		fd_out;
-	char	**here_doc_name;
-	
+	char	**here_doc_name;	
 	int		redir_fd[2];
 }	t_data;
 
@@ -80,7 +76,7 @@ void	echo(char *arg, int flag);
 int		nb_cmd(t_data data);
 void	add_to_file(t_cmd cmd, int fd);
 void	delete_cmd(t_data *data, int i);
-void	make_exec(t_data data, char *line);
+void	make_exec(t_data data);
 void	check_exec_error(t_data data);
 int		check_quote(char *str);
 void	add_quoted_word(char **word, char **str, int *idq, int *iq);
@@ -94,23 +90,31 @@ char	*dup_char(char c, int size);
 char	**ft_ms_split(char *str, int *quote_pb);
 void	manage_exec_dir(t_data *data, int i);
 void	printcmd(t_data *data); // a supp
-char	*start_here_doc(t_data *data, char *lim, char *line);
+char	*start_here_doc(t_data *data, char *lim);
 void	manage_pipe(t_data *data, int pipe_fd[2]);
 void	fill_data(t_data *data, char **full_line, char *line);
 void	fill_command(t_data *data, char **line);
 int		fill_flags(t_data *data, char **line, int i, int j);
 void	fill_paths(t_data *data);
-int	destroy_here_doc(t_data *data);
-int	check_error(t_data *data, int i, int j, char *redir);
-int		create_here_doc(t_data *data, char *line);
+int		destroy_here_doc(t_data *data);
+int		check_error(t_data *data, int i, int j, char *redir);
+int		create_here_doc(t_data *data);
 int		check_pipe(t_data *data, char *line);
-int	create_redir(t_data *data);
+int		create_redir(t_data *data);
 void	check_all_error(t_data *data, int i, int j, int error);
-int	add_error(t_data *data, int i, int *error, int error_code);
-void    reset_data(t_data *data, char *rl);
-void	reset_data_here(t_data *data, char *line);
+int		add_error(t_data *data, int i, int *error, int error_code);
+void	reset_data(t_data *data);
+void	reset_data_here(t_data *data);
 void	sort_cmd(t_data *data);
 void	ft_strapp_off(char ***tab, char *str, int offsett);
-int	check_for_cmd(t_data *data, int i);
+int		check_for_cmd(t_data *data, int i);
+void	child_fork(t_data *data, char *rdm_name, char *lim);
+void	write_fd(int fd, char *line, char *lim, t_data *data);
+char	*random_name(void);
+int		keep_fd(int new_fd);
+void	handle_input_redirection(t_data *data, int i, int j);
+void	handle_heredoc_redirection(t_data *data, int i, int j);
+void	handle_output_redirection(t_data *data, int i, int j);
+void	handle_append_redirection(t_data *data, int i, int j);
 
 #endif

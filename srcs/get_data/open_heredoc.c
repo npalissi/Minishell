@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:40:02 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/13 10:40:31 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:59:50 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_strswap(t_data *data, int i[2], char *from, char *to)
 	dh_free(save);
 }
 
-int	create_here_doc(t_data *data, char *line)
+int	create_here_doc(t_data *data)
 {
 	int		i[2];
 	char	*filename;
@@ -39,13 +39,14 @@ int	create_here_doc(t_data *data, char *line)
 				&& data->cmd_list[i[0]].cmd[i[1] + 1])
 			{
 				filename = start_here_doc(data,
-						data->cmd_list[i[0]].cmd[i[1] + 1], line);
+						data->cmd_list[i[0]].cmd[i[1] + 1]);
 				delim = data->cmd_list[i[0]].cmd[i[1] + 1];
 			}
 			if (filename && access(filename, F_OK) == -1)
 			{
-				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Heredoc file deleted !\n" RESET);
-				return(0);
+				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE
+					"Heredoc file deleted !\n" RESET);
+				return (0);
 			}
 			if (filename)
 			{

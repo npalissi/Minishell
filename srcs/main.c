@@ -6,18 +6,32 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/13 14:27:53 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:30:28 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+void	print_art(void)
+{
+	int			fd;
+	static char	buf[5000] = {0};
+
+	fd = open("kitty.txt", O_RDONLY);
+	if (fd > 2)
+	{
+		read(fd, buf, 5000);
+		printf("%s", buf);
+		close(fd);
+	}
+}
 
 int	main(int arg_c, char **arg_v, char **env)
 {
 	t_data	data;
 	char	*rl;
 
-	printf(ART);
+	print_art();
 	data = (t_data){0};
 	data.env = env;
 	collect_data(&data);
@@ -31,8 +45,8 @@ int	main(int arg_c, char **arg_v, char **env)
 		if (*rl)
 		{
 			if (!fill_line_data(&data, rl) && !check_pipe(&data, rl))
-				make_exec(data, rl);
-			reset_data(&data, rl);
+				make_exec(data);
+			reset_data(&data);
 		}
 		rl = readline("cacashell-> ");
 	}

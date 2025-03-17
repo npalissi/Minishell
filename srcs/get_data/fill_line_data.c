@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/13 10:40:13 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:06:50 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ void	fill_command(t_data *data, char **line)
 	{
 		while (line[j] && line[j][0] != '|')
 			ft_strapp(&data->cmd_list[i].cmd, line[j++]);
-		if (line[j] && line[j][0] == '|')
+		if (line[j] && line[j][0] == '|' && !j)
+			ft_strapp(&data->cmd_list[i].cmd, line[j++]);			
+		else if (line[j] && line[j][0] == '|')
 			ft_strapp(&data->cmd_list[++i].cmd, line[j++]);
 		i++;
 	}

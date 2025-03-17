@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:40:40 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:29:28 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 09:41:11 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,82 +14,82 @@
 
 #include <stdlib.h>
 
-t_list    *dh_get_heap(t_list *lst)
+t_list	*dh_get_heap(t_list *lst)
 {
-    static t_list    *lst_heap;
+	static t_list	*lst_heap;
 
-    if (lst)
-        lst_heap = lst;
-    if (!lst && !lst_heap)
-        return (NULL);
-    return (lst_heap);
+	if (lst)
+		lst_heap = lst;
+	if (!lst && !lst_heap)
+		return (NULL);
+	return (lst_heap);
 }
 
-int    dh_add_ptr(void *ptr)
+int	dh_add_ptr(void *ptr)
 {
-    t_list    *new_node;
-    t_list    *lst;
+	t_list	*new_node;
+	t_list	*lst;
 
-    lst = dh_get_heap(NULL);
-    new_node = malloc(sizeof(t_list));
-    if (!new_node)
-        return (0);
-    new_node->next = NULL;
-    new_node->content = ptr;
-    if (lst)
-        new_node->next = lst;
-    lst = new_node;
-    dh_get_heap(lst);
-    return (1);
+	lst = dh_get_heap(NULL);
+	new_node = malloc(sizeof(t_list));
+	if (!new_node)
+		return (0);
+	new_node->next = NULL;
+	new_node->content = ptr;
+	if (lst)
+		new_node->next = lst;
+	lst = new_node;
+	dh_get_heap(lst);
+	return (1);
 }
 
-void    dh_free_all(void)
+void	dh_free_all(void)
 {
-    t_list    *lst;
-    t_list    *tmp;
+	t_list	*lst;
+	t_list	*tmp;
 
-    lst = dh_get_heap(NULL);
-    while (lst)
-    {
-        tmp = lst->next;
-        if (lst->content)
-            free(lst->content);
-        free(lst);
-        lst = tmp;
-    }
+	lst = dh_get_heap(NULL);
+	while (lst)
+	{
+		tmp = lst->next;
+		if (lst->content)
+			free(lst->content);
+		free(lst);
+		lst = tmp;
+	}
 }
 
-void    dh_free(void *ptr)
+void	dh_free(void *ptr)
 {
-    t_list    *lst;
-    t_list    *tmp;
+	t_list	*lst;
+	t_list	*tmp;
 
-    lst = dh_get_heap(NULL);
-    tmp = lst;
-    while (tmp)
-    {
-        if (tmp->content == ptr)
-        {
-            free(tmp->content);
-            tmp->content = NULL;
-            break ;
-        }
-        tmp = tmp->next;
-    }
-    dh_get_heap(lst);
+	lst = dh_get_heap(NULL);
+	tmp = lst;
+	while (tmp)
+	{
+		if (tmp->content == ptr)
+		{
+			free(tmp->content);
+			tmp->content = NULL;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	dh_get_heap(lst);
 }
 
-void    *dh_malloc(size_t size)
+void	*dh_malloc(size_t size)
 {
-    void    *ptr;
+	void	*ptr;
 
-    ptr = malloc(size);
-    if (!ptr)
-        return (NULL);
-    if (!dh_add_ptr(ptr))
-    {
-        free(ptr);
-        return (NULL);
-    }
-    return (ptr);
+	ptr = malloc(size);
+	if (!ptr)
+		return (NULL);
+	if (!dh_add_ptr(ptr))
+	{
+		free(ptr);
+		return (NULL);
+	}
+	return (ptr);
 }

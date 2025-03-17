@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/13 10:45:27 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:27:07 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	manage_pipe(t_data *data, int pipe_fd[2])
 {
 	int	fd_in;
 	int	fd_out;
-	
+
 	fd_out = pipe_fd[1];
 	if (data->redir_fd[1] > 2)
 		fd_out = data->redir_fd[1];
@@ -64,26 +64,28 @@ int	nb_cmd(t_data data)
 	return (c);
 }
 
-void    make_exec(t_data data, char *line)
+void	make_exec(t_data data)
 {
 	int	*pids;
-	int i;
+	int	i;
 	int	pipe_fd[2];
-	int exit_status;
-			
-	if (create_here_doc(&data, line) && create_redir(&data))
+	int	exit_status;
+
+	if (create_here_doc(&data) && create_redir(&data))
 	{
-		pids = ft_calloc(4 ,nb_cmd(data) + 1) ;
+		pids = ft_calloc(4, nb_cmd(data) + 1);
 		if (!pids)
 			return ;
 		data.pids = pids;
 		data.fd_in = STDIN_FILENO;
 		i = 0;
-		while(data.cmd_list[i].cmd)
+		while (data.cmd_list[i].cmd)
 		{
 			pipe_fd[0] = -1;
 			pipe_fd[1] = -1;
-			if (data.cmd_list[i].cmd && data.cmd_list[i + 1].cmd && data.cmd_list[i + 1].cmd[0][0] == '|' && data.cmd_list[i + 1].cmd && pipe(pipe_fd) == -1)
+			if (data.cmd_list[i].cmd && data.cmd_list[i + 1].cmd
+				&& data.cmd_list[i + 1].cmd[0][0] == '|'
+					&& data.cmd_list[i + 1].cmd && pipe(pipe_fd) == -1)
 				return ;
 			pids[i] = fork();
 			if (pids[i] == 0)
@@ -99,9 +101,10 @@ void    make_exec(t_data data, char *line)
 					pipe_fd[1] = STDOUT_FILENO;
 				}
 				manage_pipe(&data, pipe_fd);
-				if (!data.cmd_list[i].error)
-					execve(data.cmd_list[i].path, data.cmd_list[i].cmd, data.env);
-				reset_data_here(&data, line);
+				if (!data.cmd_list[i].error && data.cmd_list[i].path)
+					execve(data.cmd_list[i].path,
+						data.cmd_list[i].cmd, data.env);
+				reset_data_here(&data);
 				exit(127);
 			}
 			if (data.fd_in > 2)
@@ -110,8 +113,10 @@ void    make_exec(t_data data, char *line)
 				close(pipe_fd[1]);
 			data.fd_in = pipe_fd[0];
 			i++;
-			if (data.cmd_list[i].cmd && data.cmd_list[i].cmd[0][0] == '|' && i++ && !data.cmd_list[i].cmd)
-				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "Shellokitty: syntax error near \"|\"\n" RESET, NULL);
+			if (data.cmd_list[i].cmd && data.cmd_list[i].cmd[0][0] == '|'
+				&& i++ && !data.cmd_list[i].cmd)
+				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE
+					"Shellokitty: syntax error near \"|\"\n" RESET, NULL);
 		}
 		i = 0;
 		exit_status = 0;
@@ -135,6 +140,4 @@ void    make_exec(t_data data, char *line)
 		dh_free(pids);
 	}
 	destroy_here_doc(&data);
-
 }
-

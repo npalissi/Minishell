@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 08:18:34 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:45:42 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:33:16 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	free_cmd(t_data *data)
 	}
 }
 
-void    reset_data(t_data *data, char *rl)
+void    reset_data(t_data *data)
 {
 	data->exit_status = 0;
-	free(rl);
+	free(data->line);
 	dh_free(data->pids);
 	free_cmd(data);
 }
@@ -60,12 +60,12 @@ void	free_cmd_here(t_data *data)
 	dh_free(data->cmd_list);
 }
 
-void	reset_data_here(t_data *data, char *line)
+void	reset_data_here(t_data *data)
 {
 	dh_free(data->pids);
-	dh_free(line);
 	ft_free_tab(data->paths);
 	free_cmd_here(data);
 	ft_free_tab(data->here_doc_name);
 	rl_clear_history();
+	free(data->line);
 }

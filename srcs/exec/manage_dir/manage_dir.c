@@ -6,50 +6,78 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:19:06 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/13 15:27:42 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:57:05 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../headers/minishell.h"
 
+void	handle_redirection_removal(t_data *data, int i, int j)
+{
+	int		h;
+	int		save_j;
+	char	*save_str[2];
+
+	h = j + 1;
+	save_j = j;
+	save_str[0] = data->cmd_list[i].cmd[j];
+	save_str[1] = data->cmd_list[i].cmd[j + 1];
+	while (data->cmd_list[i].cmd[j])
+		data->cmd_list[i].cmd[j++] = data->cmd_list[i].cmd[h++];
+	j = save_j;
+	h = save_j + 1;
+	while (data->cmd_list[i].cmd[j])
+		data->cmd_list[i].cmd[j++] = data->cmd_list[i].cmd[h++];
+	dh_free(save_str[0]);
+	dh_free(save_str[1]);
+}
+
+void	remove_redirections_from_cmd(t_data *data, int i)
+{
+	int	j;
+
+	j = 0;
+	while (data->cmd_list[i].cmd[j])
+	{
+		if (data->cmd_list[i].cmd[j][0] == '<' ||
+			data->cmd_list[i].cmd[j][0] == '>')
+		{
+			handle_redirection_removal(data, i, j);
+		}
+		else
+			j++;
+	}
+}
+
 void	clean_cmd(t_data *data)
 {
 	int	i;
-	int	j;
-	int h;
-	int	save_j;
-	char	*save_str[2];
 
 	i = 0;
 	while (data->cmd_list[i].cmd)
 	{
-		j = 0;
-		while (data->cmd_list[i].cmd[j])
-		{
-			if (data->cmd_list[i].cmd[j][0] == '<' || data->cmd_list[i].cmd[j][0] == '>')
-			{
-				h = j + 1;
-				save_j = j;
-				save_str[0] = data->cmd_list[i].cmd[j];
-				save_str[1] = data->cmd_list[i].cmd[j + 1];
-				while (data->cmd_list[i].cmd[j])
-					data->cmd_list[i].cmd[j++] = data->cmd_list[i].cmd[h++];
-				j = save_j;
-				h = save_j + 1;
-				while (data->cmd_list[i].cmd[j])
-					data->cmd_list[i].cmd[j++] = data->cmd_list[i].cmd[h++];
-				dh_free(save_str[0]);
-				dh_free(save_str[1]);
-				j = save_j;
-			}
-			else 
-				j++;
-		}
+		remove_redirections_from_cmd(data, i);
 		i++;
 	}
 }
 
-void manage_exec_dir(t_data *data, int i)
+void	process_redirections(t_data *data, int i, int j)
+{
+	if (ft_strcmp(data->cmd_list[i].cmd[j], "<")
+		&& !check_error(data, i, j, "<"))
+		handle_input_redirection(data, i, j);
+	else if (ft_strcmp(data->cmd_list[i].cmd[j], "<<")
+		&& !check_error(data, i, j, "<<"))
+		handle_heredoc_redirection(data, i, j);
+	else if (ft_strcmp(data->cmd_list[i].cmd[j], ">")
+		&& !check_error(data, i, j, ">"))
+		handle_output_redirection(data, i, j);
+	else if (ft_strcmp(data->cmd_list[i].cmd[j], ">>")
+		&& !check_error(data, i, j, ">>"))
+		handle_append_redirection(data, i, j);
+}
+
+void	manage_exec_dir(t_data *data, int i)
 {
 	int	j;
 
@@ -58,35 +86,10 @@ void manage_exec_dir(t_data *data, int i)
 	{
 		while (data->cmd_list[i].cmd[j])
 		{
-			if (ft_strcmp(data->cmd_list[i].cmd[j], "<") && !check_error(data, i, j, "<"))
-			{
-				if (data->redir_fd[0] > 2)
-					close(data->redir_fd[0]);
-				data->redir_fd[0] = open(data->cmd_list[i].cmd[j + 1], O_RDONLY);
-			}
-			else if (ft_strcmp(data->cmd_list[i].cmd[j], "<<") && !check_error(data, i, j, "<<"))
-			{	
-				if (data->redir_fd[0] > 2)
-					close(data->redir_fd[0]);
-				data->redir_fd[0] = open(data->cmd_list[i].cmd[j + 1], O_RDONLY, 0644);
-			}
-			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">") && !check_error(data, i, j, ">"))
-			{
-				if (data->redir_fd[1] > 2)
-					close(data->redir_fd[1]);
-				data->redir_fd[1] = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-			}
-			else if (ft_strcmp(data->cmd_list[i].cmd[j], ">>") && !check_error(data, i, j, ">>"))
-			{
-				if (data->redir_fd[1] > 2)
-					close(data->redir_fd[1]);
-				data->redir_fd[1] = open(data->cmd_list[i].cmd[j + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
-			}
+			process_redirections(data, i, j);
 			j++;
 		}
-		j = 0;
 		clean_cmd(data);
-		// printcmd(data);
 	}
 	data->here_doc_name = NULL;
 }
