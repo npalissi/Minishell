@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/17 18:02:05 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:51:33 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define MAX_PWD 200
 
 # define RDM_NAME	"abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTU"
+# define LONG_MAX 9223372036854775807L
+# define LONG_MIN (-9223372036854775807L - 1)
 
 # define BOLD      "\033[1m"
 
@@ -76,7 +78,7 @@ void	echo(char *arg, int flag);
 int		nb_cmd(t_data data);
 void	add_to_file(t_cmd cmd, int fd);
 void	delete_cmd(t_data *data, int i);
-void	make_exec(t_data data);
+void	make_exec(t_data *data);
 void	check_exec_error(t_data data);
 int		check_quote(char *str);
 void	add_quoted_word(char **word, char **str, int *idq, int *iq);
@@ -116,5 +118,7 @@ void	handle_input_redirection(t_data *data, int i, int j);
 void	handle_heredoc_redirection(t_data *data, int i, int j);
 void	handle_output_redirection(t_data *data, int i, int j);
 void	handle_append_redirection(t_data *data, int i, int j);
+void    ft_exit(t_data *data);
+int make_builtin(t_data *data, int *i);
 
 #endif

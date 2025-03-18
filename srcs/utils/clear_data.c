@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 08:18:34 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/17 10:33:16 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:04:55 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_cmd(t_data *data)
 {
-	int i;
+	int	i;
 	int	j;
 	int	len;
 
@@ -27,7 +27,9 @@ void	free_cmd(t_data *data)
 			len = ft_arraylen(data->cmd_list[i].cmd);
 			while (j <= len && data->cmd_list[i].cmd[j])
 			{
-				if ((data->cmd_list[i].cmd[j][0] == '<' || data->cmd_list[i].cmd[j][0] == '>') && data->cmd_list[i].cmd[j + 1])
+				if ((data->cmd_list[i].cmd[j][0] == '<'
+					|| data->cmd_list[i].cmd[j][0] == '>')
+					&& data->cmd_list[i].cmd[j + 1])
 					j += 2;
 				else
 					dh_free(data->cmd_list[i].cmd[j++]);
@@ -39,7 +41,7 @@ void	free_cmd(t_data *data)
 	}
 }
 
-void    reset_data(t_data *data)
+void	reset_data(t_data *data)
 {
 	data->exit_status = 0;
 	free(data->line);

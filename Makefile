@@ -6,7 +6,7 @@
 #    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
-#    Updated: 2025/03/17 17:17:41 by edubois-         ###   ########.fr        #
+#    Updated: 2025/03/18 12:45:08 by edubois-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,10 @@ LIBFT_DIR 		:=	$(DIR_LIB)/libft
 LIBFT_LIB 		:= $(LIBFT_DIR)/libft.a
 
 SRCS 			=	srcs/main.c\
-					srcs/cmd/pwd.c\
 					srcs/get_data/collect_data.c\
 					srcs/utils/exit.c\
 					srcs/get_data/fill_line_data.c\
 					srcs/utils/signal_handler.c\
-					srcs/cmd/env.c\
-					srcs/cmd/echo.c\
 					srcs/parsing/parsing.c\
 					srcs/utils/data_utils.c\
 					srcs/exec/make_exec.c\
@@ -45,6 +42,8 @@ SRCS 			=	srcs/main.c\
 					srcs/utils/utils.c\
 					srcs/exec/manage_dir/manage_here_doc_utils.c\
 					srcs/exec/manage_dir/manage_dir_utils.c\
+					srcs/exec/manage_builtins.c\
+					srcs/cmd/exit.c\
 
 OBJS 			:= $(SRCS:.c=.o)
 

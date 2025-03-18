@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/17 10:25:49 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:01:15 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,21 @@ void	delete_cmd(t_data *data, int i)
 
 void	fill_exec_path(t_data *data)
 {
-	int	i;
+	int		i;
+	char	buf[1024];
 
 	i = 0;
 	while (data->cmd_list[i].cmd)
 	{
-		if (data->cmd_list[i].cmd[0][0] == '/' || ((data->cmd_list[i].cmd[0][0]) && data->cmd_list[i].cmd[0][1] == '/'))
+		if (data->cmd_list[i].cmd[0][0] == '/'
+			|| ((data->cmd_list[i].cmd[0][0])
+			&& data->cmd_list[i].cmd[0][1] == '/'))
 		{
-			data->cmd_list[0].path = ft_strjoin(getcwd(NULL, 0), "/");
+			getcwd(buf, sizeof(buf));
+			data->cmd_list[0].path = ft_strjoin(buf, "/");
 			data->cmd_list[0].path = ft_strjoinfree(data->cmd_list[0].path,
-					data->cmd_list[0].cmd[0] + 1 + (data->cmd_list[i].cmd[0][1] == '/'), 1);
+					data->cmd_list[0].cmd[0]
+					+ 1 + (data->cmd_list[i].cmd[0][1] == '/'), 1);
 		}
 		i++;
 	}

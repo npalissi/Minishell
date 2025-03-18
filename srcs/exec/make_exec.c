@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/17 10:27:07 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:54:13 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,80 +64,83 @@ int	nb_cmd(t_data data)
 	return (c);
 }
 
-void	make_exec(t_data data)
+void	make_exec(t_data *data)
 {
 	int	*pids;
 	int	i;
 	int	pipe_fd[2];
 	int	exit_status;
 
-	if (create_here_doc(&data) && create_redir(&data))
+	if (create_here_doc(data) && create_redir(data))
 	{
-		pids = ft_calloc(4, nb_cmd(data) + 1);
+		pids = ft_calloc(4, nb_cmd(*data) + 1);
 		if (!pids)
 			return ;
-		data.pids = pids;
-		data.fd_in = STDIN_FILENO;
+		data->pids = pids;
+		data->fd_in = STDIN_FILENO;
 		i = 0;
-		while (data.cmd_list[i].cmd)
+		while (data->cmd_list[i].cmd)
 		{
-			pipe_fd[0] = -1;
-			pipe_fd[1] = -1;
-			if (data.cmd_list[i].cmd && data.cmd_list[i + 1].cmd
-				&& data.cmd_list[i + 1].cmd[0][0] == '|'
-					&& data.cmd_list[i + 1].cmd && pipe(pipe_fd) == -1)
-				return ;
-			pids[i] = fork();
-			if (pids[i] == 0)
+			if (!make_builtin(data, &i))
 			{
-				dh_free(pids);
-				signal(SIGQUIT, SIG_DFL);
-				signal(SIGINT, SIG_DFL);
-				manage_exec_dir(&data, i);
-				if (!data.cmd_list[i + 1].cmd)
+				pipe_fd[0] = -1;
+				pipe_fd[1] = -1;
+				if (data->cmd_list[i].cmd && data->cmd_list[i + 1].cmd
+					&& data->cmd_list[i + 1].cmd[0][0] == '|'
+						&& data->cmd_list[i + 1].cmd && pipe(pipe_fd) == -1)
+					return ;
+				pids[i] = fork();
+				if (pids[i] == 0)
 				{
-					if (pipe_fd[0] > 2)
-						close(pipe_fd[0]);
-					pipe_fd[1] = STDOUT_FILENO;
+					dh_free(pids);
+					signal(SIGQUIT, SIG_DFL);
+					signal(SIGINT, SIG_DFL);
+					manage_exec_dir(data, i);
+					if (!data->cmd_list[i + 1].cmd)
+					{
+						if (pipe_fd[0] > 2)
+							close(pipe_fd[0]);
+						pipe_fd[1] = STDOUT_FILENO;
+					}
+					manage_pipe(data, pipe_fd);
+					if (!data->cmd_list[i].error && data->cmd_list[i].path)
+						execve(data->cmd_list[i].path,
+							data->cmd_list[i].cmd, data->env);
+					reset_data_here(data);
+					exit(127);
 				}
-				manage_pipe(&data, pipe_fd);
-				if (!data.cmd_list[i].error && data.cmd_list[i].path)
-					execve(data.cmd_list[i].path,
-						data.cmd_list[i].cmd, data.env);
-				reset_data_here(&data);
-				exit(127);
+				if (data->fd_in > 2)
+					close(data->fd_in);
+				if (pipe_fd[1] > 2)
+					close(pipe_fd[1]);
+				data->fd_in = pipe_fd[0];
+				i++;
+				if (data->cmd_list[i].cmd && data->cmd_list[i].cmd[0][0] == '|'
+					&& i++ && !data->cmd_list[i].cmd)
+					ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE
+						"Shellokitty: syntax error near \"|\"\n" RESET, NULL);
 			}
-			if (data.fd_in > 2)
-				close(data.fd_in);
-			if (pipe_fd[1] > 2)
-				close(pipe_fd[1]);
-			data.fd_in = pipe_fd[0];
-			i++;
-			if (data.cmd_list[i].cmd && data.cmd_list[i].cmd[0][0] == '|'
-				&& i++ && !data.cmd_list[i].cmd)
-				ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE
-					"Shellokitty: syntax error near \"|\"\n" RESET, NULL);
 		}
 		i = 0;
 		exit_status = 0;
-		while (data.cmd_list[i].cmd)
+		while (data->cmd_list[i].cmd)
 		{
 			signal(SIGINT, SIG_IGN);
-			waitpid(data.pids[i], &exit_status, 0);
+			waitpid(data->pids[i], &exit_status, 0);
 			signal(SIGINT, signal_handler);
 			i++;
 		}
-		data.exit_status = WEXITSTATUS(exit_status);
+		data->exit_status = WEXITSTATUS(exit_status);
 		if (WIFSIGNALED(exit_status))
 		{
-			data.exit_status = 128 + WTERMSIG(exit_status);
-			if (data.exit_status == 130)
+			data->exit_status = 128 + WTERMSIG(exit_status);
+			if (data->exit_status == 130)
 				ft_printf(2, "\n");
-			else if (data.exit_status == 131)
+			else if (data->exit_status == 131)
 				ft_printf(2, BOLD BEIGE"Quit\n" RESET);
 		}
-		check_exec_error(data);
+		check_exec_error(*data);
 		dh_free(pids);
 	}
-	destroy_here_doc(&data);
+	destroy_here_doc(data);
 }

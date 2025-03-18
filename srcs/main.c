@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/17 10:30:28 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:55:52 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ int	main(int arg_c, char **arg_v, char **env)
 		if (*rl)
 		{
 			if (!fill_line_data(&data, rl) && !check_pipe(&data, rl))
-				make_exec(data);
+				make_exec(&data);
 			reset_data(&data);
 		}
-		rl = readline("cacashell-> ");
+		if (!data.exit)
+			rl = readline("cacashell-> ");
 	}
-	exit(data.exit_status);
+	exit(data.exit_status % 256);
 	(void)arg_c;
 	(void)arg_v;
 }
