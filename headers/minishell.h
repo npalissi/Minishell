@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/18 12:51:33 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:45:03 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ void	handle_heredoc_redirection(t_data *data, int i, int j);
 void	handle_output_redirection(t_data *data, int i, int j);
 void	handle_append_redirection(t_data *data, int i, int j);
 void    ft_exit(t_data *data);
-int make_builtin(t_data *data, int *i);
+int	make_builtin(t_data *data, int *i);
 
 #endif
