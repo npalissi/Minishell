@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/18 13:24:02 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 09:34:17 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ void	make_exec(t_data *data)
 			signal(SIGINT, signal_handler);
 			i++;
 		}
-		data->exit_status = WEXITSTATUS(exit_status);
+		if (!data->exit)
+			data->exit_status = WEXITSTATUS(exit_status);
 		if (WIFSIGNALED(exit_status))
 		{
 			data->exit_status = 128 + WTERMSIG(exit_status);

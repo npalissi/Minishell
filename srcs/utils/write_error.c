@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:46:21 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/18 11:02:23 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:09:09 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	check_exec_error(t_data data)
 {
 	int	i;
 
-	i = 0;
-	while (data.cmd_list[i].cmd)
+	i = -1;
+	while (data.cmd_list[++i].cmd)
 	{
+		if (data.cmd_list[i].builtin)
+			continue ;
 		if (check_for_dir(&data, i))
 			data.exit_status = 126;
 		else if (data.cmd_list[i].cmd[0][0] == '|' && i++)
@@ -73,6 +75,5 @@ void	check_exec_error(t_data data)
 			&& access(data.cmd_list[i].path, X_OK) == -1
 			&& !(ft_strchr("<>", data.cmd_list[i].cmd[0][0])))
 			print_error(2, data.cmd_list[i].cmd[0]);
-		i++;
 	}
 }

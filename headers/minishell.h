@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/18 13:45:03 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:18:06 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_cmd
 	char	**cmd;
 	char	*path;
 	int		error;
+	int		builtin;
 }	t_cmd;
 
 typedef struct s_data
@@ -70,7 +71,6 @@ int		reload_pwd(t_data *data);
 int		cd(t_data *data, t_cmd *cmd);
 void	collect_data(t_data *data);
 void	clear_data(t_data data);
-int		error_exit(t_data data, int sig, char *name);
 int		fill_line_data(t_data *data, char *line);
 void	signal_handler(int sig);
 void	cmd_env(t_data data);
@@ -96,7 +96,6 @@ char	*start_here_doc(t_data *data, char *lim);
 void	manage_pipe(t_data *data, int pipe_fd[2]);
 void	fill_data(t_data *data, char **full_line, char *line);
 void	fill_command(t_data *data, char **line);
-int		fill_flags(t_data *data, char **line, int i, int j);
 void	fill_paths(t_data *data);
 int		destroy_here_doc(t_data *data);
 int		check_error(t_data *data, int i, int j, char *redir);
@@ -119,6 +118,7 @@ void	handle_heredoc_redirection(t_data *data, int i, int j);
 void	handle_output_redirection(t_data *data, int i, int j);
 void	handle_append_redirection(t_data *data, int i, int j);
 void    ft_exit(t_data *data);
-int	make_builtin(t_data *data, int *i);
+int		make_builtin(t_data *data, int *i);
+char	*absolute_path(t_data *data, int j);
 
 #endif

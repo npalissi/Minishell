@@ -6,11 +6,30 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:00:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/18 10:04:15 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:27:23 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+char	*absolute_path(t_data *data, int j)
+{
+	struct stat	sb;
+	char		*cmd;
+
+	cmd = data->cmd_list[j].cmd[0];
+	if (ft_strncmp(cmd, "./", 2) == 0)
+	{
+		if (stat(cmd, &sb) == 0 && (sb.st_mode & S_IXUSR))
+			return (ft_strdup(cmd));
+	}
+	if (cmd[0] == '/')
+	{
+		if (stat(cmd, &sb) == 0 && (sb.st_mode & S_IXUSR))
+			return (ft_strdup(cmd));
+	}
+	return (NULL);
+}
 
 int	check_for_cmd(t_data *data, int i)
 {

@@ -6,7 +6,7 @@
 #    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
-#    Updated: 2025/03/18 12:45:08 by edubois-         ###   ########.fr        #
+#    Updated: 2025/03/19 11:18:41 by edubois-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ LIBFT_LIB 		:= $(LIBFT_DIR)/libft.a
 
 SRCS 			=	srcs/main.c\
 					srcs/get_data/collect_data.c\
-					srcs/utils/exit.c\
 					srcs/get_data/fill_line_data.c\
 					srcs/utils/signal_handler.c\
 					srcs/parsing/parsing.c\

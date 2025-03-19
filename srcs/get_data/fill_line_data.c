@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/18 10:00:13 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:47:37 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	fill_paths(t_data *data)
 	while (data->cmd_list[++j].cmd)
 	{
 		i = 0;
+		if (absolute_path(data, j))
+		{
+			data->cmd_list[j].path = absolute_path(data, j);
+			continue ;
+		}
 		tmp_path = ft_strjoin(data->paths[i], "/");
 		tmp_path_b = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
 		while (data->paths[++i] && access(tmp_path_b, F_OK) == -1)
@@ -39,21 +44,6 @@ void	fill_paths(t_data *data)
 			data->cmd_list[j].path = NULL;
 		}
 	}
-}
-
-int	fill_flags(t_data *data, char **line, int i, int j)
-{
-	int	c_flags;
-
-	c_flags = 1;
-	while (line[++j] && line[j][0] == '-')
-	{
-		ft_strapp(&data->cmd_list[i].cmd, line[j]);
-		c_flags++;
-		if (!data->cmd_list[i].cmd)
-			return (0);
-	}
-	return (c_flags);
 }
 
 int	len_cmd(char **line)
