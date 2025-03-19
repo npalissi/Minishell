@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:19:06 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/17 17:57:05 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:23:08 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,6 @@ void	remove_redirections_from_cmd(t_data *data, int i)
 	}
 }
 
-void	clean_cmd(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->cmd_list[i].cmd)
-	{
-		remove_redirections_from_cmd(data, i);
-		i++;
-	}
-}
-
 void	process_redirections(t_data *data, int i, int j)
 {
 	if (ft_strcmp(data->cmd_list[i].cmd[j], "<")
@@ -89,7 +77,6 @@ void	manage_exec_dir(t_data *data, int i)
 			process_redirections(data, i, j);
 			j++;
 		}
-		clean_cmd(data);
+		remove_redirections_from_cmd(data, i);
 	}
-	data->here_doc_name = NULL;
 }

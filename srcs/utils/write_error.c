@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:46:21 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 11:09:09 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:25:25 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	check_exec_error(t_data data)
 			continue ;
 		if (check_for_dir(&data, i))
 			data.exit_status = 126;
-		else if (data.cmd_list[i].cmd[0][0] == '|' && i++)
+		else if (data.cmd_list[i].cmd[0][0] == '|')
 			continue ;
 		else if (!ft_strncmp(data.cmd_list[i].cmd[0], "./", 2)
 			&& access(data.cmd_list[i].path, F_OK) == -1)

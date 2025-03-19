@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 11:44:57 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:28:10 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	fill_data(t_data *data, char **full_line, char *line)
 	sort_cmd(data);
 	dh_free(full_line);
 	fill_paths(data);
-	printcmd(data);
+	// printcmd(data);
 	data->redir_fd[0] = 0;
 	data->redir_fd[1] = 0;
 	data->line = line;

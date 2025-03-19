@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/19 11:40:55 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:18:27 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # define MAX_PWD 200
 
 # define RDM_NAME	"abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTU"
-# define LONG_MAX 9223372036854775807L
-# define LONG_MIN (-9223372036854775807L - 1)
 
 # define BOLD      "\033[1m"
 
@@ -41,6 +39,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <limits.h>
 
 typedef struct s_cmd
 {
@@ -117,10 +116,12 @@ void	handle_input_redirection(t_data *data, int i, int j);
 void	handle_heredoc_redirection(t_data *data, int i, int j);
 void	handle_output_redirection(t_data *data, int i, int j);
 void	handle_append_redirection(t_data *data, int i, int j);
-void    ft_exit(t_data *data);
-int		make_builtin(t_data *data, int *i);
+void	ft_exit(t_data *data, int i);
+int		make_builtin(t_data *data, int i);
 char	*absolute_path(t_data *data, int j);
 char	*find_valid_path(char **paths, char *cmd);
 void	assign_absolute_path(t_data *data, int j);
-
+static int	check_overflow(long num, char digit, int *error);
+int	make_conversion(long *num, char **num_str, int *error);
+long	str_to_long(char *num_str, int *error);
 #endif
