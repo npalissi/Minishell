@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/19 11:18:06 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:40:55 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,7 @@ void	handle_append_redirection(t_data *data, int i, int j);
 void    ft_exit(t_data *data);
 int		make_builtin(t_data *data, int *i);
 char	*absolute_path(t_data *data, int j);
+char	*find_valid_path(char **paths, char *cmd);
+void	assign_absolute_path(t_data *data, int j);
 
 #endif

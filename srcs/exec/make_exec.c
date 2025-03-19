@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 09:34:17 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:56:21 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ void	make_exec(t_data *data)
 		i = 0;
 		while (data->cmd_list[i].cmd)
 		{
+			pipe_fd[0] = -1;
+			pipe_fd[1] = -1;
+			if (data->cmd_list[i].cmd && data->cmd_list[i + 1].cmd
+				&& data->cmd_list[i + 1].cmd[0][0] == '|'
+				&& data->cmd_list[i + 1].cmd && pipe(pipe_fd) == -1)
+				return ;
 			if (!make_builtin(data, &i))
 			{
-				pipe_fd[0] = -1;
-				pipe_fd[1] = -1;
-				if (data->cmd_list[i].cmd && data->cmd_list[i + 1].cmd
-					&& data->cmd_list[i + 1].cmd[0][0] == '|'
-						&& data->cmd_list[i + 1].cmd && pipe(pipe_fd) == -1)
-					return ;
 				pids[i] = fork();
 				if (pids[i] == 0)
 				{
@@ -109,6 +109,7 @@ void	make_exec(t_data *data)
 					reset_data_here(data);
 					exit(127);
 				}
+			}
 				if (data->fd_in > 2)
 					close(data->fd_in);
 				if (pipe_fd[1] > 2)
@@ -119,7 +120,6 @@ void	make_exec(t_data *data)
 					&& i++ && !data->cmd_list[i].cmd)
 					ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE
 						"Shellokitty: syntax error near \"|\"\n" RESET, NULL);
-			}
 		}
 		i = 0;
 		exit_status = 0;

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:33:11 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 11:18:03 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:39:04 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	collect_data(t_data *data)
 
 	path = getenv("PATH");
 	paths = ft_split(path, ':');
-
 	data->paths = paths;
 	data->pwd = getenv("PWD");
 }

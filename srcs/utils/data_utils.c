@@ -6,11 +6,41 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:55 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 10:45:20 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:44:57 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+void	assign_absolute_path(t_data *data, int j)
+{
+	char	*abs_path;
+
+	abs_path = absolute_path(data, j);
+	if (abs_path)
+	{
+		data->cmd_list[j].path = abs_path;
+	}
+}
+
+char	*find_valid_path(char **paths, char *cmd)
+{
+	char	*tmp_path;
+	char	*full_path;
+	int		i;
+
+	i = 0;
+	while (paths[i])
+	{
+		tmp_path = ft_strjoin(paths[i], "/");
+		full_path = ft_strjoinfree(tmp_path, cmd, 1);
+		if (access(full_path, F_OK) == 0)
+			return (full_path);
+		dh_free(full_path);
+		i++;
+	}
+	return (NULL);
+}
 
 void	delete_cmd(t_data *data, int i)
 {
@@ -32,7 +62,7 @@ void	fill_data(t_data *data, char **full_line, char *line)
 	sort_cmd(data);
 	dh_free(full_line);
 	fill_paths(data);
-	// printcmd(data);
+	printcmd(data);
 	data->redir_fd[0] = 0;
 	data->redir_fd[1] = 0;
 	data->line = line;

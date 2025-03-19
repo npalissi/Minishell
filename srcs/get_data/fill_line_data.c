@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 10:47:37 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:41:08 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,17 @@
 
 void	fill_paths(t_data *data)
 {
-	char	*tmp_path;
-	char	*tmp_path_b;
-	int		i;
 	int		j;
+	char	*cmd_name;
 
 	j = -1;
 	while (data->cmd_list[++j].cmd)
 	{
-		i = 0;
-		if (absolute_path(data, j))
-		{
-			data->cmd_list[j].path = absolute_path(data, j);
+		assign_absolute_path(data, j);
+		if (data->cmd_list[j].path)
 			continue ;
-		}
-		tmp_path = ft_strjoin(data->paths[i], "/");
-		tmp_path_b = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
-		while (data->paths[++i] && access(tmp_path_b, F_OK) == -1)
-		{
-			dh_free(tmp_path_b);
-			tmp_path = ft_strjoin(data->paths[i], "/");
-			tmp_path_b = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
-		}
-		if (data->paths[i])
-			data->cmd_list[j].path = tmp_path_b;
-		else
-		{
-			dh_free(tmp_path_b);
-			data->cmd_list[j].path = NULL;
-		}
+		cmd_name = data->cmd_list[j].cmd[0];
+		data->cmd_list[j].path = find_valid_path(data->paths, cmd_name);
 	}
 }
 
@@ -129,6 +111,5 @@ int	fill_line_data(t_data *data, char *line)
 		return (1);
 	else
 		fill_data(data, full_line, line);
-	// printcmd(data);
 	return (i);
 }
