@@ -6,13 +6,13 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:56:55 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/20 11:29:17 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:00:41 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-char	*bt_prompt(t_data data)
+char	*bt_prompt(t_data *data)
 {
 	char	*prompt;
 	char	*folder;
@@ -20,7 +20,7 @@ char	*bt_prompt(t_data data)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	if (!data.exit_status)
+	if (!data->exit_status)
 		prompt = "\e[1;32m➜  \e[1;36m";
 	else
 		prompt = "\e[1;31m➜  \e[1;36m";

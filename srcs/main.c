@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/20 14:44:30 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:00:57 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	print_art(void)
 	}
 }
 
-void	do_shell(data, rl)
+void	do_shell(t_data *data, char *rl)
 {
-	if (!fill_line_data(&data, rl) && !check_pipe(&data, rl))
-		make_exec(&data);
-	reset_data(&data);
+	if (!fill_line_data(data, rl) && !check_pipe(data, rl))
+		make_exec(data);
+	reset_data(data);
 }
 
 int	main(int arg_c, char **arg_v, char **env)
@@ -44,15 +44,15 @@ int	main(int arg_c, char **arg_v, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler);
 	ms_setup_lst_env(&data, env);
-	rl = bt_prompt(data);
+	rl = bt_prompt(&data);
 	while (rl && !data.exit)
 	{
 		if (!rl)
 			break ;
 		if (*rl)
-			do_shell(data, rl);
+			do_shell(&data, rl);
 		if (!data.exit)
-			rl = bt_prompt(data);
+			rl = bt_prompt(&data);
 	}
 	if (!data.exit)
 		exit(130);

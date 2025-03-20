@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/20 14:53:59 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:00:48 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ long	str_to_long(char *num_str, int *error);
 void	close_all(t_data *data, int pipe_fd[2]);
 void	exit_error(t_data *data, char *msg);
 void	manage_exit_code(t_data *data);
-char	*bt_prompt(t_data data);
+char	*bt_prompt(t_data *data);
 int		reload_pwd(t_data *data);
 int		cd(t_data *data, char **cmd);
 void	collect_data(t_data *data);

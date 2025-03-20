@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:27:10 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:18:59 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	process_exec(t_data *data, int i, int *pids, int pipe_fd[2])
 {
 	if (!make_builtin(data, i))
 	{
+		if (data->cmd_list[i].path == NULL)
+			return ;
 		pids[i] = fork();
 		if (pids[i] == 0)
 		{
@@ -54,7 +56,6 @@ void	process_exec(t_data *data, int i, int *pids, int pipe_fd[2])
 				execve(data->cmd_list[i].path,
 					data->cmd_list[i].cmd, data->env);
 			reset_data_here(data);
-			exit(127);
 		}
 	}
 }
