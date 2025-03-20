@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/19 16:18:27 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 10:15:47 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ int		make_builtin(t_data *data, int i);
 char	*absolute_path(t_data *data, int j);
 char	*find_valid_path(char **paths, char *cmd);
 void	assign_absolute_path(t_data *data, int j);
-static int	check_overflow(long num, char digit, int *error);
-int	make_conversion(long *num, char **num_str, int *error);
+int		make_conversion(long *num, char **num_str, int *error);
 long	str_to_long(char *num_str, int *error);
+void	close_all(t_data *data, int pipe_fd[2]);
+void	exit_error(t_data *data, char *msg);
+void	manage_exit_code(t_data *data);
+
 #endif

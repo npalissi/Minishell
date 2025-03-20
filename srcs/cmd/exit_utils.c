@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:17:31 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 16:28:17 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 08:37:11 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static int	check_overflow(long num, char digit, int *error)
 {
-	if (num > LONG_MAX / 10 ||
-		(num == LONG_MAX / 10 && digit - '0' > LONG_MAX % 10))
+	if (num > LONG_MAX / 10
+		|| (num == LONG_MAX / 10 && digit - '0' > LONG_MAX % 10))
 	{
 		*error = 1;
 		return (1);
 	}
-	if (num < LONG_MIN / 10 ||
-		(num == LONG_MIN / 10 && digit - '0' > -(LONG_MIN % 10)))
+	if (num < LONG_MIN / 10
+		|| (num == LONG_MIN / 10 && digit - '0' > -(LONG_MIN % 10)))
 	{
 		*error = 1;
 		return (1);

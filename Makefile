@@ -6,7 +6,7 @@
 #    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
-#    Updated: 2025/03/19 16:18:04 by edubois-         ###   ########.fr        #
+#    Updated: 2025/03/20 09:05:09 by edubois-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS 			=	srcs/main.c\
 					srcs/exec/manage_builtins.c\
 					srcs/cmd/exit.c\
 					srcs/cmd/exit_utils.c\
+					srcs/utils/exec_utils.c\
 
 OBJS 			:= $(SRCS:.c=.o)
 
