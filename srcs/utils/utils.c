@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:00:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/20 10:15:01 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:57:13 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ char	*absolute_path(t_data *data, int j)
 			return (ft_strdup(cmd));
 	}
 	return (NULL);
+}
+
+t_data	*keep_data(t_data *data)
+{
+	static t_data	*d = 0;
+
+	if (data)
+		d = data;
+	return (d);
 }
 
 int	check_for_cmd(t_data *data, int i)

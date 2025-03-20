@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/19 11:10:24 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:44:30 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ void	print_art(void)
 	}
 }
 
+void	do_shell(data, rl)
+{
+	if (!fill_line_data(&data, rl) && !check_pipe(&data, rl))
+		make_exec(&data);
+	reset_data(&data);
+}
+
 int	main(int arg_c, char **arg_v, char **env)
 {
 	t_data	data;
@@ -33,23 +40,19 @@ int	main(int arg_c, char **arg_v, char **env)
 
 	print_art();
 	data = (t_data){0};
-	data.env = env;
-	collect_data(&data);
+	keep_data(&data);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler);
-	rl = readline("cacashell-> ");
+	ms_setup_lst_env(&data, env);
+	rl = bt_prompt(data);
 	while (rl && !data.exit)
 	{
 		if (!rl)
 			break ;
 		if (*rl)
-		{
-			if (!fill_line_data(&data, rl) && !check_pipe(&data, rl))
-				make_exec(&data);
-			reset_data(&data);
-		}
+			do_shell(data, rl);
 		if (!data.exit)
-			rl = readline("cacashell-> ");
+			rl = bt_prompt(data);
 	}
 	if (!data.exit)
 		exit(130);

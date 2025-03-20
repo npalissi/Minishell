@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 10:22:04 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/11 12:48:44 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:31:42 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,30 @@ void	make_split(char **t, int i[2], int index[2], char ***tab)
 	index[0] = index[1] + 1;
 }
 
-char	**make_dir_split(char **t, int i[2], int index[2], int iq[2])
+char	**make_dir_split(char **t, int i[2], int id[2], int iq[2])
 {
 	char	**tab;
 
 	tab = NULL;
 	while (t && t[i[0]])
 	{
-		index[0] = 0;
-		index[1] = 0;
-		while (index[1] <= (int)ft_strlen(t[i[0]]) && t[i[0]][index[1]])
+		id[0] = 0;
+		id[1] = 0;
+		while (id[1] <= (int)ft_strlen(t[i[0]]) && t[i[0]][id[1]])
 		{
-			if (t[i[0]][index[1]] == '"' && iq[1] == 0 && ((i[0] == 0)
-				|| (i[0] > 0 && t[i[0]][index[1] - 1] != '\\')))
+			if (t[i[0]][id[1]] == '"' && iq[1] == 0 && ((i[0] == 0)
+				|| (i[0] > 0 && id[1] > 0
+				&& t[i[0]][id[1] - 1] != '\\')))
 				iq[0] = !iq[0];
-			if (t[i[0]][index[1]] == '\'' && iq[0] == 0 && ((i[0] == 0)
-				|| (i[0] > 0 && t[i[0]][index[1] - 1] != '\\')))
+			if (t[i[0]][id[1]] == '\'' && iq[0] == 0 && ((i[0] == 0)
+				|| (i[0] > 0 && id[1] > 0 && t[i[0]][id[1] - 1] != '\\')))
 				iq[1] = !iq[1];
-			if (t[i[0]][index[1]] == i[1] && !iq[0] && !iq[1])
-				make_split(t, i, index, &tab);
-			index[1]++;
+			if (t[i[0]][id[1]] == i[1] && !iq[0] && !iq[1])
+				make_split(t, i, id, &tab);
+			id[1]++;
 		}
-		if (index[0] != index[1])
-			ft_strapp(&tab, ft_substr(t[i[0]], index[0], index[1] - index[0]));
+		if (id[0] != id[1])
+			ft_strapp(&tab, ft_substr(t[i[0]], id[0], id[1] - id[0]));
 		i[0]++;
 	}
 	return (tab);

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/19 11:41:08 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:32:59 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,13 @@ void	fill_command(t_data *data, char **line)
 	}
 }
 
-void	printcmd(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (data->cmd_list[i].cmd)
-	{
-		j = 0;
-		while (data->cmd_list[i].cmd[j])
-		{
-			printf("data->cmd_list[%d]->cmd[%d] = %s\n",
-				i, j, data->cmd_list[i].cmd[j]);
-			j++;
-		}
-		printf("%s\n", data->cmd_list[i].path);
-		printf("\n\n\n\n\n\n");
-		i++;
-	}
-}
-
 int	fill_line_data(t_data *data, char *line)
 {
 	char	**full_line;
 	int		i;
 
 	i = 0;
+	collect_data(data);
 	data->here_doc_name = NULL;
 	if (!line)
 		return (1);
@@ -108,7 +87,7 @@ int	fill_line_data(t_data *data, char *line)
 		ft_free_tab(full_line);
 	}
 	if (!full_line)
-		return (1);
+		exit_error(data, "failed malloc");
 	else
 		fill_data(data, full_line, line);
 	return (i);

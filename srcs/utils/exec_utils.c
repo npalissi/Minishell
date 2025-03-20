@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:03:31 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/20 10:24:52 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:28:47 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,17 @@ void	manage_exit_code(t_data *data)
 		signal(SIGINT, signal_handler);
 		i++;
 	}
-	if (!data->exit)
-		data->exit_status = WEXITSTATUS(exit_status);
-	if (WIFSIGNALED(exit_status))
+	if (!data->cmd_list[nb_cmd(*data) - 1].builtin)
 	{
-		data->exit_status = 128 + WTERMSIG(exit_status);
-		if (data->exit_status == 130)
-			ft_printf(2, "\n");
-		else if (data->exit_status == 131)
-			ft_printf(2, BOLD BEIGE"Quit\n" RESET);
+		data->exit_status = WEXITSTATUS(exit_status);
+		if (WIFSIGNALED(exit_status))
+		{
+			data->exit_status = 128 + WTERMSIG(exit_status);
+			if (data->exit_status == 130)
+				ft_printf(2, "\n");
+			else if (data->exit_status == 131)
+				ft_printf(2, BOLD BEIGE"Quit\n" RESET);
+		}
 	}
 }
 

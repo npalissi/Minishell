@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/20 10:23:48 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:27:10 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	make_exec(t_data *data)
 		while (data->cmd_list[i].cmd)
 			handle_all_cmd(data, pipe_fd, pids, &i);
 		manage_exit_code(data);
-		check_exec_error(*data);
+		check_exec_error(data);
 		dh_free(pids);
 	}
 	destroy_here_doc(data);

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:32:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/17 17:08:13 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:47:19 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	sigheredoc(int sig)
 	}
 }
 
+void	clean_exit_here_doc(t_data *data, char *lim, int fd)
+{
+	ft_printf(2, BOLD RED "/!\\ " BOLD BEIGE "Shellokitty: warning: he"
+		"re-document delimited by end-of-file "
+		"(wanted `%s')\n" RESET, lim);
+	close(fd);
+	reset_data_here(data);
+	exit(0);
+}
+
 void	write_fd(int fd, char *line, char *lim, t_data *data)
 {
 	while (fd > 0 && lim)
@@ -46,19 +56,13 @@ void	write_fd(int fd, char *line, char *lim, t_data *data)
 		line = readline("heredoc: ");
 		if (line && !ft_strcmp(line, lim))
 		{
+			line = build_var_env(line, *data);
 			line = ft_strjoinfree(line, "\n", 1);
 			ft_putstr_fd(line, fd);
 			dh_free(line);
 		}
 		else if (!line)
-		{
-			ft_printf(2, BOLD RED "/!\\ " BOLD BEIGE "Shellokitty: warning: he"
-				"re-document delimited by end-of-file "
-				"(wanted `%s')\n" RESET, lim);
-			close(fd);
-			reset_data_here(data);
-			exit(0);
-		}
+			clean_exit_here_doc(data, lim, fd);
 		else
 		{
 			close(fd);
@@ -79,6 +83,8 @@ char	*start_here_doc(t_data *data, char *lim)
 	signal(SIGINT, sigheredoc);
 	rdm_name = random_name();
 	ft_strapp(&data->here_doc_name, rdm_name);
+	if (!&random_name || !data->here_doc_name)
+		exit_error(data, "failed malloc");
 	line = NULL;
 	pid = fork();
 	if (!pid)

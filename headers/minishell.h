@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/20 10:15:47 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:53:59 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@
 # include <sys/stat.h>
 # include <limits.h>
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	char			*str;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_cmd
 {
 	char	**cmd;
@@ -55,8 +63,9 @@ typedef struct s_data
 	char	*line;
 	char	*pwd;
 	char	**paths;
+	t_env	*env_list;
 	t_cmd	*cmd_list;
-	int		exit; //(exit() appellee ou pas)
+	int		exit;
 	int		exit_status;
 	int		*pids;
 	int		fd_in;
@@ -67,18 +76,15 @@ typedef struct s_data
 
 char	**create_tpwd(char *pwd);
 int		reload_pwd(t_data *data);
-int		cd(t_data *data, t_cmd *cmd);
 void	collect_data(t_data *data);
 void	clear_data(t_data data);
 int		fill_line_data(t_data *data, char *line);
 void	signal_handler(int sig);
-void	cmd_env(t_data data);
-void	echo(char *arg, int flag);
 int		nb_cmd(t_data data);
 void	add_to_file(t_cmd cmd, int fd);
 void	delete_cmd(t_data *data, int i);
 void	make_exec(t_data *data);
-void	check_exec_error(t_data data);
+void	check_exec_error(t_data *data);
 int		check_quote(char *str);
 void	add_quoted_word(char **word, char **str, int *idq, int *iq);
 void	add_simple_word(char **word, char **str);
@@ -90,7 +96,6 @@ char	**split(char *word, int idq, int iq, char *str);
 char	*dup_char(char c, int size);
 char	**ft_ms_split(char *str, int *quote_pb);
 void	manage_exec_dir(t_data *data, int i);
-void	printcmd(t_data *data); // a supp
 char	*start_here_doc(t_data *data, char *lim);
 void	manage_pipe(t_data *data, int pipe_fd[2]);
 void	fill_data(t_data *data, char **full_line, char *line);
@@ -126,5 +131,46 @@ long	str_to_long(char *num_str, int *error);
 void	close_all(t_data *data, int pipe_fd[2]);
 void	exit_error(t_data *data, char *msg);
 void	manage_exit_code(t_data *data);
+char	*bt_prompt(t_data data);
+int		reload_pwd(t_data *data);
+int		cd(t_data *data, char **cmd);
+void	collect_data(t_data *data);
+void	clear_data(t_data data);
+int		error_exit(t_data data, int sig, char *name);
+int		fill_line_data(t_data *data, char *line);
+void	signal_handler(int sig);
+void	cmd_env(t_data *data);
+void	echo(char **cmd);
+char	*replace_var_env(char *str, t_data data);
+t_data	*keep_data(t_data *data);
+char	**ft_arraydupe(char **tab);
+char	*build_var_env(char *str, t_data data);
+char	**ms_split_env(char *str);
+t_env	*ms_new_var(t_env *list, char *key, char *value, char *str);
+int		ms_build_array_env(t_data *data);
+t_env	*ms_setup_lst_env(t_data *data, char **env);
+t_env	*ms_get_node_by_key(t_data *data, char *key);
+int		ms_edit_env_lst(t_data *data, char *key, char *value, char *str);
+int		ms_size_lst_env(t_data *data, int is_export);
+t_env	**ms_build_array_export(t_data data);
+int		export(t_data *data, char **cmds);
+void	ms_free_all_env(t_data *data);
+void	ms_remove_env(t_data *data, char *key);
+int		cmd_unset(t_data *data, char **cmds);
+char	*ms_get_env(t_data data, char *key);
+void	ms_swap_node(char **char1, char **char2);
+t_env	*ms_create_node_ifno(t_data *data, char *char1);
+int		is_valid_char(char c);
+int		is_valid_key(char *str);
+int		get_bigger(char *str1, char *str2);
+int		ms_print_export(t_data data);
+void	ms_swap_env(t_env **a, t_env **b);
+void	ms_free_lst_env(t_data *data);
+void	ms_free_env(t_env *env);
+int		is_env_char(char c);
+void	check_quotes(char *str, int i, int *dquote, int *quote);
+char	*get_env(char *str, t_data data);
+char	*epurstr(char *str);
+int		pwd(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:03:03 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/20 09:02:42 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:47:37 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_exit_message_only(t_data *data, int i)
 		ft_printf(2, BOLD RED "/!\\ "
 			BOLD BEIGE "Shellokitty: exit: %s: numeric argument required\n"
 			RESET, data->cmd_list[i].cmd[1]);
+	if (!error[0])
+		data->exit_status = exit_code[0];
 }
 
 void	init_exit(t_data *data, int (*error)[2], int (*exit_code)[2], int type)
@@ -112,7 +114,7 @@ void	ft_exit(t_data *data, int i)
 	int	error[2];
 	int	arraylen;
 
-	if (i)
+	if (i || nb_cmd(*data) > 1)
 		return (ft_exit_message_only(data, i));
 	arraylen = ft_arraylen(data->cmd_list[0].cmd);
 	error[0] = 0;
