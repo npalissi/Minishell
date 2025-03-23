@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npalissi <npalissi@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:48:32 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:01:24 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ typedef struct s_list
 	char			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_index {
+	int		i;
+	int		start;
+}	t_index;
 
 int		ft_atoi(const char *s, int *o);
 char	*ft_strnstr(const char *big, const char *little, size_t len);

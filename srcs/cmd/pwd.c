@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npalissi <npalissi@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:08:43 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/20 13:33:24 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:14:06 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	reload_pwd(t_data *data)
 	ms_swap_node(&node_old_pwd->key, &node_pwd->key);
 	if (!ms_edit_env_lst(data, "PWD", path, ft_buildstr("%s=%s", "PWD", path)))
 		return (-1);
+	printf("%s\n", path);
 	ms_build_array_env(data);
 	return (0);
 }
