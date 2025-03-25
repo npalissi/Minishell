@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/25 12:33:28 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:57:15 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,11 +162,13 @@ int		cmd_unset(t_data *data, char **cmds);
 char	*ms_get_env(t_data data, char *key);
 void	ms_swap_node(char **char1, char **char2);
 t_env	*ms_create_node_ifno(t_data *data, char *char1);
+void	save_std(int saved_std[2], int i, t_data *data);
 int		is_valid_char(char c);
 int		is_valid_key(char *str);
 int		get_bigger(char *str1, char *str2);
 int		ms_print_export(t_data data);
 void	ms_swap_env(t_env **a, t_env **b);
+int		in_builtin(char *cmd);
 void	ms_free_lst_env(t_data *data);
 void	ms_free_env(t_env *env);
 int		is_env_char(char c);

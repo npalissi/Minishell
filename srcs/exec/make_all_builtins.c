@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:32:12 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/25 12:33:10 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:54:36 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int	builtin_env(t_data *data, int i, int pipe_fd[2])
 		manage_pipe(data, pipe_fd);
 		data->exit_status = 1;
 		cmd_env(data);
-		dup2(saved_std[0], STDIN_FILENO);
-		dup2(saved_std[1], STDOUT_FILENO);
-		close(saved_std[0]);
-		close(saved_std[1]);
+		save_std(saved_std, i, data);
 		return (1);
 	}
 	return (0);
@@ -57,12 +54,8 @@ int	builtin_echo(t_data *data, int i, int pipe_fd[2])
 			pipe_fd[1] = STDOUT_FILENO;
 		}
 		manage_pipe(data, pipe_fd);
-		echo(data->cmd_list[i].cmd);
-		dup2(saved_std[0], STDIN_FILENO);
-		dup2(saved_std[1], STDOUT_FILENO);
-		close(saved_std[0]);
-		close(saved_std[1]);
-		data->exit_status = 0;
+		data->exit_status = echo(data->cmd_list[i].cmd);
+		save_std(saved_std, i, data);
 		return (1);
 	}
 	return (builtin_env(data, i, pipe_fd));
@@ -86,10 +79,7 @@ int	builtin_pwd(t_data *data, int i, int pipe_fd[2])
 		}
 		manage_pipe(data, pipe_fd);
 		data->exit_status = pwd();
-		dup2(saved_std[0], STDIN_FILENO);
-		dup2(saved_std[1], STDOUT_FILENO);
-		close(saved_std[0]);
-		close(saved_std[1]);
+		save_std(saved_std, i, data);
 		if (data->exit_status == -1)
 			exit_error(data, "failed malloc");
 		return (1);
@@ -115,10 +105,7 @@ int	builtin_unset(t_data *data, int i, int pipe_fd[2])
 		}
 		manage_pipe(data, pipe_fd);
 		data->exit_status = cmd_unset(data, data->cmd_list[i].cmd);
-		dup2(saved_std[0], STDIN_FILENO);
-		dup2(saved_std[1], STDOUT_FILENO);
-		close(saved_std[0]);
-		close(saved_std[1]);
+		save_std(saved_std, i, data);
 		if (data->exit_status == -1)
 			exit_error(data, "failed malloc");
 		return (1);
@@ -144,13 +131,10 @@ int	builtin_export(t_data *data, int i, int pipe_fd[2])
 		}
 		manage_pipe(data, pipe_fd);
 		data->exit_status = export(data, data->cmd_list[i].cmd);
-		dup2(saved_std[0], STDIN_FILENO);
-		dup2(saved_std[1], STDOUT_FILENO);
-		close(saved_std[0]);
-		close(saved_std[1]);
+		save_std(saved_std, i, data);
 		if (data->exit_status == -1)
 			exit_error(data, "failed malloc");
 		return (1);
 	}
-	return (builtin_export(data, i, pipe_fd));
+	return (builtin_unset(data, i, pipe_fd));
 }

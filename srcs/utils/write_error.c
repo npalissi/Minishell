@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:46:21 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/25 12:05:17 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:07:03 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	check_exec_error(t_data *data)
 	i = -1;
 	while (data->cmd_list[++i].cmd)
 	{
-		if (data->cmd_list[i].builtin)
+		if (data->cmd_list[i].builtin || in_builtin(data->cmd_list[i].cmd[0]))
 			continue ;
 		if (check_for_dir(data, i))
 			data->exit_status = 126;
