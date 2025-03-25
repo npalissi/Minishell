@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npalissi <npalissi@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:08:43 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/23 16:14:06 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:53:14 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int	pwd(void)
 
 int	reload_pwd(t_data *data)
 {
-	char	path[1024];
+	char	*path;
 	t_env	*node_old_pwd;
 	t_env	*node_pwd;
 
-	getcwd(path, sizeof(path));
+	path = getcwd(NULL, 0);
+	if (!dh_add_ptr(path))
+		return (-1);
 	node_old_pwd = ms_create_node_ifno(data, "OLDPWD");
 	node_pwd = ms_create_node_ifno(data, "PWD");
 	if (!node_old_pwd || !node_pwd)
@@ -35,7 +37,6 @@ int	reload_pwd(t_data *data)
 	ms_swap_node(&node_old_pwd->key, &node_pwd->key);
 	if (!ms_edit_env_lst(data, "PWD", path, ft_buildstr("%s=%s", "PWD", path)))
 		return (-1);
-	printf("%s\n", path);
 	ms_build_array_env(data);
 	return (0);
 }

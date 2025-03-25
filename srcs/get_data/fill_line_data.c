@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/21 14:22:08 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:04:18 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	no_cmd(char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		if (!ft_iswhitespace(str[i]))
+		if (!ft_iw(str[i]))
 			break ;
 		i++;
 	}
@@ -94,18 +94,17 @@ int	fill_line_data(t_data *data, char *line)
 	data->here_doc_name = NULL;
 	if (!line || no_cmd(line))
 		return (1);
-	full_line = ft_ms_split(line, &i);
+	full_line = ft_ms_split(*data, line, &i);
 	if (i)
 	{
 		add_history(line);
 		data->exit_status = 2;
 		ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE"Quote error !\n" RESET);
 		ft_free_tab(full_line);
-		exit_error(data, NULL);
+		exit_error(NULL, NULL);
 	}
 	if (!full_line)
 		exit_error(data, "failed malloc");
-	else
-		fill_data(data, full_line, line);
+	fill_data(data, full_line, line);
 	return (i);
 }

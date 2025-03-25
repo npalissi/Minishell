@@ -6,7 +6,7 @@
 #    By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:41:12 by edubois-          #+#    #+#              #
-#    Updated: 2025/03/21 11:44:42 by edubois-         ###   ########.fr        #
+#    Updated: 2025/03/25 12:32:46 by edubois-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS 			=	srcs/main.c\
 					srcs/cmd/export/export_lst.c\
 					srcs/cmd/export/export_free_array.c\
 					srcs/cmd/unset.c\
+					srcs/exec/make_all_builltins.c\
 
 OBJS 			:= $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:50:29 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/21 14:13:29 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:20:28 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	*init_pids(t_data *data)
 
 void	process_exec(t_data *data, int i, int *pids, int pipe_fd[2])
 {
-	if (!make_builtin(data, i))
+	if (!make_builtin(data, i, pipe_fd))
 	{
 		if (data->cmd_list[i].path == NULL)
 			return ;

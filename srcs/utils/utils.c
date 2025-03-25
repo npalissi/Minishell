@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:00:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/21 14:57:56 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:56:24 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	exit_error(t_data *data, char *msg)
 {
-	reset_data_here(data);
+	if (data)
+		reset_data_here(data);
 	if (msg)
 		ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE "%s!\n"RESET, msg);
 	exit(2);

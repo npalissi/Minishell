@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_here_doc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npalissi <npalissi@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:32:17 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/23 16:07:25 by npalissi         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:47:19 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	write_fd(int fd, char *line, char *lim, t_data *data)
 
 char	*start_here_doc(t_data *data, char *lim)
 {
+	char	*line;
 	char	*rdm_name;
 	int		pid;
 	int		e;
@@ -82,8 +83,9 @@ char	*start_here_doc(t_data *data, char *lim)
 	signal(SIGINT, sigheredoc);
 	rdm_name = random_name();
 	ft_strapp(&data->here_doc_name, rdm_name);
-	if (!rdm_name || !data->here_doc_name)
+	if (!&random_name || !data->here_doc_name)
 		exit_error(data, "failed malloc");
+	line = NULL;
 	pid = fork();
 	if (!pid)
 		child_fork(data, rdm_name, lim);

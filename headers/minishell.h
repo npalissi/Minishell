@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/20 15:00:48 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:33:28 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
+	char	*prompt;
 	char	**env;
 	char	*line;
 	char	*pwd;
@@ -94,7 +95,7 @@ char	**manage_dir(char **t, int c);
 void	next_w(char **str, int *iq, int *idq);
 char	**split(char *word, int idq, int iq, char *str);
 char	*dup_char(char c, int size);
-char	**ft_ms_split(char *str, int *quote_pb);
+char	**ft_ms_split(t_data data, char *str, int *quote_pb);
 void	manage_exec_dir(t_data *data, int i);
 char	*start_here_doc(t_data *data, char *lim);
 void	manage_pipe(t_data *data, int pipe_fd[2]);
@@ -122,7 +123,7 @@ void	handle_heredoc_redirection(t_data *data, int i, int j);
 void	handle_output_redirection(t_data *data, int i, int j);
 void	handle_append_redirection(t_data *data, int i, int j);
 void	ft_exit(t_data *data, int i);
-int		make_builtin(t_data *data, int i);
+int		make_builtin(t_data *data, int i, int pipe_fd[2]);
 char	*absolute_path(t_data *data, int j);
 char	*find_valid_path(char **paths, char *cmd);
 void	assign_absolute_path(t_data *data, int j);
@@ -131,6 +132,7 @@ long	str_to_long(char *num_str, int *error);
 void	close_all(t_data *data, int pipe_fd[2]);
 void	exit_error(t_data *data, char *msg);
 void	manage_exit_code(t_data *data);
+int		builtin_export(t_data *data, int i, int pipe_fd[2]);
 char	*bt_prompt(t_data *data);
 int		reload_pwd(t_data *data);
 int		cd(t_data *data, char **cmd);
@@ -140,7 +142,7 @@ int		error_exit(t_data data, int sig, char *name);
 int		fill_line_data(t_data *data, char *line);
 void	signal_handler(int sig);
 void	cmd_env(t_data *data);
-void	echo(char **cmd);
+int		echo(char **cmd);
 char	*replace_var_env(char *str, t_data data);
 t_data	*keep_data(t_data *data);
 char	**ft_arraydupe(char **tab);
@@ -172,5 +174,6 @@ void	check_quotes(char *str, int i, int *dquote, int *quote);
 char	*get_env(char *str, t_data data);
 char	*epurstr(char *str);
 int		pwd(void);
+int		ms_create_or_edit(t_data *data, char *key, char *value, char *str);
 
 #endif
