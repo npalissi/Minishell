@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:48:42 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/25 12:05:40 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:10:03 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ms_create_or_edit(t_data *data, char *key, char *value, char *str)
 			return (0);
 	}
 	else
-		if (!ms_new_var(data->env_list, key, value, str))
+		if (!ms_new_var(&data->env_list, key, value, str))
 			return (0);
 	return (1);
 }

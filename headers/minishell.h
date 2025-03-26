@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:49:00 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/25 17:57:15 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/26 14:09:36 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	delete_cmd(t_data *data, int i);
 void	make_exec(t_data *data);
 void	check_exec_error(t_data *data);
 int		check_quote(char *str);
+int		no_cmd(char *str);
 void	add_quoted_word(char **word, char **str, int *idq, int *iq);
 void	add_simple_word(char **word, char **str);
 void	make_split(char **t, int i[2], int index[2], char ***tab);
@@ -148,7 +149,7 @@ t_data	*keep_data(t_data *data);
 char	**ft_arraydupe(char **tab);
 char	*build_var_env(char *str, t_data data);
 char	**ms_split_env(char *str);
-t_env	*ms_new_var(t_env *list, char *key, char *value, char *str);
+t_env	*ms_new_var(t_env **list, char *key, char *value, char *str);
 int		ms_build_array_env(t_data *data);
 t_env	*ms_setup_lst_env(t_data *data, char **env);
 t_env	*ms_get_node_by_key(t_data *data, char *key);
@@ -161,7 +162,7 @@ void	ms_remove_env(t_data *data, char *key);
 int		cmd_unset(t_data *data, char **cmds);
 char	*ms_get_env(t_data data, char *key);
 void	ms_swap_node(char **char1, char **char2);
-t_env	*ms_create_node_ifno(t_data *data, char *char1);
+int		ms_create_node_ifno(t_data *data, char *char1, t_env **node);
 void	save_std(int saved_std[2], int i, t_data *data);
 int		is_valid_char(char c);
 int		is_valid_key(char *str);
@@ -177,5 +178,6 @@ char	*get_env(char *str, t_data data);
 char	*epurstr(char *str);
 int		pwd(void);
 int		ms_create_or_edit(t_data *data, char *key, char *value, char *str);
+void	ms_add_lst(t_env **lst, t_env *node);
 
 #endif

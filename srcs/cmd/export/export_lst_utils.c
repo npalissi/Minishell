@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   export_lst_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 17:44:31 by npalissi          #+#    #+#             */
-/*   Updated: 2025/03/26 10:16:41 by edubois-         ###   ########.fr       */
+/*   Created: 2025/03/26 13:57:53 by npalissi          #+#    #+#             */
+/*   Updated: 2025/03/26 14:01:10 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "../../../headers/minishell.h"
 
-int	cmd_unset(t_data *data, char **cmds)
+void	ms_add_lst(t_env **lst, t_env *node)
 {
-	int	i;
+	t_env	*tmp;
 
-	i = 1;
-	while (cmds[i])
-		ms_remove_env(data, cmds[i++]);
-	ms_build_array_env(data);
-	return (0);
+	tmp = *lst;
+	if (!*lst)
+	{
+		*lst = node;
+		return ;
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = node;
 }

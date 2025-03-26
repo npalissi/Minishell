@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:13:37 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/25 12:04:18 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:30:06 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ char	**ft_ms_split(t_data data, char *str, int *quote_pb)
 	if (!*quote_pb)
 	{
 		str = replace_var_env(str, data);
+		if (str && !*str)
+			*quote_pb = 2;
 		tab = split(word, idq, iq, str);
 	}
 	tab = manage_dir(tab, '>');

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/25 17:49:10 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:28:31 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,11 @@ int	fill_line_data(t_data *data, char *line)
 	i = 0;
 	collect_data(data);
 	data->here_doc_name = NULL;
+	data->line = line;
 	if (!line || no_cmd(line))
 		return (1);
 	full_line = ft_ms_split(*data, line, &i);
-	if (i)
+	if (i == 1)
 	{
 		add_history(line);
 		data->exit_status = 2;
@@ -116,6 +117,8 @@ int	fill_line_data(t_data *data, char *line)
 		ft_free_tab(full_line);
 		exit_error(NULL, NULL);
 	}
+	if (i == 2)
+		return (i);
 	if (!full_line)
 		exit_error(data, "failed malloc");
 	fill_data(data, full_line, line);
