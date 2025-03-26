@@ -3,71 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npalissi <npalissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:57:26 by npalissi          #+#    #+#             */
-/*   Updated: 2025/01/28 16:56:05 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:12:38 by npalissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-// chdir("/nfs/homes/npalissi/Documents/cursus");
-/*
-	int chdir(const char *path);
-		
-		- chdir() remplace le répertoire de travail courant du processus appelant par celui indiqué dans le chemin path.
-	
-		EACCES
-			L'accès n'est pas autorisé sur un élément du chemin . (Voir aussi path_resolution(7).)
-		EFAULT
-			path pointe en dehors de l'espace d'adressage accessible.
-		EIO
-			Une erreur d'entrée-sortie s'est produite.
-		ELOOP
-			path contient une référence circulaire (à travers un lien symbolique).
-		ENAMETOOLONG
-			path est trop long.
-		ENOENT
-			Le fichier n'existe pas.
-		ENOMEM
-			Pas assez de mémoire pour le noyau.
-		ENOTDIR
-			Un élément du chemin d'accès path n'est pas un répertoire.
-*/ 
-
-int cd(t_data *data, t_cmd *cmd)
+int	ms_chdir(char *path, char **cmd)
 {
-	char **flags;
-	char *pwd;
-	// flags = ft_split(cmd->flags[0],'/'); //modified by edubois-
-	flags = ft_split(cmd->cmd[1],'/');
-	if (!flags)
-		return (0);
-	pwd = ft_strdup(data->pwd);
-	while(*flags)
+	if (chdir(path) == -1)
 	{
-		if(ft_strcmp(*flags, ".."))
-		{
-			pwd = ft_strndup(pwd,ft_strrchr(pwd,'/') - pwd, 1);
-			if (!pwd)
-				return (0);
-		}
-		else
-		{
-			pwd = ft_strjoinfree(ft_strjoinfree(pwd,"/",1),*flags,1);
-			if (!pwd)
-				return (0);
-		}
-		flags++;
-	}
-	
-	if ( chdir(pwd) == -1)
-	{
-		free(pwd);
+		printf("shellokitty: cd: %s: %s\n", cmd[1], strerror(errno));
 		return (0);
 	}
-	free(pwd);
-	reload_pwd(data);
 	return (1);
+}
+
+int	cd_env(t_data *data, char **cmd, char *key, int msg)
+{
+	t_env	*env;
+	int		exit_chdir;
+
+	env = ms_get_node_by_key(data, key);
+	if (!env || !env->value)
+	{
+		printf("shellokitty: cd: %s not set\n", key);
+		return (0);
+	}
+	exit_chdir = ms_chdir(env->value, cmd);
+	if (exit_chdir && msg)
+		printf("%s\n", env->value);
+	return (exit_chdir);
+}
+
+int	cd_rel_abs(char **cmd)
+{
+	int		exit_chdir;
+
+	exit_chdir = ms_chdir(cmd[1], cmd);
+	return (exit_chdir);
+}
+
+int	cd(t_data *data, char **cmd)
+{
+	char	exit_code;
+
+	if (ft_strcmp(cmd[1], "-"))
+		exit_code = cd_env(data, cmd, "OLDPWD", 1);
+	else if (!cmd[1])
+		exit_code = cd_env(data, cmd, "HOME", 0);
+	else
+		exit_code = cd_rel_abs(cmd);
+	if (exit_code == -1)
+		return (-1);
+	if (!exit_code)
+		return (1);
+	return (reload_pwd(data));
 }

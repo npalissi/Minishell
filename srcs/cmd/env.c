@@ -6,14 +6,17 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:51:12 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 15:55:03 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:56:18 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void    cmd_env(t_data data)
+void	cmd_env(t_data *data)
 {
-    while (*data.env)
-        printf("%s\n", *data.env++);
+	int	i;
+
+	i = 0;
+	while (data->env[i])
+		printf("%s\n", data->env[i++]);
 }

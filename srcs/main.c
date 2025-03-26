@@ -6,52 +6,55 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:56:16 by npalissi          #+#    #+#             */
-/*   Updated: 2025/02/03 14:05:04 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:57:11 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int main(int arg_c, char **arg_v, char **env)
+void	print_art(void)
 {
-    char * rl;
-    
-    t_data data = {env, NULL, NULL, NULL, 0};
-	collect_data(&data);
-    while (1 && !data.exit)
-    {
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, signal_handler);
-		rl = readline("cacashell->");
+	int			fd;
+	static char	buf[5000] = {0};
+
+	fd = open("kitty.txt", O_RDONLY);
+	if (fd > 2)
+	{
+		read(fd, buf, 5000);
+		printf("%s", buf);
+		close(fd);
+	}
+}
+
+void	do_shell(t_data *data, char *rl)
+{
+	if (!fill_line_data(data, rl) && !check_pipe(data, rl))
+		make_exec(data);
+	reset_data(data);
+}
+
+int	main(int arg_c, char **arg_v, char **env)
+{
+	t_data	data;
+	char	*rl;
+
+	print_art();
+	data = (t_data){0};
+	keep_data(&data);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, signal_handler);
+	ms_setup_lst_env(&data, env);
+	rl = bt_prompt(&data);
+	while (rl && !data.exit)
+	{
 		if (!rl)
 			break ;
-		fill_line_data(&data, rl);
+		if (*rl)
+			do_shell(&data, rl);
+		if (!data.exit)
+			rl = bt_prompt(&data);
 	}
-	free(rl); 
-	error_exit(data, 0, NULL);;
+	exit(data.exit_status % 256);
 	(void)arg_c;
 	(void)arg_v;
-
-
-
-
-
-
-
-
-
-
-
-    // reload_pwd(&data);
-    // printf("avant cd : \n%s\n", data.pwd);
-    // t_cmd *cmd;
-    // cmd = malloc(sizeof(t_cmd));
-    // cmd->cmd = malloc(sizeof(char *) * 3);
-    // cmd->cmd[0] = "cd";
-    // cmd->cmd[1] = ft_strdup("../../gnl");
-    // cmd->cmd[3] = NULL;
-// 
-    // cd(&data,cmd);
-    // printf("apres cd : \n%s\n",data.pwd);
-    // return 0;
 }

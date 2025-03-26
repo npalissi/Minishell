@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/02/03 17:55:21 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:49:10 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,96 +14,110 @@
 
 void	fill_paths(t_data *data)
 {
-	char *tmp_path;
-	char *tmp_path_bis;
-	int		i;
 	int		j;
+	char	*cmd_name;
+	char	*tmp;
 
+	tmp = NULL;
 	j = -1;
 	while (data->cmd_list[++j].cmd)
 	{
-		i = 0;
-		tmp_path = ft_strjoin(data->paths[i], "/"); 
-		tmp_path_bis = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
-		while (data->paths[++i] && access(tmp_path_bis, F_OK) == -1)
+		if (!*data->paths)
 		{
-			free(tmp_path_bis);
-			tmp_path = ft_strjoin(data->paths[i], "/");
-			tmp_path_bis = ft_strjoinfree(tmp_path, data->cmd_list[j].cmd[0], 1);
+			tmp = data->cmd_list[j].cmd[0];
+			data->cmd_list[j].cmd[0] = ft_strjoin("./",
+					data->cmd_list[j].cmd[0]);
 		}
-		if (data->paths[i])
-			data->cmd_list[j].path = tmp_path_bis;
-		else
+		assign_absolute_path(data, j);
+		if (data->cmd_list[j].path)
+			continue ;
+		if (tmp)
 		{
-			free(tmp_path_bis);
-			data->cmd_list[j].path = NULL;
+			data->cmd_list[j].cmd[0] = tmp;
+			tmp = NULL;
 		}
+		cmd_name = data->cmd_list[j].cmd[0];
+		data->cmd_list[j].path = find_valid_path(data->paths, cmd_name);
 	}
 }
 
-int	fill_flags(t_data *data, char **line, int i, int j)
+int	len_cmd(char **line)
 {
-	int c_flags;
+	int	c;
+	int	i;
 
-	c_flags = 1;
-	while (line[++j] && line[j][0] == '-')
+	i = 0;
+	c = 1;
+	while (line[i])
 	{
-		ft_strapp(&data->cmd_list[i].cmd, line[j]);
-		c_flags++;
-		if (!data->cmd_list[i].cmd)
-			return (0);
+		if (line[i][0] == '|')
+			c++;
+		if (i > 0 && line[i - 1][0] == '|')
+			c++;
+		i++;
 	}
-	return (c_flags);
+	return (c);
 }
-
-// void	printcmd(t_data *data)
-// {
-// 	int	 i = 0;
-// 	int j = 0;
-// 	while (data->cmd_list[i].cmd)
-// 	{
-// 		j = 0;
-// 		while (data->cmd_list[i].cmd[j])
-// 		{
-// 			printf("data->cmd_list[%d]->cmd[%d] = %s\n", i, j , data->cmd_list[i].cmd[j]);
-// 			j++;
-// 		}
-// 		printf("%s\n", data->cmd_list[i].path);
-// 		printf("\n\n\n\n\n\n", NULL);
-// 		i++;
-// 	}
-// }
 
 void	fill_command(t_data *data, char **line)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+	int	nb_cmd;
+
+	nb_cmd = len_cmd(line);
 	i = 0;
 	j = 0;
-	data->cmd_list = ft_calloc(ft_arraylen(line) + 1, sizeof(t_cmd));
-	while (line[j] && data->cmd_list)
+	data->cmd_list = ft_calloc(nb_cmd + 1, sizeof(t_cmd));
+	while (i < nb_cmd && data->cmd_list && line[j])
 	{
-		ft_strapp(&data->cmd_list[i].cmd, line[j]);
-		if (!data->cmd_list->cmd)
-			return ;
-		j += fill_flags(data, line, i, j);
+		while (line[j] && line[j][0] != '|')
+			ft_strapp(&data->cmd_list[i].cmd, line[j++]);
+		if (line[j] && line[j][0] == '|' && !j)
+			ft_strapp(&data->cmd_list[i].cmd, line[j++]);
+		else if (line[j] && line[j][0] == '|')
+			ft_strapp(&data->cmd_list[++i].cmd, line[j++]);
 		i++;
 	}
 }
 
-void    fill_line_data(t_data *data, char *line)
+int	no_cmd(char *str)
 {
-    char **full_line;
+	int	i;
 
-	full_line = ft_split(line, ' ');
+	i = 0;
+	while (str && str[i])
+	{
+		if (!ft_iw(str[i]))
+			break ;
+		i++;
+	}
+	if (str && str[i])
+		return (0);
+	return (1);
+}
+
+int	fill_line_data(t_data *data, char *line)
+{
+	char	**full_line;
+	int		i;
+
+	i = 0;
+	collect_data(data);
+	data->here_doc_name = NULL;
+	if (!line || no_cmd(line))
+		return (1);
+	full_line = ft_ms_split(*data, line, &i);
+	if (i)
+	{
+		add_history(line);
+		data->exit_status = 2;
+		ft_printf(2, BOLD RED"/!\\ " BOLD BEIGE"Quote error !\n" RESET);
+		ft_free_tab(full_line);
+		exit_error(NULL, NULL);
+	}
 	if (!full_line)
-		return ;
-	fill_command(data, full_line);
-	fill_paths(data);
-	// printcmd(data);
-	add_history(line);
-	//exec
-	// parse_command(data);
-	free(line);
+		exit_error(data, "failed malloc");
+	fill_data(data, full_line, line);
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:58:32 by edubois-          #+#    #+#             */
-/*   Updated: 2025/01/28 17:16:30 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:04:18 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,29 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
+
+# define FREE_S1	1
+# define FREE_S2	2
+# define FREE_ALL	3 
+
+void	dh_free_all(void) __attribute__((destructor));
+
+void	dh_free(void *ptr);
+void	*dh_malloc(size_t size);	
+int		dh_add_ptr(void *ptr);
 
 typedef struct s_list
 {
-	char 			*content;
+	char			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_index
+{
+	int		i;
+	int		start;
+}	t_index;
 
 int		ft_atoi(const char *s, int *o);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
@@ -47,7 +64,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
 char	*ft_strndup(char *s, int size, int is_free);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoinfree(char *s1, char const *s2, int is_free);
+char	*ft_strjoinfree(char *s1, char *s2, int type_free);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
@@ -67,11 +84,14 @@ void	ft_lstclear(t_list **lst, void (*del)(int));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(int));
 int		ft_issign(int c);
 int		ft_strcmp(char *s1, char *s2);
-int		ft_iswhitespace(int c);
+int		ft_iw(int c);
 int		count_word(char *str, char c);
 void	ft_free_tab(char **tab);
 int		ft_arraylen(char **array);
 char	*ft_strjoin(char *s1, char const *s2);
 void	ft_strapp(char ***tab, char *str);
-
+char	**ft_arraydupe(char **tab);
+char	*ft_substr_free(char *s, unsigned int start, size_t len, int is_free);
+char	*ft_buildstr(char *str, ...);
+int		ft_charite(char *str, char c);
 #endif 
