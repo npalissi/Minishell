@@ -6,7 +6,7 @@
 /*   By: edubois- <edubois-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:56:25 by edubois-          #+#    #+#             */
-/*   Updated: 2025/03/26 13:28:31 by edubois-         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:17:59 by edubois-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	fill_paths(t_data *data)
 	j = -1;
 	while (data->cmd_list[++j].cmd)
 	{
+		assign_absolute_path(data, j);
+		if (data->cmd_list[j].path)
+			continue ;
 		if (!*data->paths)
 		{
 			tmp = data->cmd_list[j].cmd[0];
 			data->cmd_list[j].cmd[0] = ft_strjoin("./",
 					data->cmd_list[j].cmd[0]);
 		}
-		assign_absolute_path(data, j);
-		if (data->cmd_list[j].path)
-			continue ;
 		if (tmp)
 		{
 			data->cmd_list[j].cmd[0] = tmp;
